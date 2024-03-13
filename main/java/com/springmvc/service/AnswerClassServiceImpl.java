@@ -38,9 +38,10 @@ public class AnswerClassServiceImpl implements AnswerClassService{
 	}
 
 	@Override
-	public void createClassanswer(Classanswer answer) {
+	public Classanswer createClassanswer(Classanswer answer) {
 		// TODO Auto-generated method stub
 		answerRepository.createClassanswer(answer);
+		return answer;
 	}
 
 	@Override

@@ -20,5 +20,6 @@ public interface TeamService {
 	List<Team> findByLocation(String location);
 	boolean joinTeam(String userId, String teamId);
 	
-	String getTeamId(String userId);
+	String getTeamName(String teamId);
+	String getTeamImage(String teamId);
 }

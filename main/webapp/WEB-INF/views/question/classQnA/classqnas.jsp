@@ -303,76 +303,134 @@
                     </div>
 				</div>
 				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-				  <div class="row rowmapper">
-				  <div class="rowmappertow">
-				    <div class="col-lg-6">
-				        <div id="comment_list">
-				      <c:forEach items="${classqnaList}" var="classqna">
-				        <div class="review_item">
-				          <div class="media">
-				            <div class="d-flex">
-				              <img src="<c:url value='/resources/images/product/review2.png" alt="'/>"/>
-				            </div>
-				            <div class="media-body">
-				              <h4 class="number" style="cursor:pointer;">${classqna.name}</h4>
-				              <h5>${classqna.date}</h5>
-				              <a class="reply_btn" href="/waguwagu-yeong/classanswers">Reply</a>
-				            </div>
-				          </div>
-				          <p>${classqna.content}</p>
-				          <div class="edit_delete_buttons" style="display:none;">
-				       <a href="javascript:void(0);" class="edit_button" data-classid="${classqna.classid}">수정하기</a>
-				        <a href="<c:url value="javascript:deleteConfirm('${classqna.classid}')" />" class="edit_button">삭제</a>
-				          </div>
-				        </div>
-				      </c:forEach>
-				    </div>
-				   <div class="col-lg-6">
-				            <div class="pagination-container">
-				                
-				            </div>
-				        </div>
-				    </div>
-				    <div class="col-lg-6">
-				      <div class="review_box">
-				        <h4>QnA 작성</h4>
-				        <!-- createGetqna 메서드에서 불러온 classplus 객체를 사용하여 댓글을 등록합니다. -->
-				      <form:form modelAttribute="classplus" method="post" action="/waguwagu-yeong/classquestion/add" id="contactForm" novalidate="novalidate">
-				          <div class="col-md-12">
-				              <div class="form-group">
-				                  <!-- classplus 객체의 number 필드를 바인딩합니다. -->
-				                  <form:input type="text" path="name" class="form-control" id="name" name="name" placeholder="이름을 입력하세요."/>
-				              </div>
-				          </div>
-				          <div class="col-md-12">
-				              <div class="form-group">
-				                  <!-- classplus 객체의 email 필드를 바인딩합니다. -->
-				                  <form:input type="email" path="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요."/>
-				              </div>
-				          </div>
-				          <div class="col-md-12">
-				              <div class="form-group">
-				                  <!-- classplus 객체의 date 필드를 바인딩합니다. -->
-				                  <form:input type="text" path="classid" class="form-control" id="classid" name="classid" placeholder="id를 입력하세요"/>
-				              </div>
-				          </div>
-				          <div class="col-md-12">
-				              <div class="form-group">
-				                  <!-- classplus 객체의 content 필드를 바인딩합니다. -->
-				                  <textarea class="form-control"  name="content" id="content" rows="1" placeholder="글을 작성하세요."></textarea>
-				              </div>
-				          </div>
-				          <div class="col-md-12 text-right">
-				              <!-- "등록" 버튼을 클릭하면 classplus 객체를 서버로 전송합니다. -->
-				              <input type="submit" value="등록" class="btn primary-btn">
-				          </div>
-				          </form:form>
-				      </div>
-				      </div>
-				    </div>
-				    </div>
-				    <div id="pagination" class="pagination"></div>
-				  </div>
+					  <div class="row rowmapper">
+					  <div class="rowmappertow">
+					    <div class="col-lg-6">
+					        <div id="comment_list">
+					      <c:forEach items="${classqnaList}" var="classqna">
+					        <div class="review_item">
+					          <div class="media">
+					            <div class="d-flex">
+					              <img src="resources/images/product/review2.png" alt="#">
+					            </div>
+					            <div class="media-body">
+					              <h4 class="number" style="cursor:pointer;">${classqna.name}</h4>
+					              <h5>${classqna.date}</h5>
+					              <a class="reply_btn" href="/waguwagu/classanswers/classadd">Reply</a>
+					            </div>
+					          </div>
+					          <p>${classqna.content}</p>
+					          <div class="edit_delete_buttons" style="display:none;">
+					       <a href="javascript:void(0);" class="edit_button" data-classid="${classqna.classid}">수정하기</a>
+					        <a href="<c:url value="javascript:deleteConfirm('${classqna.classid}')" />" class="edit_button">삭제</a>
+					        
+					          </div>
+					        </div>
+					        <div class="answer_section" style="display:none;">
+							    <p>답변 내용이 여기에 표시됩니다.</p>
+							</div>
+					        
+					      </c:forEach>
+					    </div>
+					    <!-- classkey에 대한 객체의 테이블 -->
+					   <div class="col-lg-6">
+					            <div class="answer_section" style="display:none;">
+								    	<form:form class="row login_form" id="contactForm" items="classkey" var="classvlaue" novalidate="novalidate">
+									    <div class="col-md-12">
+									        <div class="col-md-12">
+									            <div class="form-group">
+									                <!-- classplus 객체의 email 필드를 바인딩합니다. -->
+									                <input type="questionnumber"  class="form-control" id="questionnumber" readonly="true" name="questionnumber" value="${classvlaue.questionnumber }" />
+									            </div>
+									        </div>
+									        <div class="col-md-12">
+									            <div class="form-group">
+									                <!-- classplus 객체의 date 필드를 바인딩합니다. -->
+									                <input type="respondentid"  class="form-control" id="respondentid" name="respondentid" value="${classvlaue.respondentid }"  placeholder="id를 입력하세요"/>
+									            </div>
+									        </div>
+									        <div class="col-md-12">
+									            <div class="form-group">
+									                <!-- classplus 객체의 content 필드를 바인딩합니다. -->
+									                <textarea class="form-control"  name="answercontent" id="answercontent" rows="1" cols="5" placeholder="글을 작성하세요.">${classvalue.answercontent}</textarea>
+									            </div>
+									        </div>
+									        <div class="col-md-12 text-right">
+									            <!-- "등록" 버튼을 클릭하면 classplus 객체를 서버로 전송합니다. -->
+									            <input type="submit" value="등록" class="btn primary-btn">
+									        </div>
+									    </div>
+									</form:form>
+								</div>
+					        </div>
+					    </div>
+					    <div class="col-lg-6">
+					      <div class="review_box">
+					        <h4>QnA 작성</h4>
+					        <!-- createGetqna 메서드에서 불러온 classplus 객체를 사용하여 댓글을 등록합니다. -->
+					      <form:form modelAttribute="classplus" method="post" action="/waguwagu/classquestion/add" id="contactForm" novalidate="novalidate">
+					          <div class="col-md-12">
+					              <div class="form-group">
+					                  <!-- classplus 객체의 number 필드를 바인딩합니다. -->
+					                  <form:input type="text" path="name" class="form-control" id="name" name="name" placeholder="이름을 입력하세요."/>
+					              </div>
+					          </div>
+					          <div class="col-md-12">
+					              <div class="form-group">
+					                  <!-- classplus 객체의 email 필드를 바인딩합니다. -->
+					                  <form:input type="email" path="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요."/>
+					              </div>
+					          </div>
+					          <div class="col-md-12">
+					              <div class="form-group">
+					                  <!-- classplus 객체의 date 필드를 바인딩합니다. -->
+					                  <form:input type="text" path="classid" class="form-control" id="classid" name="classid" placeholder="id를 입력하세요"/>
+					              </div>
+					          </div>
+					          <div class="col-md-12">
+					              <div class="form-group">
+					                  <!-- classplus 객체의 content 필드를 바인딩합니다. -->
+					                  <textarea class="form-control"  name="content" id="content" rows="1" placeholder="글을 작성하세요."></textarea>
+					              </div>
+					          </div>
+					          <div class="col-md-12 text-right">
+					              <!-- "등록" 버튼을 클릭하면 classplus 객체를 서버로 전송합니다. -->
+					              <input type="submit" value="등록" class="btn primary-btn">
+					          </div>
+					      </form:form>
+					      <div id="editFormWrapper" style="display:none;">
+					          <form:form modelAttribute="classupdateqna" method="post" action="/waguwagu/classquestion/classupdate" id="editForm" novalidate="novalidate">
+					              <div class="col-md-12">
+					                  <div class="form-group">
+					                      <input type="text" class="form-control" id="editName" readonly="true" name="name" value="${class123.name}">
+					                  </div>
+					              </div>
+					              <div class="col-md-12">
+					                  <div class="form-group">
+					                      <input type="text" class="form-control" id="editEmail" readonly="true" name="email" placeholder="이메일을 입력하세요." value="${class123.email}">
+					                  </div>
+					              </div>
+					              <div class="col-md-12">
+					                  <div class="form-group">
+					                      <input type="text" class="form-control" id="editClassid" readonly="true" name="classid" placeholder="id를 입력하세요" value="${class123.classid}">
+					                  </div>
+					              </div>
+					              <div class="col-md-12">
+					                  <div class="form-group">
+					                      <textarea class="form-control" name="content" id="editContent" rows="1" placeholder="글을 작성하세요.">${class123.content}</textarea>
+					                  </div>
+					              </div>
+					              <div class="col-md-12 text-right">
+					                  <input type="submit" value="수정하기" class="btn primary-btn">
+					              </div>
+					          </form:form>
+					      </div>
+					      </div>
+					    </div>
+					    </div>
+					    <div id="pagination" class="pagination"></div>
+					  </div>
+					</div>
 				</div>
 				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
 					<div class="row rowmapper">
@@ -692,7 +750,7 @@
     function deleteConfirm(classid) {
         if (confirm("삭제하시겠습니까?") == true) {
             // 직접 URL을 생성하여 이동합니다.
-            location.href = "/waguwagu-yeong/classquestion/classdelete?classid=" + classid;
+            location.href = "/waguwagu/classquestion/classdelete?classid=" + classid;
         } else {
             return;
         }
@@ -710,58 +768,41 @@
   <!-- 수정 폼 나타내면서 객체 가져오기.(Ajax) -->
   <script>
   $(document).ready(function() {
-      $('.edit_button').click(function() {
-          var classid = $(this).data('classid');
-          
-          $('#contactForm').hide(); // 등록 폼 숨기기
-          $('#editFormWrapper').show();
-  
-          $.ajax({
-              url: '/waguwagu-yeong/classquestion/classupdate',
-              type: 'GET',
-              data: { classid: classid },
-              success: function(classqna) {
-                  $('#editName').val(classqna.name); // 수정 폼에 이름 채우기
-                  $('#editEmail').val(classqna.email); // 수정 폼에 이메일 채우기
-                  $('#editclassid').val(classqna.classid); // 수정 폼에 상품 ID 채우기
-                  $('#editContent').val(classqna.content); // 수정 폼에 내용 채우기
-              },
-              error: function(request, status, error) {
-                  alert('Ajax 오류!');
-              }
-          });
-      });
-  });
+	  $('.edit_button').click(function() {
+	      var classid = $(this).data('classid');
+	      
+	      $('#contactForm').hide(); // 등록 폼 숨기기
+	      $('#editFormWrapper').show();
+
+	      $.ajax({
+	          url: '/waguwagu/classquestion/classupdate',
+	          type: 'GET',
+	          data: { classparamid: classid }, // 수정 필요
+	          success: function(classqna) {
+	              $('#editName').val(classqna.name); // 수정 폼에 이름 채우기
+	              $('#editEmail').val(classqna.email); // 수정 폼에 이메일 채우기
+	              $('#editClassid').val(classqna.classid); // 수정 폼에 상품 ID 채우기
+	              $('#editContent').val(classqna.content); // 수정 폼에 내용 채우기
+	          }
+	      });
+	  });
+	});
   </script>
   <!-- reply 버튼 클릭 시에. -->
   <script>
-  <script>
-  function loadReplies() {
-      $.ajax({
-          url: '/waguwagu-yeong/classanswers',
-          method: 'GET',
-          success: function(response) {
-              $('#comment_list').html(response);
-          },
-          error: function(xhr, status, error) {
-              console.error('Error loading replies:', error);
-          }
-      });
-  }
+  $(document).ready(function() {
+	    // "답변 보기" 버튼을 클릭했을 때
+	    $('.reply_btn').click(function() {
+	        // 클릭한 버튼이 속한 리뷰 아이템에서 답변 섹션을 찾아서 보여줌
+	        $(this).closest('.review_item').find('.answer_section').show();
+	    });
+	});
   </script>
   <!-- 탭 버튼 중복 방지 스크립트 -->
   <script>
-  
-  $(document).ready(function(){
-	    // 리뷰 탭 클릭 시
-	    $('#review-tab').on('click', function() {
-	        // QnA 탭의 내용 숨기기
-	        $('#contact').removeClass('show active');
-	        // 리뷰 탭의 내용 표시
-	        $('#review').addClass('show active');
-	    });
-	});
-  
+//"Reply" 클릭 시 실행될 함수
+
+
   </script>
 
 

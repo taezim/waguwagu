@@ -37,6 +37,25 @@
 		background-color: transparent; 
 		border-bottom: 1px solid #777;
 	}
+		.fileBtn{
+	  border: none;
+	  padding :3px;
+	  font-size:15px;
+	}
+	.image{
+		display:none;
+	}
+	.choose{
+		border-left:1px solid black;
+		padding:5px;
+		
+	}
+	.fake{
+		text-align: left;
+		/* border-bottom:1px solid #BDBDBD; */
+		
+	}
+	
   </style>
   
   <script>
@@ -159,7 +178,7 @@
 		<nav class="bread_c" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 			<ol class="breadcrumb breadhospital">
 			  <li class="breadcrumb-item"><a href='<c:url value="/games"/>'>경기목록</a></li>
-			  <li class="breadcrumb-item active" aria-current="page">팀 등록</li>
+			  <li class="breadcrumb-item active" aria-current="page">경기 등록</li>
 			</ol>
 		</nav>
 	</div>	
@@ -181,10 +200,10 @@
 						<h3>게임등록</h3>
 						<form:form class="row login_form" id="contactForm" modelAttribute="game" enctype="multipart/form-data">
 							<div class="col-md-12 form-group">
-								<form:input path="teamId1" class="form-control" id="teamId1" name="teamId1" placeholder="팀아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '팀아이디'" />
+								<form:input path="teamId1" class="form-control" id="teamId1" name="teamId1" placeholder="팀아이디" value="${myteam}" onfocus="this.placeholder = ''" onblur="this.placeholder = '팀아이디'" />
 							</div>
 							<div class="col-md-12 form-group">
-								<form:input path="teamName1" type="text" class="form-control" id="teamName1" name="teamName1" placeholder="팀명" onfocus="this.placeholder = ''" onblur="this.placeholder = '팀명'" />
+								<form:input path="teamName1" type="text" class="form-control" id="teamName1" name="teamName1" placeholder="팀명" value="${teamName}" onfocus="this.placeholder = ''" onblur="this.placeholder = '팀명'" />
 							</div>
 							<div class="col-md-12 form-group">
 								<form:input type="datetime-local" path="date" class="form-control" id="date" name="date" placeholder="경기 날짜" onfocus="this.placeholder = ''" onblur="this.placeholder = '경기 날짜'" />
@@ -193,7 +212,7 @@
 								<form:input path="userId" type="text" class="form-control" id="userId" name="memberId" value="${memberId}" placeholder="예약자 아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '예약자 아이디'" />
 							</div>
 							<div class="col-md-12 form-group">
-								<form:input path="userName" type="text" class="form-control" id="userName" name="userName" placeholder="예약자 이름" onfocus="this.placeholder = ''" onblur="this.placeholder = '예약자 이름'" />
+								<form:input path="userName" type="text" class="form-control" id="userName" name="userName" placeholder="예약자 이름" value="${userName}" onfocus="this.placeholder = ''" onblur="this.placeholder = '예약자 이름'" />
 							</div>
 							<div class="col-md-12 form-group">
 								<form:input path="userNumber" type="text" class="form-control" id="userNumber" name="userNumber" placeholder="전화번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '전화번호'" />
@@ -201,15 +220,12 @@
 							<div class="col-md-12 form-group">
 								<form:input path="stadium" type="text" class="form-control" id="stadium" name="stadium" placeholder="경기장" onfocus="this.placeholder = ''" onblur="this.placeholder = '경기장'" />
 							</div>
-							<div class="col-md-12 form-group">
-								<form:input path="gameImage" type="file" class="form-control" id="gameImage" name="gameImage" placeholder="구단사진" onfocus="this.placeholder = ''" onblur="this.placeholder = '구단사진'" />
+							<div class="col-md-12 form-group fake">
+								<form:input path="gameImage" type="file" class="form-control image" id="gameImage" name="gameImage" placeholder="구단사진" onfocus="this.placeholder = ''" onblur="this.placeholder = '구단사진'" accept="image/*" onchange="readURL(this);" value="${image}" />								
+								<label for="gameImage" class="btn fileBtn">파일 선택</label>
+								<span id="fileName" class="choose">${image }</span>
+								<img id="preview" />
 							</div>
-<!-- 							<div class="col-md-12 form-group">
-								<div class="creat_account">
-									<input type="checkbox" id="f-option2" name="selector">
-									<label for="f-option2">Keep me logged in</label>
-								</div>
-							</div> -->
 							<div class="col-md-12 form-group">
 								<button type="submit" value="submit" class="button button-login w-100">경기 등록</button>
 								<a href="<c:url value="/games"/>"> 취소</a>
@@ -221,6 +237,31 @@
 		</div>
 	</section>
 	<!--================End Login Box Area =================-->
+	
+	<script>
+		document.getElementById('gameImage').addEventListener('change', function(){
+			var filename = document.getElementById('fileName');
+			if(this.files[0] == undefined){
+				filename.innerText = '선택된 파일없음';
+				return;
+			}
+			filename.innerText = this.files[0].name;
+		});
+	
+	
+		function readURL(input) {
+		  if (input.files && input.files[0]) {
+		    var reader = new FileReader();
+		    reader.onload = function(e) {
+		      document.getElementById('preview').src = e.target.result;
+		    };
+		    reader.readAsDataURL(input.files[0]);
+		  } else {
+		    document.getElementById('preview').src = "";
+		  }
+		}
+	</script>
+	
 	
 </body>
 </html>

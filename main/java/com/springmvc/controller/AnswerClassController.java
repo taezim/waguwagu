@@ -48,6 +48,7 @@ public class AnswerClassController {
 	@GetMapping("/classanswer")
 	public String showClassanswer(@RequestParam("an") String answernumber, Model model) {
 	    Classanswer answer = answerService.readClassanswerBynumber(answernumber);
+	    
 	    model.addAttribute("answerlistone", answer);
 	    System.out.println("controller : " + answer);
 	    return "/answer/classanswer/classans";
@@ -55,19 +56,20 @@ public class AnswerClassController {
 
 	//Create
 
-	@GetMapping("/classadd")
-	public String createClassGetQnA(@ModelAttribute("classcreateanswer") Classanswer classnewanswer)
-	{
-	    return "/answer/classanswer/classcreateans";
-	}
+	// GET 요청을 처리하는 메서드
+    @GetMapping("/classadd")
+    public String createClassGetQnA(@ModelAttribute("classcreateanswer") Classanswer classnewanswer) {
+        return "/answer/classanswer/classcreateans";
+    }
 
-
-	@PostMapping("/classadd")
-	public String createClassPostQnA(@ModelAttribute("classcreateanswer") Classanswer classanswer) 
-	{
-	    answerService.createClassanswer(classanswer);
-	    return "redirect:/classanswers";
-	}
+    // POST 요청을 처리하는 메서드
+    @PostMapping("/classadd")
+    public String createClassPostQnA(@ModelAttribute("classcreateanswer") Classanswer classanswer, Model model) {
+        // answerService를 사용하여 객체를 가져옵니다.
+        Classanswer classValue = answerService.createClassanswer(classanswer);
+        model.addAttribute("classkey", classValue);
+        return "redirect:/classquestion";
+    }
 
 	//Update
 

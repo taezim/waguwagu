@@ -123,7 +123,7 @@
 
 <body>
 
-<header class="header_area">
+	<header class="header_area">
 	    <div class="main_menu">
 	      <nav class="navbar navbar-expand-lg navbar-light">
 	        <div class="container">
@@ -284,7 +284,7 @@
                       <h3>${game.teamName1}(win)</h3>
                     </div>
                     <div>
-                      <span class="vs"><span>VS</span></span>
+                      <h3 class="vs"><span>VS</span></h3>
                     </div>
                     <div class="team-2 text-center">
                       <!-- <img src="images/logo_2.png" alt="Image"> -->

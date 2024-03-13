@@ -83,14 +83,21 @@
 
   </style>
 
-<script type="text/javascript">
+<script>
 	function checkAndNavigate(event, matches) {
-	    if (!matches || matches.length === 0) {
-	        event.preventDefault(); // 이벤트 기본 동작 막기 (페이지 이동 방지)
+	    if (!matches) {
+	        //event.preventDefault(); // 이벤트 기본 동작 막기 (페이지 이동 방지)
 	        alert("매칭 전입니다!");
 	    }
 	    // 매칭 정보가 있으면 페이지로 이동
 	    // 여기에 필요한 다른 로직 추가 가능
+	}
+	
+	function checkAndNavigateMatch(event, matches){
+		if(matches){
+			event.preventDefault();
+			alert("이미 매칭된 게임입니다!");
+		}
 	}
 </script>
 
@@ -243,14 +250,14 @@
           <div class="filter-bar d-flex flex-wrap align-items-center">
             <div class="sorting">
               <select>
-                <option value="1">Default sorting</option>
+                <option value="1">최근날짜</option>
                 <option value="1">Default sorting</option>
                 <option value="1">Default sorting</option>
               </select>
             </div>
             <div class="sorting mr-auto">
               <select>
-                <option value="1">Show 12</option>
+                <option value="1">Show 5</option>
                 <option value="1">Show 12</option>
                 <option value="1">Show 12</option>
               </select>
@@ -267,9 +274,9 @@
           <!-- End Filter Bar -->
           <!-- Start Best Seller -->
 		<section class="lattest-product-area pb-40 category-list">
-		    <div class="container">
+		    <div class="container" id="game-list">
 		        <c:forEach items="${list}" var="game">
-		        	<div class="row">
+		        	<div class="row game-list">
 			       		 <%-- <c:out value="game: ${game}" /> --%> 
 			            <div class="">
 			                <ul>
@@ -292,12 +299,12 @@
 				                                    </div>
 				                                    <div class="tm">
 					                                    <c:choose>
-													        <c:when test="${not empty game.getMatches()}">
+													        <c:when test="${not empty game.matches[0].teamName}">
 													            <img src="<c:url value='/resources/images/${game.getMatches().get(0).fileName}'/>" alt="${game.getMatches().get(0).teamName} Image" style="width:50px" alt="Image" class="img-fluid">
 													            <h2 class=""> ${game.matches[0].teamName}</h2>
 													        </c:when>
 													        <c:otherwise>
-													            <p>매칭 전입니다.</p>
+													            <h2>매칭 전입니다.</h2>
 													        </c:otherwise>
 													    </c:choose>
 				                                    </div>
@@ -308,9 +315,8 @@
 			                            </div>
 			                        </div>
 			                       <div class="text-md-right">
-			                        	<a href="<c:url value='/games/game?id=${game.gameId}'/>" onclick="checkAndNavigate(event, ${not empty game.matches})" class="btn btn-sm btn-primary">상세보기</a>										
-	      								<a href="<c:url value='/match/add?id=${game.gameId}'/>" onclick="checkAndNavigateMatch(event, '${game.gameId}', ${game.matches})" class="btn btn-sm btn-primary">매칭</a>
-										<a href="<c:url value='/match/add?id=${game.gameId}'/>" onclick="checkAndNavigateMatch(event, '${game.gameId}', ${game.matches})" class="btn btn-sm btn-primary">매칭2</a>
+			                        	<a href="<c:url value='/games/game?id=${game.gameId}'/>" onclick="checkAndNavigate(event, ${not empty game.matches[0].teamName})" class="btn btn-sm btn-primary">상세보기</a>										
+	      								<a href="<c:url value='/match/add?id=${game.gameId}'/>" onclick="checkAndNavigateMatch(event, ${not empty game.matches[0].teamName})" class="btn btn-sm btn-primary">매칭</a>
 	      								<a href="<c:url value='/match/delete?id=${game.gameId}'/>" class="btn btn-sm btn-primary" onclick="return deleteConfirm('${game.gameId}')">매칭취소 &raquo;</a>			                        
 			                        </div>  
 			                    </li>
@@ -321,6 +327,17 @@
 		    </div>
 		</section>
           <!-- End Best Seller -->
+          <div class="d-flex justify-content-center" id="pagination-container-location">
+	        <div aria-label="Page navigation example">
+	            <ul class="pagination" id="pagination">
+	                <li class="page-item">
+	                    <a class="page-link" href="#" aria-label="Previous">
+	                        <span aria-hidden="true">&laquo;</span>
+	                    </a>
+	                </li>
+	            </ul>
+	        </div>
+          </div>
         </div>
       </div>
     </div>
@@ -331,23 +348,88 @@
 	
 	<!-- ================ top product area end ================= -->		
 
+  <script>
+	    var list = document.getElementById('game-list').getElementsByClassName('game-list');
+	    var pageNum = document.getElementById('pagination'); // 페이지 번호를 표시할 엘리먼트
+	    var limitPerPage = 5;
+	    var totalPages = Math.ceil(list.length / limitPerPage);
+	    var currentPage = 1; // 현재 페이지 번호
+	
+	    function showPage(page) {
+	        var start = (page - 1) * limitPerPage;
+	        var end = start + limitPerPage;
+	
+	        for (var i = 0; i < list.length; i++) {
+	            list[i].style.display = 'none';
+	        }
+	
+	        for (var i = start; i < end; i++) {
+	            if (list[i]) {
+	                list[i].style.display = 'block';
+	            }
+	        }
+	    }
+	
+	    function updatePagination() {
+	        pageNum.innerHTML = ""; // 페이지 번호 엘리먼트 초기화
+	
+	        var startPage = Math.max(1, currentPage - 2); // 시작 페이지 번호
+	        var endPage = Math.min(startPage + 4, totalPages); // 종료 페이지 번호
+	
+	        // 시작 페이지부터 종료 페이지까지 번호 표시
+	        for (var i = startPage; i <= endPage; i++) {
+	            pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='#' onclick='changePage(" + i + ")'>" + i + "</a></li>";
+	        }
+	
+	        // 이전 페이지로 이동할 수 있는 버튼 표시
+	        if (startPage > 1) {
+	            pageNum.innerHTML = "<li class='page-item'><a class='page-link' href='#' onclick='prevPage()'>&laquo;</a></li>" + pageNum.innerHTML;
+	        }
+	
+	        // 다음 페이지로 이동할 수 있는 버튼 표시
+	        if (endPage < totalPages) {
+	            pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='#' onclick='nextPage()'>&raquo;</a></li>";
+	        }
+	    }
+	
+	    function changePage(page) {
+	        currentPage = page;
+	        showPage(currentPage);
+	        updatePagination();
+	    }
+	
+	    function nextPage() {
+	        if (currentPage < totalPages) {
+	            currentPage++;
+	            showPage(currentPage);
+	            updatePagination();
+	        }
+	    }
+	
+	    function prevPage() {
+	        if (currentPage > 1) {
+	            currentPage--;
+	            showPage(currentPage);
+	            updatePagination();
+	        }
+	    }
+	
+	    // 초기 페이지 로딩 시 첫 페이지 표시
+	    showPage(currentPage);
+	    updatePagination();
+	</script>
   
-	<script src="<c:url value='/resources/js/jquery-3.3.1.min.js'/>"></script>
-	<script src="<c:url value='/resources/js/jquery-migrate-3.0.1.min.js'/>"></script>
-	<script src="<c:url value='/resources/js/jquery-ui.js'/>"></script>
-	<script src="<c:url value='/resources/js/popper.min.js'/>"></script>
-	<script src="<c:url value='/resources/js/bootstrap.min.js'/>"></script>
-	<script src="<c:url value='/resources/js/owl.carousel.min.js'/>"></script>
-	<script src="<c:url value='/resources/js/jquery.stellar.min.js'/>"></script>
-	<script src="<c:url value='/resources/js/jquery.countdown.min.js'/>"></script>
-	<script src="<c:url value='/resources/js/bootstrap-datepicker.min.js'/>"></script>
-	<script src="<c:url value='/resources/js/jquery.easing.1.3.js'/>"></script>
-	<script src="<c:url value='/resources/js/aos.js'/>"></script>
-	<script src="<c:url value='/resources/js/jquery.fancybox.min.js'/>"></script>
-	<script src="<c:url value='/resources/js/jquery.sticky.js'/>"></script>
-	<script src="<c:url value='/resources/js/jquery.mb.YTPlayer.min.js'/>"></script>
-	<script src="<c:url value='/resources/js/main.js'/>"></script>
-
+	<script src="<c:url value='/resources/vendors/jquery/jquery-3.2.1.min.js'/>"/></script>
+	<script src="<c:url value='/resources/vendors/bootstrap/bootstrap.bundle.min.js'/>"/></script>
+	<script src="<c:url value='/resources/vendors/skrollr.min.js'/>"/></script>
+	<script src="<c:url value='/resources/vendors/owl-carousel/owl.carousel.min.js'/>"/></script>
+	<script src="<c:url value='/resources/vendors/nice-select/jquery.nice-select.min.js'/>"/></script>
+	<script src="<c:url value='/resources/vendors/nouislider/nouislider.min.js'/>"/></script>
+	<script src="<c:url value='/resources/vendors/jquery.ajaxchimp.min.js'/>"/></script>
+	<script src="<c:url value='/resources/vendors/mail-script.js'/>"/></script>
+	<script src="<c:url value='/resources/js/main.js'/>"/></script>
+	<script src="<c:url value='/resources/js/test.js'/>"/></script>
+  
 
 	
 </body>

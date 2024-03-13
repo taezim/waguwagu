@@ -428,7 +428,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="review_list">
+							<div class="review_list" id="review_list">
 								<c:forEach var="review" items="${hospitalReviews}">
 								    <div class="review_item" >
 								        <div class="media">
@@ -450,24 +450,16 @@
 							</div>
 							<!-- 페이지버튼 -->    
 						  <div class="d-flex justify-content-center">
-				            <div aria-label="Page navigation example">
-				              <ul class="pagination">
-				                <li class="page-item">
-				                  <a class="page-link" href="#" aria-label="Previous">
-				                    <span aria-hidden="true">&laquo;</span>
-				                  </a>
-			                	</li>
-				                <li class="page-item"><a class="page-link" href="#">1</a></li>
-				                <li class="page-item"><a class="page-link" href="#">2</a></li>
-				                <li class="page-item"><a class="page-link" href="#">3</a></li>
-				                <li class="page-item">
-				                <a class="page-link" href="#" aria-label="Next">
-			                    <span aria-hidden="true">&raquo;</span>
-			                  	</a>
-				                </li>
-				              </ul>
-				            </div>
-				          </div>
+						    <div aria-label="Page navigation example">
+						        <ul class="pagination" id="pagination">
+						            <li class="page-item">
+						                <a class="page-link" href="#" aria-label="Previous">
+						                    <span aria-hidden="true">&laquo;</span>
+						                </a>
+						            </li>
+						        </ul>
+						    </div>
+						</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="review_box">
@@ -510,7 +502,6 @@
 							</div>
 						</div>
 					</div>
-					<div id="pagination" class="pagination"></div>
 				</div>
 				</div>
 			</div>
@@ -631,99 +622,62 @@
 <!-- 페이징처리 -->
 	<script>
 	/* 3개 글 보기 */
-	 var list = document.getElementsByClassName('review_list').getElementsByClassName('review_item');
-	 console.log('ss',list); 
-	 var pageNum = document.getElementsByClassName('pagination');
-	  var limitPerPage = 3;
-	  var totalPages = Math.ceil(list.length / limitPerPage);
-	
-	  for (var i = limitPerPage; i < list.length; i++) {
-	    list[i].style.display = 'none';
-	  }
-	
-	  for (var i = 1; i <= totalPages; i++) {
-	    pageNum.innerHTML += "<button onclick='changePage(" + i + ")'>" + i + "</button>";
-	  }
-	
-	  window.changePage = function(page) {
-	    var start = (page - 1) * limitPerPage;
-	    var end = start + limitPerPage;
-	
-	    for (var i = 0; i < list.length; i++) {
-	      list[i].style.display = 'none';
-	    }
-	
-	    for (var i = start; i < end; i++) {
-	      if (list[i]) {
-	        list[i].style.display = 'block';
-	      }
-	    }
-	  }
-	  
-	  var numbers = document.getElementsByClassName('number');
-	  for (var i = 0; i < numbers.length; i++) {
-	    numbers[i].addEventListener('click', function(e) {
-	      var buttons = e.target.parentNode.parentNode.getElementsByClassName('edit_delete_buttons')[0];
-	      buttons.style.display = buttons.style.display === 'none' ? 'block' : 'none';
-	    });
-	  }
-	
-	  var editButtons = document.getElementsByClassName('edit_button');
-	  for (var i = 0; i < editButtons.length; i++) {
-	    editButtons[i].addEventListener('click', function(e) {
-	      // Edit 버튼 클릭 시 동작 정의
-	      console.log('Edit button clicked');
-	    });
-	  }
-	
-	  var deleteButtons = document.getElementsByClassName('delete_button');
-	  for (var i = 0; i < deleteButtons.length; i++) {
-	    deleteButtons[i].addEventListener('click', function(e) {
-	      // Delete 버튼 클릭 시 동작 정의
-	      console.log('Delete button clicked');
-	    });
-	  }
-	  
-	  document.getElementById('comment_list').addEventListener('click', function(e) {
-	     if (e.target && e.target.classList.contains('number')) {
-	       var buttons = e.target.parentNode.parentNode.parentNode.getElementsByClassName('edit_delete_buttons')[0];
-	       buttons.style.display = buttons.style.display === 'none' ? 'block' : 'none';
-	     }
-	
-	     if (e.target && e.target.classList.contains('edit_button')) {
-	       // Edit 버튼 클릭 시 동작 정의
-	       console.log('Edit button clicked');
-	     }
-	
-	     if (e.target && e.target.classList.contains('delete_button')) {
-	       // Delete 버튼 클릭 시 동작 정의
-	       console.log('Delete button clicked');
-	     }
-	   });
-	  
-	  
-	  
-	  document.addEventListener('DOMContentLoaded', function() {
-	       var pagination = document.getElementsByClassName('pagination');
-	       var buttons = pagination.getElementsByTagName('button');
-	
-	       // 각 버튼에 대한 클릭 이벤트 추가
-	       for (var i = 0; i < buttons.length; i++) {
-	           buttons[i].addEventListener('click', function() {
-	               // 현재 선택된 버튼의 인덱스 확인
-	               var currentIndex = Array.from(buttons).indexOf(this);
-	
-	               // 다음 버튼의 인덱스 계산
-	               var nextIndex = currentIndex + 1;
-	               if (nextIndex >= buttons.length) {
-	                   nextIndex = 0; // 마지막 버튼일 경우 첫 번째 버튼으로 이동
-	               }
-	
-	               // 다음 버튼으로 이동
-	               buttons[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-	           });
-	       }
-	   });
+	     var list = document.getElementById('review_list').getElementsByClassName('review_item');
+    var pageNum = document.getElementById('pagination'); // 페이지 번호를 표시할 엘리먼트
+    var limitPerPage = 3;
+    var totalPages = Math.ceil(list.length / limitPerPage);
+    var currentPage = 1; // 현재 페이지 번호
+
+    function showPage(page) {
+        var start = (page - 1) * limitPerPage;
+        var end = start + limitPerPage;
+
+        for (var i = 0; i < list.length; i++) {
+            list[i].style.display = 'none';
+        }
+
+        for (var i = start; i < end; i++) {
+            if (list[i]) {
+                list[i].style.display = 'block';
+            }
+        }
+    }
+
+    function updatePagination() {
+        pageNum.innerHTML = ""; // 페이지 번호 엘리먼트 초기화
+
+        for (var i = 1; i <= totalPages; i++) {
+            pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='#' onclick='changePage(" + i + ")'>" + i + "</a></li>";
+        }
+    }
+
+    function changePage(page) {
+        currentPage = page;
+        showPage(currentPage);
+        updatePagination();
+    }
+
+    // 다음 페이지로 이동하는 함수
+    function nextPage() {
+        if (currentPage < totalPages) {
+            currentPage++;
+            showPage(currentPage);
+            updatePagination();
+        }
+    }
+
+    // 이전 페이지로 이동하는 함수
+    function prevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            showPage(currentPage);
+            updatePagination();
+        }
+    }
+
+    // 초기 페이지 로딩 시 첫 페이지 표시
+    showPage(currentPage);
+    updatePagination();
 	
 </script>
 	

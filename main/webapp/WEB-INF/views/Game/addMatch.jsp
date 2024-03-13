@@ -37,6 +37,24 @@
 		background-color: transparent; 
 		border-bottom: 1px solid #777;
 	}
+	.fileBtn{
+	  border: none;
+	  padding :3px;
+	  font-size:15px;
+	}
+	.image{
+		display:none;
+	}
+	.choose{
+		border-left:1px solid black;
+		padding:5px;
+		
+	}
+	.fake{
+		text-align: left;
+		/* border-bottom:1px solid #BDBDBD; */
+		
+	}
   </style>
   
   <script>
@@ -61,7 +79,9 @@
 	    <div class="main_menu">
 	      <nav class="navbar navbar-expand-lg navbar-light">
 	        <div class="container">
-	          <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+	          <a class="navbar-brand logo_h" href="index.html">
+	          	<img src="<c:url value='/resources/img/baseball.png'/>" alt=''/>
+	          </a>
 	          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 	            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	            <span class="icon-bar"></span>
@@ -78,11 +98,18 @@
 	                <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/add">구단등록</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team">구단목록</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/games">경기목록</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/result/ranks">구단랭킹</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/team?id=${myteam}">나의구단</a></li>
 	                </ul>
-								</li>
+	              </li>
+	              <li class="nav-item submenu dropdown">
+	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+	                  aria-expanded="false">경기</a>
+	                <ul class="dropdown-menu">
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/games/add">게임등록</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/games">경기목록</a></li>
+	                </ul>
+	              </li>
 	              <li class="nav-item submenu dropdown">
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">클래스</a>
@@ -98,16 +125,8 @@
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/">경기장목록</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="single-blog.html">경기장예약</a></li>
 	                </ul>
-								</li>
-	              <li class="nav-item submenu dropdown">
-	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-	                  aria-expanded="false">관광</a>
-	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="blog.html">맛집</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="single-blog.html">둘러볼곳</a></li>
-	                </ul>
-								</li>
-								<li class="nav-item submenu dropdown">
+				</li>
+				<li class="nav-item submenu dropdown">
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">의료</a>
 	                <ul class="dropdown-menu">
@@ -123,12 +142,14 @@
 	              <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
 	              <li class="nav-item"><button><i class="fas fa-user"></i></button></li>
 	            </ul>
-	            <c:if test="${empty sessionScope.memberId }">
+	           <c:if test="${empty sessionScope.memberId }">
 	            	<a href="/waguwagu/member/login">로그인</a>
 	            </c:if>
-	            <c:if test="${not empty sessionScope.memberId }">
-	            	<a href="/waguwagu/member/logout">로그아웃</a>
-	            </c:if>
+	            <c:if test="${not empty sessionScope.memberId}">
+				    <form action="/waguwagu/member/logout" method="post">
+				        <input type="submit" value="로그아웃" style="border: none; background: none;  color:rgb(79, 155, 253)">
+				    </form>
+				</c:if>
 	          </div>
 	        </div>
 	      </nav>
@@ -179,23 +200,26 @@
 						<h3>게임등록</h3>
 						<form:form class="row login_form" id="contactForm" modelAttribute="addMatch" enctype="multipart/form-data">
 							<div class="col-md-12 form-group">
-								<form:input path="teamId" class="form-control" id="name" name="name" placeholder="팀아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '팀아이디'" value="${match.teamId}" />
+								<form:input path="teamId" class="form-control" id="teamId" name="teamId" placeholder="팀아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '팀아이디'" value="${myteam}" />
 							</div>
 							<div class="col-md-12 form-group">
-								<form:input path="teamName" type="text" class="form-control" id="name" name="name" placeholder="팀명" onfocus="this.placeholder = ''" onblur="this.placeholder = '팀명'" value="${match.teamName}"/>
+								<form:input path="teamName" type="text" class="form-control" id="teamName" name="teamName" placeholder="팀명" onfocus="this.placeholder = ''" onblur="this.placeholder = '팀명'" value="${teamName}"/>
 							</div>
 							
 							<div class="col-md-12 form-group">
-								<form:input path="userId" type="text" class="form-control" id="name" name="name" placeholder="예약자 아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '예약자 아이디'" value="${match.userId}"/>
+								<form:input path="userId" type="text" class="form-control" id="userId" name="userId" placeholder="예약자 아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '예약자 아이디'" value="${memberId}"/>
 							</div>
 							<div class="col-md-12 form-group">
-								<form:input path="userName" type="text" class="form-control" id="name" name="name" placeholder="예약자 이름" onfocus="this.placeholder = ''" onblur="this.placeholder = '예약자 이름'" value="${match.userName}"/>
+								<form:input path="userName" type="text" class="form-control" id="userName" name="userName" placeholder="예약자 이름" onfocus="this.placeholder = ''" onblur="this.placeholder = '예약자 이름'" value="${userName}"/>
 							</div>
 							<div class="col-md-12 form-group">
-								<form:input path="userNumber" type="text" class="form-control" id="name" name="name" placeholder="전화번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '전화번호'" value="${match.userNumber}"/>
+								<form:input path="userNumber" type="text" class="form-control" id="userNumber" name="userNumber" placeholder="전화번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '전화번호'" />
 							</div>
-							<div class="col-md-12 form-group">
-								<form:input path="gameImage" type="file" class="form-control" id="name" name="name" placeholder="구단사진" onfocus="this.placeholder = ''" onblur="this.placeholder = '구단사진'" />
+							<div class="col-md-12 form-group fake">
+								<form:input path="gameImage" type="file" class="form-control image" id="gameImage" name="gameImage" placeholder="구단사진" onfocus="this.placeholder = ''" onblur="this.placeholder = '구단사진'" accept="image/*" onchange="readURL(this);" value="${image}" />								
+								<label for="gameImage" class="btn fileBtn">파일 선택</label>
+								<span id="fileName" class="choose">${image }</span>
+								<img id="preview" />
 							</div>
 							<div class="col-md-12 form-group">
 								<button type="submit" value="submit" class="button button-login w-100">경기 등록</button>
@@ -208,6 +232,31 @@
 		</div>
 	</section>
 	<!--================End Login Box Area =================-->
+	
+	
+	<script>
+		document.getElementById('gameImage').addEventListener('change', function(){
+			var filename = document.getElementById('fileName');
+			if(this.files[0] == undefined){
+				filename.innerText = '선택된 파일없음';
+				return;
+			}
+			filename.innerText = this.files[0].name;
+		});
+	
+	
+		function readURL(input) {
+		  if (input.files && input.files[0]) {
+		    var reader = new FileReader();
+		    reader.onload = function(e) {
+		      document.getElementById('preview').src = e.target.result;
+		    };
+		    reader.readAsDataURL(input.files[0]);
+		  } else {
+		    document.getElementById('preview').src = "";
+		  }
+		}
+	</script>
 	
 </body>
 </html>

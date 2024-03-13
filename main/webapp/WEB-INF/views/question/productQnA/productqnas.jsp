@@ -350,32 +350,32 @@
 					<div class="row rowmapper">
 					<div class="rowmappertow">
 						<div class="col-lg-6">
-								<div id="comment_list">
-						  <c:forEach items="${productqnaList}" var="productqna">
-						    <div class="review_item">
-						      <div class="media">
-						        <div class="d-flex">
-						          <img src="resources/images/product/review2.png" alt="#">
-						        </div>
-						        <div class="media-body">
-						          <h4 class="number" style="cursor:pointer;">${productqna.name}</h4>
-						          <h5>${productqna.date}</h5>
-						          <a class="reply_btn" href="#">Reply</a>
-						        </div>
-						      </div>
-						      <p>${productqna.content}</p>
-						      <div class="edit_delete_buttons" style="display:none;">
-						   <a href="javascript:void(0);" class="edit_button" data-productid="${productqna.productid}">수정하기</a>
-						    <a href="<c:url value="javascript:deleteConfirm('${productqna.productid}')" />" class="edit_button">삭제</a>
-						      </div>
-						    </div>
-						  </c:forEach>
-						</div>
-					 <div class="col-lg-6">
-				            <div class="pagination-container">
-				                
-				            </div>
-				        </div>
+							<div id="comment_list">
+							  <c:forEach items="${productqnaList}" var="productqna">
+							    <div class="review_item">
+							      <div class="media">
+							        <div class="d-flex">
+							          <img src="resources/images/product/review2.png" alt="#">
+							        </div>
+							        <div class="media-body">
+							          <h4 class="number" style="cursor:pointer;">${productqna.name}</h4>
+							          <h5>${productqna.date}</h5>
+							          <a class="reply_btn" href="#">Reply</a>
+							        </div>
+							      </div>
+							      <p>${productqna.content}</p>
+							      <div class="edit_delete_buttons" style="display:none;">
+							   <a href="javascript:void(0);" class="edit_button" data-productid="${productqna.productid}">수정하기</a>
+							    <a href="<c:url value="javascript:deleteConfirm('${productqna.productid}')" />" class="edit_button">삭제</a>
+							      </div>
+							    </div>
+							  </c:forEach>
+							</div>
+						 	<div class="col-lg-6">
+					            <div class="pagination-container">
+					                
+					            </div>
+					        </div>
 						</div>
 						<div class="col-lg-6">
 							<div class="review_box">

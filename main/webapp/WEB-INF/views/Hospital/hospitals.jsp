@@ -230,10 +230,10 @@
 			        <!-- End Filter Bar -->
 			        <!-- 1 Start Best Seller -->
 			        <section class="lattest-product-area pb-40 category-list">
-		            <div class="container"> 
+		            <div class="container" id="hospita-list"> 
 		                <ul>
 		                  <c:forEach var="dataList" items="${dataList}">
-						    <li class="d-f shadow-sm p-3 mb-5 bg-body-tertiary rounded" aria-current="true" id="li-list">
+						    <li class="d-f shadow-sm p-3 mb-5 bg-body-tertiary rounded li-list" aria-current="true" id="li-list">
 						        <div class="card-product d-inline-flex">
 						            <div class="hospital-img" >
 						                <img class="img-fluid" src="/img/hospital.jpg" alt="">
@@ -258,26 +258,45 @@
 			           </ul>              
 			        </div>
 		          </section>
-			      <!-- 페이지버튼 -->    
-				  <div class="d-flex justify-content-center">
-		            <div aria-label="Page navigation example">
-		              <ul class="pagination">
-		                <li class="page-item">
-		                  <a class="page-link" href="#" aria-label="Previous">
-		                    <span aria-hidden="true">&laquo;</span>
-		                  </a>
-	                	</li>
-		                <li class="page-item"><a class="page-link" href="/waguwagu/hospitalinfo/list?page=1">1</a></li>
-		                <li class="page-item"><a class="page-link" href="/waguwagu/hospitalinfo/list?page=2">2</a></li>
-		                <li class="page-item"><a class="page-link" href="/waguwagu/hospitalinfo/list?page=3">3</a></li>
-		                <li class="page-item">
-		                <a class="page-link" href="/waguwagu/hospitalinfo/list?page=${currentPage + 1}" aria-label="Next">
-	                    <span aria-hidden="true">&raquo;</span>
-	                  	</a>
-		                </li>
-		              </ul>
-		            </div>
-		          </div>
+		          <c:if test="${empty location}">
+				    <!-- location 없는 경우 -->
+				    <div class="d-flex justify-content-center" id="pagination-container">
+				        <div aria-label="Page navigation example">
+				            <ul class="pagination">
+				                <li class="page-item">
+				                    <a class="page-link" href="#" aria-label="Previous">
+				                        <span aria-hidden="true">&laquo;</span>
+				                    </a>
+				                </li>
+				                <li class="page-item"><a class="page-link" href="/waguwagu/hospitalinfo/list?page=1">1</a></li>
+				                <li class="page-item"><a class="page-link" href="/waguwagu/hospitalinfo/list?page=2">2</a></li>
+				                <li class="page-item"><a class="page-link" href="/waguwagu/hospitalinfo/list?page=3">3</a></li>
+				                <li class="page-item"><a class="page-link" href="/waguwagu/hospitalinfo/list?page=4">4</a></li>
+				                <li class="page-item"><a class="page-link" href="/waguwagu/hospitalinfo/list?page=5">5</a></li>
+				                <li class="page-item">
+				                    <a class="page-link" href="/waguwagu/hospitalinfo/list?page=${currentPage + 1}" aria-label="Next">
+				                        <span aria-hidden="true">&raquo;</span>
+				                    </a>
+				                </li>
+				            </ul>
+				        </div>
+				    </div>
+				</c:if>
+				
+				<c:if test="${not empty location}">
+				    <!-- location 있는 경우 -->
+				    <div class="d-flex justify-content-center" id="pagination-container-location">
+				        <div aria-label="Page navigation example">
+				            <ul class="pagination" id="pagination">
+				                <li class="page-item">
+				                    <a class="page-link" href="#" aria-label="Previous">
+				                        <span aria-hidden="true">&laquo;</span>
+				                    </a>
+				                </li>
+				            </ul>
+				        </div>
+				    </div>
+				</c:if>
 			   </div>
 			 </div>
 		</div>
@@ -430,52 +449,74 @@ $(document).ready(function () {
 </script>
 <!-- 페이지 번호를 변경하는 스크립트 추가 -->
 <script>
-    $(document).ready(function() {
-        // 라디오 버튼 클릭 이벤트 처리
-        $('input[type="radio"]').on('change', function() {
-            // 선택된 라디오 버튼의 값 (서울, 인천, ...) 가져오기
-            var selectedLocation = $('input[name="location"]:checked').val();
+    var list = document.getElementById('hospita-list').getElementsByClassName('li-list');
+    var pageNum = document.getElementById('pagination'); // 페이지 번호를 표시할 엘리먼트
+    var limitPerPage = 20;
+    var totalPages = Math.ceil(list.length / limitPerPage);
+    var currentPage = 1; // 현재 페이지 번호
 
-            // URL 동적으로 변경
-            var newUrl = '/waguwagu/hospitalinfo/loc?location=' + encodeURIComponent(selectedLocation) + '&page=1';
-            window.location.href = newUrl;
-        });
+    function showPage(page) {
+        var start = (page - 1) * limitPerPage;
+        var end = start + limitPerPage;
 
-        // 페이지 번호를 클릭하는 이벤트 처리
-        $('.pagination-item').on('click', function() {
-            // 클릭한 페이지 번호 가져오기
-            var clickedPage = $(this).text();
-
-            // 현재 선택된 라디오 버튼의 값 (서울, 인천, ...) 가져오기
-            var selectedLocation = $('input[name="location"]:checked').val();
-
-            // URL 동적으로 변경
-            var newUrl = '/waguwagu/hospitalinfo/loc?location=' + encodeURIComponent(selectedLocation) + '&page=' + clickedPage;
-            window.location.href = newUrl;
-        });
-    });
-    
- // 한 페이지당 표시될 항목 수
-    var itemsLimit = 15;
-
-    // 페이지 로딩 시 초기 설정
-    $(document).ready(function() {
-        // 페이지 로딩 시 한 페이지당 표시될 항목 수 설정
-        $('.hospital-item:gt(' + (itemsLimit - 1) + ')').hide();
-
-        // 페이지 로딩 시 전체 페이지 수 계산
-        var totalPages = Math.ceil($('.hospital-item').length / itemsLimit);
-
-        // 페이지네이션 버튼 생성
-        var pagination = '<ul class="pagination">';
-        for (var i = 1; i <= totalPages; i++) {
-            pagination += '<li class="pagination-item">' + i + '</li>';
+        for (var i = 0; i < list.length; i++) {
+            list[i].style.display = 'none';
         }
-        pagination += '</ul>';
 
-        // 페이지네이션 추가
-        $('.pagination-container').html(pagination);
-    });
+        for (var i = start; i < end; i++) {
+            if (list[i]) {
+                list[i].style.display = 'block';
+            }
+        }
+    }
+
+    function updatePagination() {
+        pageNum.innerHTML = ""; // 페이지 번호 엘리먼트 초기화
+
+        var startPage = Math.max(1, currentPage - 2); // 시작 페이지 번호
+        var endPage = Math.min(startPage + 4, totalPages); // 종료 페이지 번호
+
+        // 시작 페이지부터 종료 페이지까지 번호 표시
+        for (var i = startPage; i <= endPage; i++) {
+            pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='#' onclick='changePage(" + i + ")'>" + i + "</a></li>";
+        }
+
+        // 이전 페이지로 이동할 수 있는 버튼 표시
+        if (startPage > 1) {
+            pageNum.innerHTML = "<li class='page-item'><a class='page-link' href='#' onclick='prevPage()'>&laquo;</a></li>" + pageNum.innerHTML;
+        }
+
+        // 다음 페이지로 이동할 수 있는 버튼 표시
+        if (endPage < totalPages) {
+            pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='#' onclick='nextPage()'>&raquo;</a></li>";
+        }
+    }
+
+    function changePage(page) {
+        currentPage = page;
+        showPage(currentPage);
+        updatePagination();
+    }
+
+    function nextPage() {
+        if (currentPage < totalPages) {
+            currentPage++;
+            showPage(currentPage);
+            updatePagination();
+        }
+    }
+
+    function prevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            showPage(currentPage);
+            updatePagination();
+        }
+    }
+
+    // 초기 페이지 로딩 시 첫 페이지 표시
+    showPage(currentPage);
+    updatePagination();
 </script>
 
   <script src="<c:url value='/resources/vendors/jquery/jquery-3.2.1.min.js'/>"/></script>

@@ -26,6 +26,7 @@ import com.springmvc.domain.TeamWinning;
 import com.springmvc.repository.TeamWinningRepository;
 import com.springmvc.service.GameService;
 import com.springmvc.service.MatchService;
+import com.springmvc.service.TeamService;
 
 
 @Controller
@@ -40,6 +41,10 @@ public class GameController {
 
 	@Autowired
 	private MatchService matchService;
+	
+	@Autowired
+	private TeamService teamService;
+	
 	
 	@GetMapping
 	public String requestGameList(Model model)
@@ -86,8 +91,10 @@ public class GameController {
 	    // 세션에서 memberId 가져오기
 	    String memberId = (String) session.getAttribute("memberId");
 	    System.out.println("memberId=" + memberId);
-	    System.out.println("date"+game.getDate());
-	    System.out.println("stadium"+game.getStadium());
+	    
+	    String team = (String) session.getAttribute("team");
+	    model.addAttribute("myteam",team);
+	    System.out.println("팀"+ team);
 	    // 기존에 사용되던 Member 객체를 사용하지 않음
 
 	    model.addAttribute("memberId", memberId);
@@ -97,6 +104,23 @@ public class GameController {
 		//model.addAttribute("memberId",memberId);
 		//game.setUserId(memberId);
 		
+	    //팀아이디를 전달해서 teamservice의 팀이름 가져오기
+	    String teamName = teamService.getTeamName(team);
+	    
+	    // 모델에 팀 이름 추가
+	    model.addAttribute("teamName", teamName);
+	    
+	    //예약자 이름 추가
+	    String memberName = (String) session.getAttribute("Name");
+	    model.addAttribute("userName",memberName);
+	    System.out.println("이름은 "+memberName);
+	    
+	    String imageName = teamService.getTeamImage(team);
+	    System.out.println("이미지이름="+imageName);
+	    String imagePath = "/resources/images/"+imageName;
+	    model.addAttribute("image",imageName);
+			    
+	    
 		return "/Game/addGame";
 	}
 	
@@ -129,23 +153,37 @@ public class GameController {
 		System.out.println(gameId);
 		game.setGameId(gameId);
 
-		MultipartFile img = game.getGameImage();
+		// 세션에서 팀 정보 가져오기
+	    String team = (String) session.getAttribute("team");
+	    model.addAttribute("myteam", team);
+	    System.out.println("팀" + team);
+	    
+	    // 팀 이미지 파일 이름 가져오기
+	    String imageName = teamService.getTeamImage(team);
+	    System.out.println("이미지이름=" + imageName);
+	    
+	    // 매치의 이미지 파일 가져오기
+	    MultipartFile img = game.getGameImage();
 		
-		String saveName = img.getOriginalFilename();
-		String save = request.getSession().getServletContext().getRealPath("/resources/images");
-		File saveFile = new File(save,saveName);
-		
-		if(img!=null&&!img.isEmpty()) {
-			try {
-				img.transferTo(saveFile);
-				game.setFileName(saveName);
-			}
-			catch(Exception e) {
-				throw new RuntimeException("사진 등록 실패");
-			}
-		}
-		gameService.setNewGame(game);
-		return "redirect:/games";
+	    try {
+	        // 이미지 파일 이름 설정
+	        game.setFileName(imageName);
+	        
+	        // 이미지 파일 저장 경로 설정
+	        String saveName = img.getOriginalFilename();
+	        String save = request.getSession().getServletContext().getRealPath("/resources/images") + imageName;
+	        File saveFile = new File(save, saveName);
+	        
+	        // 파일 저장
+	        img.transferTo(saveFile);
+	        
+	        System.out.println("filname=" + game.getFileName());
+	    } catch (Exception e) {
+	        throw new RuntimeException("사진 등록 실패", e);
+	    }
+	    // Match 정보 저장
+	    gameService.setNewGame(game);
+	    return "redirect:/games";
 	}
 	
 	private String generateGameId(int length) {

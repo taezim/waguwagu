@@ -262,10 +262,10 @@
 			<!-- Start Best Seller -->
 			<section class="lattest-product-area pb-40 category-list">
 			  <div class="row">
-			    <div class="">
+			    <div class="" id="team-alllist">
 			      <ul>
 			        <c:forEach var="team" items="${teamList}">
-			          <li class="d-f shadow-sm p-3 mb-5 bg-body-tertiary rounded" aria-current="true">
+			          <li class="d-f shadow-sm p-3 mb-5 bg-body-tertiary rounded team-alllist" aria-current="true">
 			            <div class="card-product d-inline-flex">
 			              <div class="hospital-img" style="width: 30%;">
 			                <img class="img-fluid" src="<c:url value='/resources/images/${team.fileName}'/>" alt="" width="500px">
@@ -290,6 +290,17 @@
 			  </div>
 			</section>
 			<!-- End Best Seller -->
+			<div class="d-flex justify-content-center" id="pagination-container-location">
+				<div aria-label="Page navigation example">
+				    <ul class="pagination" id="pagination">
+				        <li class="page-item">
+				            <a class="page-link" href="#" aria-label="Previous">
+				                <span aria-hidden="true">&laquo;</span>
+				            </a>
+				        </li>
+				    </ul>
+				</div>
+			</div>			
         </div>
       </div>
     </div>
@@ -316,25 +327,88 @@
     });
 </script>
 
-   
-  <script href="<c:url value ='/resources/js/jquery-3.3.1.min.js'/>"></script>
-  <script href="<c:url value ='/resources/js/jquery-migrate-3.0.1.min.js'/>"></script>
-  <script scr="<c:url value ='/resources/js/jquery-ui.js'/>"></script>
-  <script scr="<c:url value ='/resources/js/popper.min.js'/>"></script>
-  <script scr="<c:url value ='/resources/js/bootstrap.min.js'/>"></script>
-  <script scr="<c:url value ='/resources/js/owl.carousel.min.js'/>"></script>
-  <script scr="<c:url value ='/resources/js/jquery.stellar.min.js'/>"></script>
-  <script scr="<c:url value ='/resources/js/jquery.countdown.min.js'/>"></script>
-  <script scr="<c:url value ='/resources/js/bootstrap-datepicker.min.js'/>"></script>
-  <script scr="<c:url value ='/resources/js/jquery.easing.1.3.js'/>"></script>
-  <script scr="<c:url value ='/resources/js/aos.js'/>"></script>
-  <script scr="<c:url value ='/resources/js/jquery.fancybox.min.js'/>"></script>
-  <script scr="<c:url value ='/resources/js/jquery.sticky.js'/>"></script>
-  <script scr="<c:url value ='/resources/js/jquery.mb.YTPlayer.min.js'/>"></script>
-
-  <script src="<c:url value ='/resources/js/main.js'/>"></script>
-
+  <script>
+	    var list = document.getElementById('team-alllist').getElementsByClassName('team-alllist');
+	    var pageNum = document.getElementById('pagination'); // 페이지 번호를 표시할 엘리먼트
+	    var limitPerPage = 5;
+	    var totalPages = Math.ceil(list.length / limitPerPage);
+	    var currentPage = 1; // 현재 페이지 번호
 	
+	    function showPage(page) {
+	        var start = (page - 1) * limitPerPage;
+	        var end = start + limitPerPage;
+	
+	        for (var i = 0; i < list.length; i++) {
+	            list[i].style.display = 'none';
+	        }
+	
+	        for (var i = start; i < end; i++) {
+	            if (list[i]) {
+	                list[i].style.display = 'block';
+	            }
+	        }
+	    }
+	
+	    function updatePagination() {
+	        pageNum.innerHTML = ""; // 페이지 번호 엘리먼트 초기화
+	
+	        var startPage = Math.max(1, currentPage - 2); // 시작 페이지 번호
+	        var endPage = Math.min(startPage + 4, totalPages); // 종료 페이지 번호
+	
+	        // 시작 페이지부터 종료 페이지까지 번호 표시
+	        for (var i = startPage; i <= endPage; i++) {
+	            pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='#' onclick='changePage(" + i + ")'>" + i + "</a></li>";
+	        }
+	
+	        // 이전 페이지로 이동할 수 있는 버튼 표시
+	        if (startPage > 1) {
+	            pageNum.innerHTML = "<li class='page-item'><a class='page-link' href='#' onclick='prevPage()'>&laquo;</a></li>" + pageNum.innerHTML;
+	        }
+	
+	        // 다음 페이지로 이동할 수 있는 버튼 표시
+	        if (endPage < totalPages) {
+	            pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='#' onclick='nextPage()'>&raquo;</a></li>";
+	        }
+	    }
+	
+	    function changePage(page) {
+	        currentPage = page;
+	        showPage(currentPage);
+	        updatePagination();
+	    }
+	
+	    function nextPage() {
+	        if (currentPage < totalPages) {
+	            currentPage++;
+	            showPage(currentPage);
+	            updatePagination();
+	        }
+	    }
+	
+	    function prevPage() {
+	        if (currentPage > 1) {
+	            currentPage--;
+	            showPage(currentPage);
+	            updatePagination();
+	        }
+	    }
+	
+	    // 초기 페이지 로딩 시 첫 페이지 표시
+	    showPage(currentPage);
+	    updatePagination();
+	</script>
+  
+   
+  <script src="<c:url value='/resources/vendors/jquery/jquery-3.2.1.min.js'/>"/></script>
+  <script src="<c:url value='/resources/vendors/bootstrap/bootstrap.bundle.min.js'/>"/></script>
+  <script src="<c:url value='/resources/vendors/skrollr.min.js'/>"/></script>
+  <script src="<c:url value='/resources/vendors/owl-carousel/owl.carousel.min.js'/>"/></script>
+  <script src="<c:url value='/resources/vendors/nice-select/jquery.nice-select.min.js'/>"/></script>
+  <script src="<c:url value='/resources/vendors/nouislider/nouislider.min.js'/>"/></script>
+  <script src="<c:url value='/resources/vendors/jquery.ajaxchimp.min.js'/>"/></script>
+  <script src="<c:url value='/resources/vendors/mail-script.js'/>"/></script>
+  <script src="<c:url value='/resources/js/main.js'/>"/></script>
+  <script src="<c:url value='/resources/js/test.js'/>"/></script>
 
 
 	

@@ -90,10 +90,22 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 	@Override
-	public String getTeamId(String userId) {
+	public String getTeamName(String teamId) {
 		try {
-	        String SQL = "select m_team from member where m_id=?";
-	        return template.queryForObject(SQL, String.class, userId);
+	        String SQL = "select t_name from team where t_id=?";
+	        return template.queryForObject(SQL, String.class, teamId);
+	    } catch (EmptyResultDataAccessException e) {
+	        // 예외가 발생하면 null을 반환하거나 다른 적절한 값을 반환할 수 있습니다.
+	        return null;
+	    }
+	}
+
+
+	@Override
+	public String getTeamImage(String teamId) {
+		try {
+	        String SQL = "select t_filename from team where t_id=?";
+	        return template.queryForObject(SQL, String.class, teamId);
 	    } catch (EmptyResultDataAccessException e) {
 	        // 예외가 발생하면 null을 반환하거나 다른 적절한 값을 반환할 수 있습니다.
 	        return null;

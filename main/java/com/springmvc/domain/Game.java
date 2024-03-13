@@ -1,7 +1,6 @@
 package com.springmvc.domain;
 
 import java.io.Serializable;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class Game implements Serializable {
 	private String fileName;
 	private MultipartFile gameImage;
 	private Match match;
-	private List<Match> matches = new ArrayList<>();
+	private List<Match> matches = new ArrayList<Match>();
 	
 	public List<Match> getMatches(){
 		return matches;

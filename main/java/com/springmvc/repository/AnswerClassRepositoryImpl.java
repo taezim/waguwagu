@@ -66,10 +66,10 @@ public class AnswerClassRepositoryImpl implements AnswerClassRepository{
 	public void createClassanswer(Classanswer classanswer) {
 	    // TODO Auto-generated method stub
 	    System.out.println("add Repository");
-	    String SQL = "INSERT INTO classanswer (answernumber,questionnumber,respondentid,answercontent,replaydate,classid)" + "VALUES(?,?,?,?,?,?)";
+	    String SQL = "INSERT INTO classanswer (questionnumber,respondentid,answercontent)" + "VALUES(?,?,?)";
 	    
-	    template.update(SQL, classanswer.getAnswernumber(),classanswer.getQuestionnumber(),classanswer.getRespondentid(),
-	            classanswer.getAnswercontent(),classanswer.getReplaydate(),classanswer.getClassid());
+	    template.update(SQL, classanswer.getQuestionnumber(),classanswer.getRespondentid(),
+	            classanswer.getAnswercontent());
 	    
 	    listOfclassanswer.add(classanswer);
 	}

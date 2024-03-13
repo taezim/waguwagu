@@ -1,16 +1,14 @@
 package com.springmvc.service;
-import org.jdom2.Element;
-import org.springframework.stereotype.Service;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
+import org.springframework.stereotype.Service;
 @Service
 public class Jdom {
 

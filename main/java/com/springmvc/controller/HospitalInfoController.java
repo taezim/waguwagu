@@ -1,39 +1,29 @@
+
 package com.springmvc.controller;
 
 import java.io.File;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.jdom2.input.SAXBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.springmvc.domain.Hospital;
 import com.springmvc.domain.HospitalInfo;
 import com.springmvc.domain.HospitalReview;
 import com.springmvc.repository.HospitalInfoRepository;
 import com.springmvc.service.HospitalReviewService;
 import com.springmvc.service.Jdom;
-
-import org.jdom2.Document;
-import org.jdom2.Element;
 
 @Controller
 @RequestMapping("/hospitalinfo")
@@ -100,7 +90,7 @@ public class HospitalInfoController {
 	
 	String team = (String) session.getAttribute("team");
 	model.addAttribute("myteam",team);
-	model.addAttribute("location",location);
+
 	
 	// 모델에 데이터 추가
     model.addAttribute("dataList", hospitals);
@@ -160,3 +150,4 @@ public class HospitalInfoController {
 	}
 	
 }
+

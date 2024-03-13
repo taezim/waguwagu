@@ -70,7 +70,7 @@ public class GameRepositoryImpl implements GameRepository{
 	@Override
 	public Game readGameById(String gameId) {
 		String SQL = "SELECT * FROM game g LEFT JOIN matching m ON g.g_id = m.g_id WHERE g.g_id = ?";
-		Map<String, Game> gameMap = new HashMap<>();
+		Map<String, Game> gameMap = new HashMap<String, Game>();
 	    
 	    template.query(SQL, new Object[]{gameId}, rs -> {
 	        String currentGameId  = rs.getString("g.g_id");

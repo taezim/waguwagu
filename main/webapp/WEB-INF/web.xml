@@ -3,7 +3,6 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-<<<<<<< HEAD
 
    <!-- web.xml은 웹 애플리케이션의 초기 설정을 담당하며, 
         스프링 애플리케이션의 루트 애플리케이션 
@@ -24,28 +23,16 @@
 
 
 
-=======
-  <!-- 1. root-context 생성 -->
-   <context-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>/WEB-INF/spring/root-context.xml</param-value>
-   </context-param>
-   
->>>>>>> ad2e2c5c3754155773093c6487dd25d17cd83483
 
    <listener>
       <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
    </listener>
 
-<<<<<<< HEAD
 
    <!-- Processes application requests -->
 
 	<!-- 2. servlet-context.xml 생성  -->
 
-=======
-	<!-- 2. servlet-context.xml 생성  -->
->>>>>>> ad2e2c5c3754155773093c6487dd25d17cd83483
    <servlet>
       <servlet-name>appServlet</servlet-name>
       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -60,11 +47,8 @@
       <servlet-name>appServlet</servlet-name>
       <url-pattern>/</url-pattern>
    </servlet-mapping>
-<<<<<<< HEAD
 	
 
-=======
->>>>>>> ad2e2c5c3754155773093c6487dd25d17cd83483
    
    <!-- 한글 인코딩 설정 -->
    <filter>
@@ -81,7 +65,6 @@
       <url-pattern>/*</url-pattern>
    </filter-mapping>
    
-<<<<<<< HEAD
 
   
    
@@ -99,27 +82,10 @@
 	
 	
 	<!-- 시작페이지 설정 -->
-=======
-	<!-- chap 14 -->
-	<filter>
-		<filter-name>httpMethodFilter</filter-name>
-		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
-	</filter>
-	   
-	<filter-mapping>
-		<filter-name>httpMethodFilter</filter-name>
-		<servlet-name>appServlet</servlet-name>
-	</filter-mapping>
-
- <!-- 시작페이지 설정 -->
->>>>>>> ad2e2c5c3754155773093c6487dd25d17cd83483
     <welcome-file-list>
         <welcome-file>/WEB-INF/views/home.jsp</welcome-file>
     </welcome-file-list>
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> ad2e2c5c3754155773093c6487dd25d17cd83483
 </web-app>

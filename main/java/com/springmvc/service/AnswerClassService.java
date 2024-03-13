@@ -20,7 +20,7 @@ public interface AnswerClassService {
 		
 		//C
 		
-		void createClassanswer(Classanswer classanswer);
+		Classanswer createClassanswer(Classanswer classanswer);
 
 		//U
 		void updateClassanswer(Classanswer ananswer); 

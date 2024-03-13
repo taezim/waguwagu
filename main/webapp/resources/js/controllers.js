@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 function deleteConfirm(id){
@@ -11,6 +12,8 @@ function createMember(action){
 	alert("회원가입이 되었습니다!");
 }
 
+=======
+>>>>>>> ad2e2c5c3754155773093c6487dd25d17cd83483
 /**
  * 
  */
@@ -42,4 +45,8 @@ function deleteConfirm(number)
 {
 	if(confirm("삭제합니다!!")==true) location.href = "./delete?number=" +number;
 	else return;	
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> ad2e2c5c3754155773093c6487dd25d17cd83483

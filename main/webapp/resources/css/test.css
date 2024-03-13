@@ -1,0 +1,272 @@
+@charset "UTF-8";
+
+*{
+  /* border:0.1px solid black; */
+  list-style: none;
+}
+.heart
+{
+  position: absolute;
+  bottom: 5%;
+  left: 3%;
+  font-size: 1.2rem;
+  color: rgb(79, 155, 253);
+}
+.hospital-img
+{
+  position: relative;
+}
+.fa-solid
+{
+  display: none;
+}
+
+.fa-regular:hover ~ .fa-solid
+{
+  display: block;
+}
+
+/*라디오버튼에 따른 출력*/
+
+
+input[type=radio]{
+	display: none;
+}
+#all:checked ~ #hospitallist li {
+	display:block;
+}
+#seoul:checked ~ #hospitalist li {
+	display: none;
+}
+#seoul:checked ~ #hospitalist .seoul{
+	display: block;	
+}
+#seoul:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+
+#incheon:checked ~ #hospitalist li {
+	display: none;
+}
+#incheon:checked ~ #hospitalist .incheon{
+	display: block;	
+}
+#incheon:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+#gyeonggi:checked ~ #hospitalist li {
+	display: none;
+}
+#gyeonggi:checked ~ #hospitalist .gyeonggi{
+	display: block;	
+}
+#gyeonggi:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+#gyeongnam:checked ~ #hospitalist li {
+	display: none;
+}
+#gyeongnam:checked ~ #hospitalist .gyeongnam{
+	display: block;	
+}
+#gyeongnam:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+#busan:checked ~ #hospitalist li {
+	display: none;
+}
+#busan:checked ~ #hospitalist .busan{
+	display: block;	
+}
+#busan:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+#ulsan:checked ~ #hospitalist li {
+	display: none;
+}
+#ulsan:checked ~ #hospitalist .ulsan{
+	display: block;	
+}
+#ulsan:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+#gyeongbuk:checked ~ #hospitalist li {
+	display: none;
+}
+#gyeongbuk:checked ~ #hospitalist .gyeongbuk{
+	display: block;	
+}
+#gyeongbuk:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+
+#daegu:checked ~ #hospitalist li {
+	display: none;
+}
+#daegu:checked ~ #hospitalist .daegu{
+	display: block;	
+}
+#daegu:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+#junnam:checked ~ #hospitalist li {
+	display: none;
+}
+#junnam:checked ~ #hospitalist .junnam{
+	display: block;	
+}
+#junnam:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+
+#gwangju:checked ~ #hospitalist li {
+	display: none;
+}
+#gwangju:checked ~ #hospitalist .gwangju{
+	display: block;	
+}
+#gwangju:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+
+
+#junbuk:checked ~ #hospitalist li {
+	display: none;
+}
+#junbuk:checked ~ #hospitalist .junbuk{
+	display: block;	
+}
+#junbuk:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+#daejeon:checked ~ #hospitalist li {
+	display: none;
+}
+#daejeon:checked ~ #hospitalist .daejeon{
+	display: block;	
+}
+#daejeon:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+#chungnam:checked ~ #hospitalist li {
+	display: none;
+}
+#chungnam:checked ~ #hospitalist .chungnam{
+	display: block;	
+}
+#chungnam:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+
+#chungbuk:checked ~ #hospitalist li {
+	display: none;
+}
+#chungbuk:checked ~ #hospitalist .chungbuk{
+	display: block;	
+}
+#chungbuk:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+
+#jeju:checked ~ #hospitalist li {
+	display: none;
+}
+#jeju:checked ~ #hospitalist .jeju{
+	display: block;	
+}
+#jeju:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+#C:checked ~ #hospitalist li {
+	display: none;
+}
+#C:checked ~ #hospitalist .c{
+	display: block;	
+}
+#C:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+
+#pitcher:checked ~ #hospitalist li {
+	display: none;
+}
+#pitcher:checked ~ #hospitalist .pitcher{
+	display: block;	
+}
+#pitcher:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+#DH:checked ~ #hospitalist li {
+	display: none;
+}
+#DH:checked ~ #hospitalist .dh{
+	display: block;	
+}
+#DH:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+
+#SS:checked ~ #hospitalist li {
+	display: none;
+}
+#SS:checked ~ #hospitalist .ss{
+	display: block;	
+}
+#SS:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+#LF:checked ~ #hospitalist li {
+	display: none;
+}
+#LF:checked ~ #hospitalist .lf{
+	display: block;	
+}
+#LF:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+
+
+#RF:checked ~ #hospitalist li {
+	display: none;
+}
+#RF:checked ~ #hospitalist .rf{
+	display: block;	
+}
+#RF:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+
+
+#CF:checked ~ #hospitalist li {
+	display: none;
+}
+#CF:checked ~ #hospitalist .cf{
+	display: block;	
+}
+#CF:checked ~ #hospitalist .page-item{
+	display: block;	
+}
+
+
+

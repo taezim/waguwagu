@@ -18,7 +18,9 @@
 
 </head>
 <body>
+    <!-- 240313  -->
     <div id="map"></div>
+    
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3d11e0bb227b703979f79244fb4d7e70"></script>
   <!-- 문제를 발생시키는 스크립트 -->
 <script src="https://t1.daumcdn.net/mapjsapi/js/main/4.4.14/v3.js"></script>

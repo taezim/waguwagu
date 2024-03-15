@@ -178,7 +178,7 @@
 						        <div class="col-md-12">
 						            <div class="form-group">
 						                <!-- classplus 객체의 date 필드를 바인딩합니다. -->
-						                <input type="respondentid"  class="form-control" id="respondentid" name="respondentid" placeholder="id를 입력하세요"/>
+						                <input type="respondentid"  class="form-control" id="respondentid" name="respondentid" placeholder="답변자 id를 입력하세요"/>
 						            </div>
 						        </div>
 						        <div class="col-md-12">

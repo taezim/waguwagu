@@ -58,6 +58,12 @@ public class AnswerClassServiceImpl implements AnswerClassService{
 		answerRepository.deleteClassanswer(number);
 	}
 
+	@Override
+	public List<Classanswer> readAllclassanswerListstwo(String idname) {
+		// TODO Auto-generated method stub
+		return answerRepository.readAllClassanswerListtwo(idname);
+	}
+
 	
 
 	

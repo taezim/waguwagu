@@ -178,13 +178,19 @@
 						        <div class="col-md-12">
 						            <div class="form-group">
 						                <!-- classplus 객체의 date 필드를 바인딩합니다. -->
-						                <input type="respondentid"  class="form-control" id="respondentid" name="respondentid" placeholder="id를 입력하세요"/>
+						                <input type="respondentid"  class="form-control" id="respondentid" name="respondentid" placeholder="답변자 id를 입력하세요"/>
 						            </div>
 						        </div>
 						        <div class="col-md-12">
 						            <div class="form-group">
 						                <!-- classplus 객체의 content 필드를 바인딩합니다. -->
-						                <textarea class="form-control"  name="answercontent" id="answercontent" rows="1" cols="5" placeholder="글을 작성하세요."></textarea>
+						                <textarea class="form-control"  name="answercontent" id="answercontent" rows="1"  placeholder="글을 작성하세요."></textarea>
+						            </div>
+						        </div>
+						         <div class="col-md-12">
+						            <div class="form-group">
+						                <!-- classplus 객체의 content 필드를 바인딩합니다. -->
+						                <input class="form-control"  name="classid" id="classid"  placeholder="classid를 작성하세요." />
 						            </div>
 						        </div>
 						        <div class="col-md-12 text-right">

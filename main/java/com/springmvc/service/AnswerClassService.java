@@ -10,6 +10,8 @@ public interface AnswerClassService {
 		
 		List<Classanswer> readAllclassanswerLists();
 		
+		List<Classanswer> readAllclassanswerListstwo(String idname);
+		
 		//하나만 가져올 때 
 
 		Classanswer readClassanswerBynumber(String classnumber);

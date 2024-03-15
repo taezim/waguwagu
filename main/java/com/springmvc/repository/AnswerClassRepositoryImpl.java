@@ -37,6 +37,15 @@ public class AnswerClassRepositoryImpl implements AnswerClassRepository{
 	    System.out.println("repository : " + listOfclassanswer);    
 	    return listOfclassanswer;
 	}
+	
+	@Override
+	public List<Classanswer> readAllClassanswerListtwo(String classid) {
+	    String SQL = "SELECT * FROM classanswer WHERE classid = ?";
+	    List<Classanswer> listOfclassanswer = template.query(SQL, new Object[]{classid}, new ClassAnswerRowMapper());
+	    System.out.println("repository : " + listOfclassanswer);    
+	    return listOfclassanswer;
+	}
+	
 
 	public Classanswer readClassanswerBynumber(String classnumber) {
 	    // TODO Auto-generated method stub
@@ -66,10 +75,10 @@ public class AnswerClassRepositoryImpl implements AnswerClassRepository{
 	public void createClassanswer(Classanswer classanswer) {
 	    // TODO Auto-generated method stub
 	    System.out.println("add Repository");
-	    String SQL = "INSERT INTO classanswer (questionnumber,respondentid,answercontent)" + "VALUES(?,?,?)";
+	    String SQL = "INSERT INTO classanswer (questionnumber,respondentid,answercontent,classid)" + "VALUES(?,?,?,?)";
 	    
 	    template.update(SQL, classanswer.getQuestionnumber(),classanswer.getRespondentid(),
-	            classanswer.getAnswercontent());
+	            classanswer.getAnswercontent(),classanswer.getClassid());
 	    
 	    listOfclassanswer.add(classanswer);
 	}

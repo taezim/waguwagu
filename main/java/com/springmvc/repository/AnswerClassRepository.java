@@ -30,4 +30,6 @@ public interface AnswerClassRepository {
 
 	//D
 	void deleteClassanswer(String classnumber);
+
+	List<Classanswer> readAllClassanswerListtwo(String classidone);
 }

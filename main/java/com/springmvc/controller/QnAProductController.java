@@ -65,6 +65,7 @@ public class QnAProductController {
 	
 		return "redirect:/productquestion";
 	}	
+	
 	@GetMapping("/productupdate") // URL Mapping 수정
 	@ResponseBody
 	public Productqna Updateproductqnaget(@RequestParam("productid") String productid, Model model) {

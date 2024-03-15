@@ -7,6 +7,7 @@ import com.springmvc.domain.Classqna;
 public interface QnAClassService {
 
 	List<Classqna> readAllClassqnaList();
+	
 
 	//하나만 가져올 때
 	Classqna readClassqnaBynumber(String classnumber);

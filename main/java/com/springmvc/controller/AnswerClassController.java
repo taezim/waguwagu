@@ -2,6 +2,8 @@ package com.springmvc.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,7 @@ public class AnswerClassController {
 
 	@Autowired
 	private AnswerClassService answerService;
+	private HttpSession	httpsession;
 		
 //					Class	Controller Line	
 
@@ -58,18 +61,23 @@ public class AnswerClassController {
 
 	// GET 요청을 처리하는 메서드
     @GetMapping("/classadd")
-    public String createClassGetQnA(@ModelAttribute("classcreateanswer") Classanswer classnewanswer) {
+    public String createClassGetQnA(@RequestParam("classid") String classid, @ModelAttribute("classcreateanswer") Classanswer classnewanswer) {
         return "/answer/classanswer/classcreateans";
     }
 
     // POST 요청을 처리하는 메서드
-    @PostMapping("/classadd")
-    public String createClassPostQnA(@ModelAttribute("classcreateanswer") Classanswer classanswer, Model model) {
+	    @PostMapping("/classadd")
+	    public String createClassPostQnA( @ModelAttribute("classcreateanswer") Classanswer classanswer, Model model,HttpSession httpsession) {
         // answerService를 사용하여 객체를 가져옵니다.
         Classanswer classValue = answerService.createClassanswer(classanswer);
+
+        // 답변에 대한 정보를 모델에 추가합니다.
         model.addAttribute("classkey", classValue);
+        httpsession.setAttribute("classid", classanswer.getClassid());
+        
         return "redirect:/classquestion";
     }
+
 
 	//Update
 

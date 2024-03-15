@@ -166,19 +166,19 @@
 						<h3>팀 수정</h3>
 						<form:form class="row login_form" id="contactForm" modelAttribute="updateTeam" enctype="multipart/form-data">
 							<div class="col-md-12 form-group">
-								<form:input path="teamId" class="form-control" id="name" name="name" value="${team.teamId}" placeholder="구단아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '팀아이디'" />
+								<form:input path="teamId" class="form-control" id="teamId" name="teamId" value="${team.teamId}" placeholder="구단아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '팀아이디'" />
 							</div>
 							<div class="col-md-12 form-group">
-								<form:input path="teamName" type="text" class="form-control" id="name" name="name" value="${team.teamName}" placeholder="팀명" onfocus="this.placeholder = ''" onblur="this.placeholder = '팀명'" />
+								<form:input path="teamName" type="text" class="form-control" id="teamName" name="teamName" value="${team.teamName}" placeholder="팀명" onfocus="this.placeholder = ''" onblur="this.placeholder = '팀명'" />
 							</div>
 							<div class="col-md-12 form-group">
-								<form:input path="memberNumber" type="number" class="form-control" id="name" name="name" value="${team.memberNumber}" placeholder="인원수" onfocus="this.placeholder = ''" onblur="this.placeholder = '인원수'" />
+								<form:input path="memberNumber" type="number" class="form-control" id="memberNumber" name="memberNumber" value="${team.memberNumber}" placeholder="인원수" onfocus="this.placeholder = ''" onblur="this.placeholder = '인원수'" />
 							</div>
 							<div class="col-md-12 form-group">
-								<form:input path="phoneNumber" type="text" class="form-control" id="name" name="name" value="${team.phoneNumber}" placeholder="대표자번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '대표자번호'" />
+								<form:input path="phoneNumber" type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="${team.phoneNumber}" placeholder="대표자번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '대표자번호'" />
 							</div>
 							<div class="col-md-12 form-group">
-								<form:input path="leaderName" type="text" class="form-control" id="name" name="name" value="${team.leaderName}" placeholder="대표자이름" onfocus="this.placeholder = ''" onblur="this.placeholder = '대표자이름'" />
+								<form:input path="leaderName" type="text" class="form-control" id="leaderName" name="leaderName" value="${team.leaderName}" placeholder="대표자이름" onfocus="this.placeholder = ''" onblur="this.placeholder = '대표자이름'" />
 							</div>
 							<div class="col-md-12 form-group">
 							    선호지역
@@ -200,10 +200,10 @@
 							    <input type="hidden" id="prefArea" name="prefArea" value="${team.prefArea}"/>
 							</div>
 							<div class="col-md-12 form-group">
-								<form:textarea path="description" value="${team.prefArea}" rows="4" cols="50" class="form-control" id="name" name="name"  />
+								<form:textarea path="description" value="${team.description}" rows="4" cols="50" class="form-control" id="description" name="description"  />
 							</div>
 							<div class="col-md-12 form-group">
-								<form:input path="teamImage" type="file" value="${team.teamImage}" class="form-control" id="name" name="name" placeholder="구단사진" onfocus="this.placeholder = ''" onblur="this.placeholder = '구단사진'" />
+								<form:input path="teamImage" type="file" value="${team.teamImage}" class="form-control" id="teamImage" name="teamImage" placeholder="구단사진" onfocus="this.placeholder = ''" onblur="this.placeholder = '구단사진'" />
 							</div>
 							<div class="col-md-12 form-group">
 								<button type="submit" value="submit" class="button button-login w-100">등록</button>

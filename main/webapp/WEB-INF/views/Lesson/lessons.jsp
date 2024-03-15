@@ -228,7 +228,7 @@
 						                    <h2 class="">${list.className}</h2>
 						                    <div id="cityname" class="subheading mb-3 cityname">${list.subject}</div>
 						                    
-						                    <p align="left">${fn:substring(ls.description, 0, 100)}...</p>
+						                    <p align="left">${fn:substring(list.description, 0, 100)}...</p>
 						                </div>
 						            </div>
 						        </div>

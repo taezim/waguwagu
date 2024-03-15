@@ -445,6 +445,10 @@
 								            </div>
 								        </div>
 								        <p>${review.reviewContent}</p>
+								        <div class="text-md-right">
+		      								<a href="javascript:void(0);" class="redit_button" data-reviewid="${review.reviewId}" data-hospitalid="${review.hospitalId}">수정하기</a>
+		      								<a href="<c:url value='/hospital/review/delete?id=${review.reviewId}&hospitalId=${review.hospitalId}'/>" class="btn" onclick="return deleteConfirm('${review.reviewId}')" style="color:red">삭제</a>			                        
+				                        </div>
 								    </div>
 							    </c:forEach>
 							</div>
@@ -473,7 +477,35 @@
 									<li><a href="#"><i class="fa fa-star"></i></a></li>
 								</ul>
 								<!-- <p>Outstanding</p> -->
-				                <form:form action="/waguwagu/hospital/review/add" method="post" class="form-contact form-review mt-3" modelAttribute="addReview" >
+								<div id="editFormWrapper" style="display:none;">
+									<form:form id="editForm" action="/waguwagu/hospital/review/add" method="post" class="form-contact form-review mt-3" modelAttribute="addReview" >
+					                  <div class="form-group">
+					                    <input path="name" id="editName" class="form-control" name="name" type="text" placeholder="이름을 입력하세요." value="${review.name}">
+					                  </div>
+					                  <div class="form-group">
+					                    <input type="text" id="edithospitalid" path="hospitalId" class="form-control" name="hospitalId" value="${review.hospitalId}" >
+					                  </div>
+					                  <div class="form-group">
+					                    <input type="date" path="reviewDate" id="eidtdate" class="form-control" name="reviewDate" value="${review.reviewDate}">
+					                  </div>
+					                  <div class="form-group">
+					                    <input type="text" id="editscore" path="reviewRating" class="form-control" name="reviewRating" placeholder="평점을 입력하세요." value="${review.reviewRating}">
+					                  </div>
+					                  <div class="form-group">
+					                    <input path="userId" id="editemail" class="form-control" name="userId" type="email" value="${review.userId}" placeholder="이메일을 입력하세요." required>
+					                  </div>
+					                  <div class="form-group">
+					                    <input path="title" id="edittitle" class="form-control" name="title" type="text" placeholder="제목을 입력하세요." value="${review.title}">
+					                  </div>
+					                  <div class="form-group">
+					                    <textarea path="reviewContent" id="editContent" class="form-control different-control w-100" name="reviewContent" id="textarea" cols="30" rows="5" placeholder="글을 작성하세요." value="${review.reviewContent}"></textarea>
+					                  </div>
+					                  <div class="form-group text-center text-md-right mt-3">
+					                    <button type="submit" class="button button--active button-review">수정하기</button>
+					                  </div>
+					                </form:form>
+								</div>
+				                <form:form id="realForm" action="/waguwagu/hospital/review/add" method="post" class="form-contact form-review mt-3" modelAttribute="addReview" >
 				                  <div class="form-group">
 				                    <input path="name" class="form-control" name="name" type="text" placeholder="이름을 입력하세요." required>
 				                  </div>
@@ -619,7 +651,7 @@
 
 
 
-<!-- 페이징처리 -->
+	<!-- 페이징처리 -->
 	<script>
 	/* 3개 글 보기 */
 	     var list = document.getElementById('review_list').getElementsByClassName('review_item');
@@ -680,7 +712,39 @@
     updatePagination();
 	
 </script>
-	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	
+<script>
+
+    $('.redit_button').click(function() {
+        console.log("xx");
+        var reviewId = $(this).data('reviewid');
+        var hospitalId = $(this).data('hospitalid'); // lessonId 가져오기
+       	console.log("reviewId",reviewId);
+        console.log("hospitalId",hospitalId)
+        $('#realForm').hide(); // 등록 폼 숨기기
+        $('#editFormWrapper').show();
+
+
+        $.ajax({
+            url: '/waguwagu/hospital/review/update',
+            type: 'GET',
+            data: { id: reviewId, hospitalId: hospitalId }, //파라미터 
+            success: function(result) {  // 수정 필요한 부분
+            	//console.log(result.review.reviewId);
+                $('#editName').val(result.name);
+                $('#edithospitalid').val(result.hospitalId);
+                $('#eidtdate').val(result.reviewDate);
+                $('#editscore').val(result.reviewRating);
+                $('#editemail').val(result.userId);
+                $('#edittitle').val(result.title);
+                $('#editContent').val(result.reviewContent);
+            }
+        });
+    });
+
+</script>	
+
+
   <script src="<c:url value='/resources/vendors/jquery/jquery-3.2.1.min.js'/>"/></script>
   <script src="<c:url value='/resources/vendors/bootstrap/bootstrap.bundle.min.js'/>"/></script>
   <script src="<c:url value='/resources/vendors/skrollr.min.js'/>"/></script>

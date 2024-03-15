@@ -43,74 +43,84 @@
 <body>
 	<!--================ Start Header Menu Area =================-->
 	<header class="header_area">
-		<div class="main_menu">
-		  <nav class="navbar navbar-expand-lg navbar-light">
-			<div class="container">
-			  <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
-			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			  </button>
-			  <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-				<ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-				  <li class="nav-item"><a class="nav-link" href="index.html">홈</a></li>
-				  <li class="nav-item"><a class="nav-link" href="index.html">쇼핑</a></li>
-				  <li class="nav-item active submenu dropdown">
-					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-					  aria-expanded="false">구단</a>
-					<ul class="dropdown-menu">
-					  <li class="nav-item"><a class="nav-link" href="category.html">구단등록</a></li>
-					  <li class="nav-item"><a class="nav-link" href="single-product.html">구단목록</a></li>
-					  <li class="nav-item"><a class="nav-link" href="checkout.html">구단랭킹</a></li>
-					  <li class="nav-item"><a class="nav-link" href="confirmation.html">나의구단</a></li>
-					</ul>
+	    <div class="main_menu">
+	      <nav class="navbar navbar-expand-lg navbar-light">
+	        <div class="container">
+	          <a class="navbar-brand logo_h" href="index.html">
+	          	<img src="<c:url value='/resources/img/baseball.png'/>" alt=''/>
+	          </a>
+	          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+	            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	          </button>
+	          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+	            <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
+	              <li class="nav-item"><a class="nav-link" href="index.html">홈</a></li>
+	              <li class="nav-item"><a class="nav-link" href="index.html">쇼핑</a></li>
+	              <li class="nav-item active submenu dropdown">
+	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+	                  aria-expanded="false">구단</a>
+	                <ul class="dropdown-menu">
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/add">구단등록</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team">구단목록</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/result/ranks">구단랭킹</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/team?id=${myteam}">나의구단</a></li>
+	                </ul>
+	              </li>
+	              <li class="nav-item submenu dropdown">
+	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+	                  aria-expanded="false">경기</a>
+	                <ul class="dropdown-menu">
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/games/add">게임등록</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/games">경기목록</a></li>
+	                </ul>
+	              </li>
+	              <li class="nav-item submenu dropdown">
+	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+	                  aria-expanded="false">클래스</a>
+	                <ul class="dropdown-menu">
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons/add">클래스등록</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons">클래스목록</a></li>
+	                </ul>
 								</li>
-				  <li class="nav-item submenu dropdown">
-					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-					  aria-expanded="false">클래스</a>
-					<ul class="dropdown-menu">
-					  <li class="nav-item"><a class="nav-link" href="blog.html">클래스?</a></li>
-					  <li class="nav-item"><a class="nav-link" href="single-blog.html">클래스목록</a></li>
-					</ul>
-								</li>
-				  <li class="nav-item submenu dropdown">
-					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-					  aria-expanded="false">경기장</a>
-					<ul class="dropdown-menu">
-					  <li class="nav-item"><a class="nav-link" href="blog.html">경기장목록</a></li>
-					  <li class="nav-item"><a class="nav-link" href="single-blog.html">경기장예약</a></li>
-					</ul>
-								</li>
-				  <li class="nav-item submenu dropdown">
-					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-					  aria-expanded="false">관광</a>
-					<ul class="dropdown-menu">
-					  <li class="nav-item"><a class="nav-link" href="blog.html">맛집</a></li>
-					  <li class="nav-item"><a class="nav-link" href="single-blog.html">둘러볼곳</a></li>
-					</ul>
-								</li>
-								<li class="nav-item submenu dropdown">
-					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-					  aria-expanded="false">의료</a>
-					<ul class="dropdown-menu">
-					  <li class="nav-item"><a class="nav-link" href="login.html">병원목록</a></li>
-					  <li class="nav-item"><a class="nav-link" href="register.html">병원예약</a></li>
-					  <li class="nav-item"><a class="nav-link" href="tracking-order.html">재활추천</a></li>
-					</ul>
-				  </li>
-				</ul>
+	              <li class="nav-item submenu dropdown">
+	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+	                  aria-expanded="false">경기장</a>
+	                <ul class="dropdown-menu">
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/">경기장목록</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="single-blog.html">경기장예약</a></li>
+	                </ul>
+				</li>
+				<li class="nav-item submenu dropdown">
+	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+	                  aria-expanded="false">의료</a>
+	                <ul class="dropdown-menu">
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">병원목록</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/Hospital/">병원예약</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="tracking-order.html">재활추천</a></li>
+	                </ul>
+	              </li>
+	            </ul>
 	
-				<ul class="nav-shop">
-				  <li class="nav-item"><button><i class="ti-search"></i></button></li>
-				  <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
-				  <li class="nav-item"><button><i class="fas fa-user"></i></button></li>
-				</ul>
-			  </div>
-			</div>
-		  </nav>
-		</div>
+	            <ul class="nav-shop">
+	              <li class="nav-item"><button><i class="ti-search"></i></button></li>
+	              <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
+	              <li class="nav-item"><button><i class="fas fa-user"></i></button></li>
+	            </ul>
+	           <c:if test="${empty sessionScope.memberId }">
+	            	<a href="/waguwagu/member/login">로그인</a>
+	            </c:if>
+	            <c:if test="${not empty sessionScope.memberId}">
+				    <form action="/waguwagu/member/logout" method="post">
+				        <input type="submit" value="로그아웃" style="border: none; background: none;  color:rgb(79, 155, 253)">
+				    </form>
+				</c:if>
+	          </div>
+	        </div>
+	      </nav>
+	    </div>
 	  </header>
 		<!--================ End Header Menu Area =================-->
 	<!-- ================ start banner area ================= -->	
@@ -624,15 +634,14 @@
 	<!--================ end related Product area =================-->  	
 
 
+  <script src="<c:url value='/resources/vendors/jquery/jquery-3.2.1.min.js'/>"/></script>
+  <script src="<c:url value='/resources/vendors/bootstrap/bootstrap.bundle.min.js'/>"/></script>
+  <script src="<c:url value='/resources/vendors/skrollr.min.js'/>"/></script>
+  <script src="<c:url value='/resources/vendors/owl-carousel/owl.carousel.min.js'/>"/></script>
+  <script src="<c:url value='/resources/vendors/nice-select/jquery.nice-select.min.js'/>"/></script>
+  <script src="<c:url value='/resources/vendors/jquery.ajaxchimp.min.js'/>"/></script>
+  <script src="<c:url value='/resources/vendors/mail-script.js'/>"/></script>
+  <script src="<c:url value='/resources/js/main.js'/>"/></script>
 
-
-  <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
-  <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="vendors/skrollr.min.js"></script>
-  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-  <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
-  <script src="vendors/jquery.ajaxchimp.min.js"></script>
-  <script src="vendors/mail-script.js"></script>
-  <script src="js/main.js"></script>
 </body>
 </html>

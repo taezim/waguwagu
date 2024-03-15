@@ -36,7 +36,7 @@ public class LessonReviewRepositoryImpl implements LessonReviewRepository{
 		
 		String SQL = "SELECT COUNT(*) FROM l_review WHERE lr_id=?";
 		int rowCount = template.queryForObject(SQL,Integer.class, reviewId);
-		
+		System.out.println("rowCount : " + rowCount);
 		if(rowCount!=0) {
 			SQL="SELECT * FROM l_review WHERE lr_id=?";
 			reviewInfo = template.queryForObject(SQL,new Object[] {reviewId}, new LessonReviewRowMapper());
@@ -57,8 +57,10 @@ public class LessonReviewRepositoryImpl implements LessonReviewRepository{
 	@Override
 	public void setUpdateReview(LessonReview lessonReview) {
 		
+		System.out.println("업데이트거든 왜 안될까?");
 		
 		String SQL = "UPDATE l_review SET lessonid=?, lr_userId=?, lr_date=?, lr_content=?, lr_score=?,name=?,title=? WHERE lr_id=?";
+		System.out.println("업데이트"+SQL);
 		template.update(SQL,lessonReview.getLessonId(), lessonReview.getUserId(), lessonReview.getDate(), lessonReview.getContent(), lessonReview.getScore(), lessonReview.getName(),lessonReview.getTitle(), lessonReview.getReviewId());
 		
 		

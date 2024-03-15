@@ -72,7 +72,7 @@
 </style>
 <body>
      <!--================ Start Header Menu Area =================-->
-<header class="header_area">
+	<header class="header_area">
 	    <div class="main_menu">
 	      <nav class="navbar navbar-expand-lg navbar-light">
 	        <div class="container">
@@ -96,7 +96,7 @@
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/add">구단등록</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team">구단목록</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/result/ranks">구단랭킹</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="confirmation.html">나의구단</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/team?id=${myteam}">나의구단</a></li>
 	                </ul>
 	              </li>
 	              <li class="nav-item submenu dropdown">
@@ -111,7 +111,7 @@
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">클래스</a>
 	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/Lesson/lessons">클래스?</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons/add">클래스등록</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons">클래스목록</a></li>
 	                </ul>
 								</li>

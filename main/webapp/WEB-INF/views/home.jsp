@@ -77,6 +77,7 @@
 </head>
 <body>
   <!--================ Start Header Menu Area =================-->
+	<!--================ Start Header Menu Area =================-->
 	<header class="header_area">
 	    <div class="main_menu">
 	      <nav class="navbar navbar-expand-lg navbar-light">
@@ -116,7 +117,7 @@
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">클래스</a>
 	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/Lesson/lessons">클래스?</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons/add">클래스등록</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons">클래스목록</a></li>
 	                </ul>
 								</li>
@@ -133,8 +134,7 @@
 	                  aria-expanded="false">의료</a>
 	                <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">병원목록</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/Hospital/">병원예약</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="tracking-order.html">재활추천</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">예약확인</a></li>
 	                </ul>
 	              </li>
 	            </ul>

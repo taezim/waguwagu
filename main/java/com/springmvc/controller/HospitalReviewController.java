@@ -12,8 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.springmvc.domain.HospitalInfo;
@@ -117,24 +119,30 @@ public class HospitalReviewController {
 	
 	
 	@GetMapping("/update")
-	public String getUpdateReviewForm(@ModelAttribute("updateReview")HospitalReview hospitalReview, @RequestParam("id") String reviewId, Model model) {
+	@ResponseBody
+	public HospitalReview getUpdateReviewForm(@ModelAttribute("updateReview")HospitalReview hospitalReview, @RequestParam("id") String reviewId,@RequestParam("hospitalId") String hospitalId, Model model) {
 		HospitalReview reviewById = hospitalReviewService.readReviewById(reviewId);
 		model.addAttribute("review",reviewById);
-		return "/Hospital/updateForm";
+		
+		System.out.println("겟매칭 도착");
+		return reviewById;
 	}
 	
 	@PostMapping("/update")
 	public String submitUpdateReviewForm(@ModelAttribute("updateReview")HospitalReview hospitalReview, HttpServletRequest request) {
+		String hospitalId = request.getParameter("hospitalId");
 		
+		System.out.println("hospital : " + hospitalId);
+		System.out.println("포스팅매핑");
 		hospitalReviewService.setUpdateReview(hospitalReview);
-		return "redirect:/reviews";
+		return "redirect:/hospitalinfo/hospital?id="+hospitalId;
 		
 	}
 	
 	@GetMapping(value="/delete")
-	public String getDeleteForm(Model model, @RequestParam("id") String reviewId) {
+	public String getDeleteForm(Model model, @RequestParam("id") String reviewId,@RequestParam("hospitalId") String hospitalId) {
 		hospitalReviewService.setDeleteReview(reviewId);
-		return "redirect:/reviews";
+		return "redirect:/hospitalinfo/hospital?id="+hospitalId;
 	}
 
 }

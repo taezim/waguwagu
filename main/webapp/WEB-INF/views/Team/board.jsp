@@ -70,6 +70,34 @@
         background-color: rgb(144, 194, 144);
     } */
 </style>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const myteamLink = document.querySelector('.nav-link[href="/waguwagu/team/team?id=${myteam}"]');
+    
+    myteamLink.addEventListener('click', function (event) {
+      // 이 부분에서 myteam 값이 비어있는지 확인
+      const myteamValue = "${myteam}"; // 여기에 myteam 값을 설정하는 방식에 따라 다르게 가져와야 합니다.
+      
+      if (!myteamValue) {
+        alert('가입된 구단이 없습니다!');
+        event.preventDefault(); // 페이지 이동을 막음
+      }
+    });
+    
+    const addgame = document.querySelector('.nav-link[href="/waguwagu/games/add"]');
+
+    addgame.addEventListener('click', function(event) {
+        // 세션에서 myteam을 가져옵니다.
+        const myTeam = sessionStorage.getItem('myteam');
+
+        // myteam이 없는 경우 경고를 표시합니다.
+        if (!myTeam) {
+            event.preventDefault(); // 기본 동작을 취소합니다.
+            alert('권한이 없습니다.'); // 사용자에게 경고를 표시합니다.
+        }
+    });
+  });
+</script>
 <body>
      <!--================ Start Header Menu Area =================-->
 	<header class="header_area">
@@ -265,14 +293,14 @@
                 <td>2</td>
                 <td>${teamWinning.recent}</td>
                 <td>
-                    <a href="<c:url value='/team/result/winning?id=${teamWinning.teamId}'/>" class="btn-sm btn btn-outline-warning">상세보기</a>
+                    <a href="<c:url value='/team/team?id=${teamWinning.teamId}'/>" class="btn-sm btn btn-outline-warning">상세보기</a>
                 </td>
               </tr>           
               </c:forEach>
             </tbody>
             <caption>
                 <div  class="d-flex justify-content-between" >
-                <p>List of users</p>
+                <p>List of ranks</p>
                 <nav  aria-label="Page navigation example">
                     <ul class="pagination " style="justify-content: center;">
                       <li class="page-item">

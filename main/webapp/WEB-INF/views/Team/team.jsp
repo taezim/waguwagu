@@ -68,19 +68,15 @@
 		border-bottom: 1px solid #777;
 	}
   
-    .text-md-right{}
-    
     .table-sm td
     {
-        padding: 0.875rem !important ;
+        padding: 1rem !important ;
         
     }
-    td:last-child, th:last-child
-    {
-        /* border: 1px solid red; */
-        padding: 0px !important;
-        width: 5%;
+    .table-sm th{
+    	padding: 0.8rem !important ;
     }
+    
 
   </style>
 
@@ -97,6 +93,20 @@ document.addEventListener('DOMContentLoaded', function () {
       event.preventDefault(); // 페이지 이동을 막음
     }
   });
+  
+  const addgame = document.querySelector('.nav-link[href="/waguwagu/games/add"]');
+
+  addgame.addEventListener('click', function(event) {
+      // 세션에서 myteam을 가져옵니다.
+      const myTeam = sessionStorage.getItem('myteam');
+
+      // myteam이 없는 경우 경고를 표시합니다.
+      if (!myTeam) {
+          event.preventDefault(); // 기본 동작을 취소합니다.
+          alert('권한이 없습니다.'); // 사용자에게 경고를 표시합니다.
+      }
+  });
+  
 });
 </script>
 
@@ -141,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">클래스</a>
 	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons/add" onclick="submitclass()";>클래스등록</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons/add">클래스등록</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons">클래스목록</a></li>
 	                </ul>
 								</li>
@@ -212,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	</div>
 
   <!--================Single Product Area =================-->
-	<div class="product_image_area">
+	<div class="product_image_area" style="padding-top:20px;">
 		<div class="container">
 			<div class="row s_product_inner">
 				<div class="col-lg-6">
@@ -231,16 +241,12 @@ document.addEventListener('DOMContentLoaded', function () {
 							<li>선호지역 : ${tb.prefArea }</li>
 						</ul>                       
 						<p>${tb.description }</p>
-						<div class="product_count">
-                            <input type="date" name="birth" id="b" min="1996-12-30"  style="width:150px;font-size:15px;">
-							<a href='<c:url value="/team/result/winning?id=${tb.teamId}"/>' class="btn btn-sm btn-primary" >경기결과</a>      
-							<a href="<c:url value='/team/result/add?id=${tb.teamId}'/>" class="btn btn-sm btn-primary" >가입신청</a>
-							<a href='<c:url value="/team/result/recent?id=${tb.teamId}"/>' class="btn btn-sm btn-primary" >최근경기결과</a>
+						<div class="product_count">				
 							<c:if test="${sessionScope.memberId == 'teamadmin'}"> 			    
 						    	<div>
 							    	<a href='<c:url value="/team/update?id=${tb.teamId}"/>' class="btn btn-sm btn-primary">수정</a>
 							    	<a href="<c:url value='/team/delete?id=${tb.teamId}'/>" class="btn btn-sm btn-primary" onclick="return deleteConfirm('${tb.teamId}')">삭제</a>
-							    	<a href="<c:url value='/team/result/add?id=${tb.teamId}'/>" class="btn btn-sm btn-primary">경기결과</a>
+							    	<a href="<c:url value='/team/result/add?id=${tb.teamId}'/>" class="btn btn-sm btn-primary">결과등록</a>
 						    	</div>
 						    </c:if>
 						</div>
@@ -260,173 +266,94 @@ document.addEventListener('DOMContentLoaded', function () {
 		<div class="container">
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item">
-					<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">팀 소개</a>
+					<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">팀 소개</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+					<a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
 					 aria-selected="false">가입신청</a>
 				</li>
 			</ul>
 			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-					<p>~~~~~전문으로 하는 정형외과</p>
+				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+					
                     <div class="col-lg-12">
                         <div class="feature-img">
                                 <img class="img-fluid" src="img/category/정형외과.jpg" alt="">
                         </div>
                     </div>
+                    	<div style="text-align: center; padding: 20px 0;">
+						    <img src="<c:url value='/resources/images/${tb.fileName}'/>" style="width: 40%;" />
+						</div>
                     <div class="col-lg-9 col-md-9 blog_details">
-                        <h2>Astronomy Binoculars A Great Alternative</h2>
+                        <h2>안녕하세요! ${tb.teamName } 입니다!</h2>
                         <p class="excert">
-                                MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money
-                                on boot camp when you can get the MCSE study materials yourself at a fraction.
+                                저희는 ${tb.prefArea } 지역을 위주로 활동하는 야구 동호회 입니다!
                         </p>
                         <p>
-                                Boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot
-                                camp when you can get the MCSE study materials yourself at a fraction of the camp price.
-                                However, who has the willpower to actually sit through a self-imposed MCSE training. who
-                                has the willpower to actually sit through a self-imposed
+                                ${tb.description }
                         </p>
-                        <p>
-                                Boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot
-                                camp when you can get the MCSE study materials yourself at a fraction of the camp price.
-                                However, who has the willpower to actually sit through a self-imposed MCSE training. who
-                                has the willpower to actually sit through a self-imposed
-                        </p>
+                        <h4><strong>
+                                팀 최근 성적
+                        </strong></h4>
                     </div>	
                     <div class="col-lg-12">
                         <div class="quotes">
-                                MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money
-                                on boot camp when you can get the MCSE study materials yourself at a fraction of the camp
-                                price. However, who has the willpower to actually sit through a self-imposed MCSE training.
+                           <table class="table table-sm">
+							  <thead class="table-light">
+							    <tr>
+							      <th scope="col">팀이름</th>
+							      <th scope="col">게임수</th>
+							      <th scope="col">승리</th>
+							      <th scope="col">무승부</th>
+							      <th scope="col">패배</th>
+							      <th scope="col">승률</th>
+							      <th scope="col">최근 10경기</th>
+							    </tr>
+							  </thead>
+							  <tbody class="table-group-divider">
+							    <tr>
+							      <td scope="row">${tb.teamName}</td>
+							      <td>${totalGames}</td>
+							      <td>${totalWins}</td>
+							      <td>${totalTies}</td>
+							      <td>${totalLosses}</td>
+							      <td>${winningRate}</td>
+							      <td>${recent }</td>
+							    </tr>  
+							  </tbody>
+							</table>
                         </div>
-                        <div class="row">
-                                <div class="col-6">
-                                        <img class="img-fluid" src="img/category/usman-yousaf-pTrhfmj2jDA-unsplash.jpg" alt="">
-                                </div>
-                                <div class="col-6">
-                                        <img class="img-fluid" src="img/category/새우아님.jpg" alt="">
-                                </div>
-                                <div class="col-lg-12 mt-4">
-                                        <p>
-                                                MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money
-                                                on boot camp when you can get the MCSE study materials yourself at a fraction of
-                                                the camp price. However, who has the willpower.
-                                        </p>
-                                        <p>
-                                                MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money
-                                                on boot camp when you can get the MCSE study materials yourself at a fraction of
-                                                the camp price. However, who has the willpower.
-                                        </p>
-                                </div>
+                        <div class="row">                              
+                            <div class="col-lg-12 mt-4">
+		                     <!--   <h4><strong>
+		                              팀 정보
+		                       </strong></h4> -->
+                               <p>
+                                       대표 : ${tb.leaderName }
+                               </p>
+                               <p>
+                                      대표번호 : ${tb.phoneNumber }
+                               </p>
+                               <p>
+                                      선호지역 : ${tb.prefArea }
+                               </p>
+                               <p>
+                                      인원수 : ${tb.memberNumber }
+                               </p>
+                            </div>                              
                         </div>
                     </div>
 				</div>		
-				<div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
+				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
 					<div class="row">
 						<div class="col-lg-6">
-							<div class="row total_rate">
-								<div class="col-6">
-									<div class="box_total">
-									<img src="<c:url value='/resources/images/${tb.fileName}'/>" style="width: 50%"/>
-										<h5>${tb.teamName}</h5>
-										<!-- <h4>4.0</h4> -->
-									</div>	
-								</div>
-								<div class="col-6">
-									<div class="rating_list">
-										<ul class="list">
-											<li><a href="#">5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">1 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-										</ul>
-									</div>
-								</div>
+							<div class="total_rate" style="height: 100%;">								
+									<div class="box_total" style="height: 100%;">
+									<img src="<c:url value='/resources/images/${tb.fileName}'/>" style="width: 50%; padding:20px;"/>
+										<h5>${tb.teamName}</h5>										
+									</div>																
 							</div>
 							<br>
-							<!-- card-->
-					        <div class="card mb-3" style="width: 60%;">
-					            <div class="row g-0">
-						            <div class="col-md-4 ">
-						                <!-- <img src="..." class="img-fluid rounded-start" alt="..."> -->
-						                <i class="fa fa-star"></i>
-						            </div>
-						            <div class="col-md-8">
-						                <div class="card-body">           
-						                <p class="card-text">총 게임수</p>
-						                <span class="fw-semibold">${totalGames}</span>
-						                </div>
-						            </div>
-					            </div>
-    					    </div>
-    					    <div class="card mb-3" style="width: 60%;">
-					            <div class="row g-0">
-						            <div class="col-md-4 ">
-						                <!-- <img src="..." class="img-fluid rounded-start" alt="..."> -->
-						                <i class="fa fa-star"></i>
-						            </div>
-						            <div class="col-md-8">
-						                <div class="card-body">           
-						                <p class="card-text">총 이긴 게임 수</p>
-						                <span class="fw-semibold">${totalWins}</span>
-						                </div>
-						            </div>
-					            </div>
-    					    </div>
-    					    <div class="card mb-3" style="width: 60%;">
-					            <div class="row g-0">
-						            <div class="col-md-4 ">
-						                <!-- <img src="..." class="img-fluid rounded-start" alt="..."> -->
-						                <i class="fa fa-star"></i>
-						            </div>
-						            <div class="col-md-8">
-						                <div class="card-body">           
-						                <p class="card-text">무승부</p>
-						                <span class="fw-semibold">${totalTies}</span>
-						                </div>
-						            </div>
-					            </div>
-    					    </div>
-    					    <div class="card mb-3" style="width: 60%;">
-					            <div class="row g-0">
-						            <div class="col-md-4 ">
-						                <!-- <img src="..." class="img-fluid rounded-start" alt="..."> -->
-						                <i class="fa fa-star"></i>
-						            </div>
-						            <div class="col-md-8">
-						                <div class="card-body">           
-						                <p class="card-text">패배</p>
-						                <span class="fw-semibold">${totalLosses}</span>
-						                </div>
-						            </div>
-					            </div>
-    					    </div>
-    					    <div class="card mb-3" style="width: 60%;">
-					            <div class="row g-0">
-						            <div class="col-md-4 ">
-						                <!-- <img src="..." class="img-fluid rounded-start" alt="..."> -->
-						                <i class="fa fa-star"></i>
-						            </div>
-						            <div class="col-md-8">
-						                <div class="card-body">           
-						                <p class="card-text">승률</p>
-						                <span class="fw-semibold">${winningRate}</span>
-						                </div>
-						            </div>
-					            </div>
-    					    </div>
-							<!-- <div class="review_list">
-								<div class="review_item">
-								
-								</div>
-							</div> -->
 						</div>
 						
 						<div class="col-lg-6">
@@ -437,7 +364,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				                    <input class="form-control" name="userId" type="text" value="${memberId}" placeholder="아이디를 입력하세요." required>
 				                  </div>
 				                  <div class="form-group">
-				                    <input class="form-control" name="teamId" type="teamId" value="${teamId}" placeholder="팀아이디를 입력하세요." required>
+				                    <input class="form-control" name="teamId" type="text" value="${teamId}" placeholder="팀아이디를 입력하세요." required>
 				                  </div>
 				                  <div class="form-group">
 				                    <textarea class="form-control different-control w-100" name="textarea" id="textarea" cols="30" rows="5" placeholder="글을 작성하세요."></textarea>

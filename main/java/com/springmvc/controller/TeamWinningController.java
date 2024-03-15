@@ -3,6 +3,7 @@ package com.springmvc.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,9 +45,12 @@ public class TeamWinningController {
 	}
 	
 	@GetMapping("/ranks")
-	public String allWinningList(Model model) {
+	public String allWinningList(Model model,HttpSession session) {
 		List<TeamWinning> sortedWinningList = teamWinningRepository.calAndSortWinningRate();
 	    model.addAttribute("winningList", sortedWinningList);
+	    String team = (String) session.getAttribute("team");
+		model.addAttribute("myteam",team);
+	    
 	    return "/Team/board";
 	}
 	

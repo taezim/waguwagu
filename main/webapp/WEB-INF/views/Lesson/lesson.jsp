@@ -136,7 +136,7 @@
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">클래스</a>
 	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/Lesson/lessons">클래스?</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons/add">클래스등록</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons">클래스목록</a></li>
 	                </ul>
 								</li>
@@ -444,7 +444,11 @@
 								            </div>
 								        </div>
 								        <p>${review.content}</p>
-								    </div>
+								        <div class="text-md-right">
+		      								<a href="javascript:void(0);" class="redit_button" data-reviewid="${review.reviewId}" data-lessonid="${lessonId}">수정하기</a>
+		      								<a href="<c:url value='/lessons/review/delete?id=${review.reviewId}&lessonId=${review.lessonId}'/>" class="btn" onclick="return deleteConfirm('${review.reviewId}')" style="color:red">삭제</a>			                        
+				                        </div>
+								    </div>							   
 							    </c:forEach>
 							</div>
 							<!-- 페이지버튼 -->    
@@ -472,27 +476,56 @@
 									<li><a href="#"><i class="fa fa-star"></i></a></li>
 								</ul>
 								<!-- <p>Outstanding</p> -->
-				                <form:form action="/waguwagu/lessons/review/add" method="post" class="form-contact form-review mt-3" modelAttribute="addReview" >
+							
+								<div id="editFormWrapper" style="display:none;">
+					                <form:form modelAttribute="updateReview" method="post" class="form-contact form-review mt-3" action="/waguwagu/lessons/review/update" id="editForm" novalidate="novalidate">					                    
+				                        <div class="form-group"><!-- path 는 DTO 객체의 변수 -->
+				                        	<form:input path="name" class="form-control" name="name" type="text" id="editName" readonly="true" placeholder="이름을 입력하세요." value="${review.name}" />      
+				                        </div>					                   
+				                        <div class="form-group">
+				                        	<form:input type="text" path="lessonId" class="form-control" id="editlessonid" readonly="true" name="lessonId" value="${review.lessonId}" />						                            
+				                        </div>					                   					                    
+				                        <div class="form-group">
+				                        	<form:input type="date" path="date" class="form-control" name="date" id="eidtdate" readonly="true" value="${review.date}" />
+				                        </div>					                 					                 
+				                        <div class="form-group">
+				                        	<form:input type="text" path="score" class="form-control" name="score" id="editscore" placeholder="평점을 입력하세요." value="${review.score}" />
+				                        </div>					                    					                    
+				                        <div class="form-group">
+				                       		<form:input path="userId" class="form-control" name="userId" type="email" id="editemail" readonly="true" placeholder="이메일을 입력하세요." value="${review.userId}"/>
+				                        </div>					                   					                    
+				                        <div class="form-group">
+				                        	<form:input path="title" class="form-control" name="title" type="text" id="edittitle" placeholder="제목을 입력하세요." value="${review.title}" />
+				                        </div>					                    					                    
+				                        <div class="form-group">
+				                        	<form:textarea path="content" id="editContent" class="form-control different-control w-100" name="content" cols="30" rows="5" placeholder="글을 작성하세요." value="${review.content}"/>
+				                        </div>				                    
+					                    <div class="form-group text-center text-md-right mt-3">
+					                        <input type="submit" value="수정하기" class="button button--active button-review">
+					                    </div>
+					                </form:form>
+					             </div>   
+								<form:form id="realForm" action="/waguwagu/lessons/review/add" method="post" class="form-contact form-review mt-3" modelAttribute="review" >
 				                  <div class="form-group">
-				                    <input path="name" class="form-control" name="name" type="text" placeholder="이름을 입력하세요." required>
+				                    <form:input path="name" class="form-control" name="name" type="text" placeholder="이름을 입력하세요." />
 				                  </div>
 				                  <div class="form-group">
-				                    <input type="text" path="lessonId" class="form-control" name="lessonId" value="${lessonId}" >
+				                    <form:input type="text" path="lessonId" class="form-control" name="lessonId" value="${lessonId}" />
 				                  </div>
 				                  <div class="form-group">
-				                    <input type="date" path="date" class="form-control" name="date" >
+				                    <form:input type="date" path="date" class="form-control" name="date" />
 				                  </div>
 				                  <div class="form-group">
-				                    <input type="text" path="score" class="form-control" name="score" placeholder="평점을 입력하세요.">
+				                    <form:input type="text" path="score" class="form-control" name="score" placeholder="평점을 입력하세요."/>
 				                  </div>
 				                  <div class="form-group">
-				                    <input path="userId" class="form-control" name="userId" type="email" value="${id}" placeholder="이메일을 입력하세요." required>
+				                    <form:input path="userId" class="form-control" name="userId" type="email" value="${id}" placeholder="이메일을 입력하세요." />
 				                  </div>
 				                  <div class="form-group">
-				                    <input path="title" class="form-control" name="title" type="text" placeholder="제목을 입력하세요.">
+				                    <form:input path="title" class="form-control" name="title" type="text" placeholder="제목을 입력하세요."/>
 				                  </div>
 				                  <div class="form-group">
-				                    <textarea path="content" class="form-control different-control w-100" name="content" id="textarea" cols="30" rows="5" placeholder="글을 작성하세요."></textarea>
+				                    <form:textarea path="content" class="form-control different-control w-100" name="content" cols="30" rows="5" id="textarea" placeholder="글을 작성하세요."/>
 				                  </div>
 				                  <div class="form-group text-center text-md-right mt-3">
 				                    <button type="submit" class="button button--active button-review">등록</button>
@@ -571,6 +604,38 @@
     updatePagination();
 	
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	
+<script>
+
+    $('.redit_button').click(function() {
+        console.log("xx");
+        var reviewId = $(this).data('reviewid');
+        var lessonId = $(this).data('lessonid'); // lessonId 가져오기
+       	console.log("reviewid",reviewId);
+        console.log("lessonId",lessonId)
+        $('#realForm').hide(); // 등록 폼 숨기기
+        $('#editFormWrapper').show();
+
+
+        $.ajax({
+            url: '/waguwagu/lessons/review/update',
+            type: 'GET',
+            data: { id: reviewId, lessonId: lessonId }, //파라미터 
+            success: function(result) {  // 수정 필요한 부분
+            	console.log(result.review.reviewId);
+                $('#editName').val(result.review.name);
+                $('#editlessonid').val(result.review.lessonId);
+                $('#eidtdate').val(result.review.date);
+                $('#editscore').val(result.review.score);
+                $('#editemail').val(result.review.userId);
+                $('#edittitle').val(result.review.title);
+                $('#editContent').val(result.review.content);
+            }
+        });
+    });
+
+</script>
+
 	
   <script src="<c:url value='/resources/vendors/jquery/jquery-3.2.1.min.js'/>"/></script>
   <script src="<c:url value='/resources/vendors/bootstrap/bootstrap.bundle.min.js'/>"/></script>

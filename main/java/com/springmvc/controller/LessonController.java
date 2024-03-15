@@ -37,13 +37,14 @@ public class LessonController
       
    // READ
       @GetMapping
-      public String requestLessonList(Model model, HttpSession session) 
+      public String requestLessonList(Model model, HttpSession session)
       {
          List<Lesson> list = ls.readAllClass(); // 호출하니까 이동해야지
          model.addAttribute("list", list); // list. 해서 lessons.jsp에서 꺼내기
          
          String team = (String) session.getAttribute("team");
          model.addAttribute("myteam",team);
+         
          
          return "/Lesson/lessons";
       }
@@ -62,7 +63,7 @@ public class LessonController
       
       
       @GetMapping("/lesson")
-      public String requestLessonById(@RequestParam("id") String classId, Model model, @ModelAttribute("addReview")LessonReview lessonReview,HttpSession session)
+      public String requestLessonById(@RequestParam("id") String classId, Model model, @ModelAttribute("review")LessonReview lessonReview,HttpSession session)
       {
          Lesson lsById = ls.readClassById(classId);
          double avgScore = lessonReviewService.calculateAvgScore(classId);
@@ -96,10 +97,20 @@ public class LessonController
 	    
 	    String team = (String) session.getAttribute("team");
 	    model.addAttribute("myteam",team);
-	    
- 	    
+	    // 리뷰 추가와 마찬가지로 수정을 위한 객체도 모델에 추가
+	    model.addAttribute("updateReview", new LessonReview());
+	   /* 
+	    String reviewId = lessonReview.getReviewId();
+		 LessonReview reviewById = lessonReviewService.readReviewById(reviewId);
+		 
+		 model.addAttribute("review", reviewById);
+		 System.out.println("x="+reviewById); System.out.println("아이디="+reviewId);
+		 */
          return "/Lesson/lesson";
       }
+      
+      
+      
       
     //location에 따른 뷰 보여주기
  	 @GetMapping("/position")

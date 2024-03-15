@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -23,7 +25,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/style.css">
 </head>
 <body>
-<!--================ Start Header Menu Area =================-->
+	<!--================ Start Header Menu Area =================-->
 	<header class="header_area">
 	    <div class="main_menu">
 	      <nav class="navbar navbar-expand-lg navbar-light">
@@ -39,49 +41,48 @@
 	          </button>
 	          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 	            <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-	              <li class="nav-item"><a class="nav-link" href="index.html">È¨</a></li>
-	              <li class="nav-item"><a class="nav-link" href="index.html">¼îÇÎ</a></li>
+	              <li class="nav-item"><a class="nav-link" href="index.html">í™ˆ</a></li>
+	              <li class="nav-item"><a class="nav-link" href="index.html">ì‡¼í•‘</a></li>
 	              <li class="nav-item active submenu dropdown">
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-	                  aria-expanded="false">±¸´Ü</a>
+	                  aria-expanded="false">êµ¬ë‹¨</a>
 	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/add">±¸´Üµî·Ï</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team">±¸´Ü¸ñ·Ï</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/result/ranks">±¸´Ü·©Å·</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/team?id=${myteam}">³ªÀÇ±¸´Ü</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/add">êµ¬ë‹¨ë“±ë¡</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team">êµ¬ë‹¨ëª©ë¡</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/result/ranks">êµ¬ë‹¨ëž­í‚¹</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/team?id=${myteam}">ë‚˜ì˜êµ¬ë‹¨</a></li>
 	                </ul>
 	              </li>
 	              <li class="nav-item submenu dropdown">
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-	                  aria-expanded="false">°æ±â</a>
+	                  aria-expanded="false">ê²½ê¸°</a>
 	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/games/add">°ÔÀÓµî·Ï</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/games">°æ±â¸ñ·Ï</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/games/add">ê²Œìž„ë“±ë¡</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/games">ê²½ê¸°ëª©ë¡</a></li>
 	                </ul>
 	              </li>
 	              <li class="nav-item submenu dropdown">
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-	                  aria-expanded="false">Å¬·¡½º</a>
+	                  aria-expanded="false">í´ëž˜ìŠ¤</a>
 	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/Lesson/lessons">Å¬·¡½º?</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons">Å¬·¡½º¸ñ·Ï</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons/add">í´ëž˜ìŠ¤ë“±ë¡</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons">í´ëž˜ìŠ¤ëª©ë¡</a></li>
 	                </ul>
 								</li>
 	              <li class="nav-item submenu dropdown">
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-	                  aria-expanded="false">°æ±âÀå</a>
+	                  aria-expanded="false">ê²½ê¸°ìž¥</a>
 	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/">°æ±âÀå¸ñ·Ï</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="single-blog.html">°æ±âÀå¿¹¾à</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/">ê²½ê¸°ìž¥ëª©ë¡</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="single-blog.html">ê²½ê¸°ìž¥ì˜ˆì•½</a></li>
 	                </ul>
 				</li>
 				<li class="nav-item submenu dropdown">
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-	                  aria-expanded="false">ÀÇ·á</a>
+	                  aria-expanded="false">ì˜ë£Œ</a>
 	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">º´¿ø¸ñ·Ï</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/Hospital/">º´¿ø¿¹¾à</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="tracking-order.html">ÀçÈ°ÃßÃµ</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">ë³‘ì›ëª©ë¡</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">ì˜ˆì•½í™•ì¸</a></li>
 	                </ul>
 	              </li>
 	            </ul>
@@ -92,11 +93,11 @@
 	              <li class="nav-item"><button><i class="fas fa-user"></i></button></li>
 	            </ul>
 	           <c:if test="${empty sessionScope.memberId }">
-	            	<a href="/waguwagu/member/login">·Î±×ÀÎ</a>
+	            	<a href="/waguwagu/member/login">ë¡œê·¸ì¸</a>
 	            </c:if>
 	            <c:if test="${not empty sessionScope.memberId}">
 				    <form action="/waguwagu/member/logout" method="post">
-				        <input type="submit" value="·Î±×¾Æ¿ô" style="border: none; background: none;  color:rgb(79, 155, 253)">
+				        <input type="submit" value="ë¡œê·¸ì•„ì›ƒ" style="border: none; background: none;  color:rgb(79, 155, 253)">
 				    </form>
 				</c:if>
 	          </div>
@@ -106,20 +107,20 @@
 	  </header>
 	<!--================ End Header Menu Area =================-->
 	<!-- ================ start banner area ================= -->	
-	<section class="blog-banner-area" id="category">
+	<section class="blog-banner-area" id="blog">
 		<div class="container h-100">
 			<div class="blog-banner">
 				<div class="text-center">
-					<h1>${tb.teamName}</h1>
+					<h1>ë¡œê·¸ì¸</h1>
 					<nav aria-label="breadcrumb" class="banner-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Shop Category</li>
+              <li class="breadcrumb-item active" aria-current="page">Login</li>
             </ol>
           </nav>
 				</div>
 			</div>
-    </div>
+   		 </div>
 	</section>
 	<!-- ================ end banner area ================= -->
   <!--================Login Box Area =================-->
@@ -131,7 +132,7 @@
 						<div class="hover">
 							<h4>New to our website?</h4>
 							<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-							<a class="button button-account" href="/waguwagu/member/createmember">È¸¿ø°¡ÀÔ</a>
+							<a class="button button-account" href="/waguwagu/member/createmember">íšŒì›ê°€ìž…</a>
 						</div>
 					</div>
 				</div>

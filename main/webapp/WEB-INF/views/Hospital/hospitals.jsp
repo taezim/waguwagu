@@ -476,20 +476,35 @@ $(document).ready(function () {
         var startPage = Math.max(1, currentPage - 2); // 시작 페이지 번호
         var endPage = Math.min(startPage + 4, totalPages); // 종료 페이지 번호
 
+       
+     // 현재 URL에서 쿼리 문자열 가져오기
+        var queryString = window.location.search;
+
+        // URL에서 쿼리 문자열을 파싱하여 URLSearchParams 객체 생성
+        var urlParams = new URLSearchParams(queryString);
+
+        // location 파라미터 가져오기
+        var currentLocation = urlParams.get('location');
+
+        // currentLocation 변수에 저장된 값 출력
+        console.log(currentLocation);
+        
         // 시작 페이지부터 종료 페이지까지 번호 표시
+     
         for (var i = startPage; i <= endPage; i++) {
-            pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='#' onclick='changePage(" + i + ")'>" + i + "</a></li>";
+            pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='/waguwagu/hospitalinfo/loc?location=" + currentLocation + "&page=" + i + "' onclick='changePage(" + i + ")'>" + i + "</a></li>";
         }
 
         // 이전 페이지로 이동할 수 있는 버튼 표시
         if (startPage > 1) {
-            pageNum.innerHTML = "<li class='page-item'><a class='page-link' href='#' onclick='prevPage()'>&laquo;</a></li>" + pageNum.innerHTML;
+            pageNum.innerHTML = "<li class='page-item'><a class='page-link' href='/waguwagu/hospitalinfo/loc?location=" + currentLocation + "&page=" + (startPage - 1) + "' onclick='prevPage()'>&laquo;</a></li>" + pageNum.innerHTML;
         }
 
         // 다음 페이지로 이동할 수 있는 버튼 표시
         if (endPage < totalPages) {
-            pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='#' onclick='nextPage()'>&raquo;</a></li>";
+            pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='/waguwagu/hospitalinfo/loc?location=" + currentLocation + "&page=" + (endPage + 1) + "' onclick='nextPage()'>&raquo;</a></li>";
         }
+
     }
 
     function changePage(page) {
@@ -528,7 +543,7 @@ $(document).ready(function () {
   <script src="<c:url value='/resources/vendors/jquery.ajaxchimp.min.js'/>"/></script>
   <script src="<c:url value='/resources/vendors/mail-script.js'/>"/></script>
   <script src="<c:url value='/resources/js/main.js'/>"/></script>
-  <script src="<c:url value='/resources/js/test.js'/>"/></script>
+
 
  
 				               

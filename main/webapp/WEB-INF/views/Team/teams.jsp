@@ -74,6 +74,7 @@
         event.preventDefault(); // 페이지 이동을 막음
       }
     });
+    
   });
 </script>
 </head>
@@ -110,7 +111,7 @@
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">경기</a>
 	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/games/add">게임등록</a></li>
+	                  <li class="nav-item"><a class="nav-link add-link" href="/waguwagu/games/add">게임등록</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/games">경기목록</a></li>
 	                </ul>
 	              </li>
@@ -118,7 +119,7 @@
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">클래스</a>
 	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/Lesson/lessons">클래스?</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons/add">클래스등록</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons">클래스목록</a></li>
 	                </ul>
 								</li>
@@ -276,7 +277,7 @@
 				                <div class="subheading mb-3">${team.teamId}</div>
 				                <p>${team.prefArea}</p>
 				                <p>${team.phoneNumber}</p><br>
-				                <p>${team.description}</p>
+				                <p>${fn:substring(team.description, 0, 50)}...</p>
 				             </div>   
 			              </div>
 			            </div>
@@ -397,7 +398,7 @@
 	    showPage(currentPage);
 	    updatePagination();
 	</script>
-  
+
    
   <script src="<c:url value='/resources/vendors/jquery/jquery-3.2.1.min.js'/>"/></script>
   <script src="<c:url value='/resources/vendors/bootstrap/bootstrap.bundle.min.js'/>"/></script>

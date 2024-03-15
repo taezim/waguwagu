@@ -83,7 +83,8 @@ public class TeamController {
 	    String memberId = (String) session.getAttribute("memberId");
 	    
 	    model.addAttribute("memberId",memberId);
-
+	    model.addAttribute("recent",recentMatchesResult);
+	    
 	   String team = (String) session.getAttribute("team");
 	   System.out.println("team"+team);
 	   model.addAttribute("myteam",team);

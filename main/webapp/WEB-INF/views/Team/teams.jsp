@@ -399,7 +399,7 @@
 	    updatePagination();
 	</script>
 
-   
+<!-- 240315 -->   
   <script src="<c:url value='/resources/vendors/jquery/jquery-3.2.1.min.js'/>"/></script>
   <script src="<c:url value='/resources/vendors/bootstrap/bootstrap.bundle.min.js'/>"/></script>
   <script src="<c:url value='/resources/vendors/skrollr.min.js'/>"/></script>

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springmvc.domain.Classanswer;
+import com.springmvc.domain.Lesson;
 import com.springmvc.service.AnswerClassService;
+import com.springmvc.service.LessonService;
 
 @Controller
 @RequestMapping("/classanswers")
@@ -22,7 +24,10 @@ public class AnswerClassController {
 
 	@Autowired
 	private AnswerClassService answerService;
+	@Autowired
 	private HttpSession	httpsession;
+	@Autowired
+	private LessonService lessonservice;
 		
 //					Class	Controller Line	
 
@@ -61,21 +66,30 @@ public class AnswerClassController {
 
 	// GET 요청을 처리하는 메서드
     @GetMapping("/classadd")
-    public String createClassGetQnA(@RequestParam("classid") String classid, @ModelAttribute("classcreateanswer") Classanswer classnewanswer) {
+    public String createClassGetQnA(@ModelAttribute("classcreateanswer") Classanswer classnewanswer,@RequestParam("sessionid") String sid, Model model) {
+    	
+//      태림 lesson의 classId로 객체 가져오기.
+    	Lesson ls = lessonservice.readClassById(sid);
+        model.addAttribute("lskey",ls);
+        System.out.println("lesson : " + ls );
+    	
         return "/answer/classanswer/classcreateans";
     }
 
     // POST 요청을 처리하는 메서드
 	    @PostMapping("/classadd")
-	    public String createClassPostQnA( @ModelAttribute("classcreateanswer") Classanswer classanswer, Model model,HttpSession httpsession) {
+	    public String createClassPostQnA(@ModelAttribute("classcreateanswer") Classanswer classanswer,@RequestParam("sessionid") String sid,  Model model,HttpSession httpsession) {
         // answerService를 사용하여 객체를 가져옵니다.
         Classanswer classValue = answerService.createClassanswer(classanswer);
 
         // 답변에 대한 정보를 모델에 추가합니다.
         model.addAttribute("classkey", classValue);
         httpsession.setAttribute("classid", classanswer.getClassid());
+        Lesson ls = lessonservice.readClassById(sid);
+        model.addAttribute("lskey",ls);
+        System.out.println("lesson : " + ls );
         
-        return "redirect:/classquestion";
+        return "redirect:/lessons/lesson?id=" + sid;
     }
 
 

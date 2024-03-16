@@ -94,30 +94,24 @@
 	display: flex;
 }
 /* 답변완료, 수정, 삭제 css */
-
-   .edit_button,
-.delete_button,
-.answer_button {
-    padding: 8px 16px;
-    margin: 4px;
-    background-color: white; /* 초기 배경색을 하얀색으로 설정 */
-    border: none;
-    color: #384aeb; /* 텍스트 색상을 파란색으로 설정 */
-    cursor: pointer;
-    border-radius: 30px;
-    text-decoration: none;
-    transition: background-color 0.3s; /* 배경색 변경에 대한 전환 효과 추가 */
-    border : 1px solid black;
-    color : black;
+.edit_button, .delete_button, .answer_button {
+	padding: 8px 16px;
+	margin: 4px;
+	background-color: white; /* 초기 배경색을 하얀색으로 설정 */
+	border: none;
+	color: #384aeb; /* 텍스트 색상을 파란색으로 설정 */
+	cursor: pointer;
+	border-radius: 30px;
+	text-decoration: none;
+	transition: background-color 0.3s; /* 배경색 변경에 대한 전환 효과 추가 */
+	border: 1px solid #e0e0e0;
+	color: black;
 }
 
-.edit_button:hover,
-.delete_button:hover,
-.answer_button:hover {
-    background-color: #384aeb; /* 호버시 배경색을 파란색으로 변경 */
-    color : white;
+.edit_button:hover, .delete_button:hover, .answer_button:hover {
+	background-color: #384aeb; /* 호버시 배경색을 파란색으로 변경 */
+	color: white;
 }
-
 </style>
 </head>
 <body>
@@ -479,6 +473,7 @@
 											</div>
 											<div class="col-md-12 text-right">
 												<input type="submit" value="수정하기" class="btn primary-btn">
+												<button id="cancelEdit" class="btn primary-btn">취소</button>
 											</div>
 										</form:form>
 									</div>
@@ -642,36 +637,40 @@
 	<!-- 페이징처리 -->
 
 	<script>
-		/* 3개 글 보기 */
-		var list = document.getElementById('comment_list')
-				.getElementsByClassName('review_item');
-		var pageNum = document.getElementById('pagination');
-		var limitPerPage = 3;
-		var totalPages = Math.ceil(list.length / limitPerPage);
+	/* 3개 글 보기 */
+	// 페이지에 표시될 글 목록과 페이징할 영역을 가져옵니다.
+	var list = document.getElementById('comment_list').getElementsByClassName('review_item');
+	var pageNum = document.getElementById('pagination');
+	var limitPerPage = 3; // 페이지 당 보여질 글의 수를 정의합니다.
+	var totalPages = Math.ceil(list.length / limitPerPage); // 전체 페이지 수를 계산합니다.
 
-		for (var i = limitPerPage; i < list.length; i++) {
-			list[i].style.display = 'none';
-		}
+	// 페이지 당 글 수를 초과하는 항목은 숨깁니다.
+	for (var i = limitPerPage; i < list.length; i++) {
+	    list[i].style.display = 'none';
+	}
 
-		for (var i = 1; i <= totalPages; i++) {
-			pageNum.innerHTML += "<button onclick='changePage(" + i + ")'>" + i
-					+ "</button>";
-		}
+	// 페이지 버튼을 생성합니다.
+	for (var i = 1; i <= totalPages; i++) {
+	    pageNum.innerHTML += "<button onclick='changePage(" + i + ")'>" + i + "</button>";
+	}
 
-		window.changePage = function(page) {
-			var start = (page - 1) * limitPerPage;
-			var end = start + limitPerPage;
+	// 페이지 변경 함수를 정의합니다.
+	window.changePage = function(page) {
+	    var start = (page - 1) * limitPerPage; // 시작 인덱스 계산
+	    var end = start + limitPerPage; // 종료 인덱스 계산
 
-			for (var i = 0; i < list.length; i++) {
-				list[i].style.display = 'none';
-			}
+	    // 페이지에 표시된 글 목록을 숨깁니다.
+	    for (var i = 0; i < list.length; i++) {
+	        list[i].style.display = 'none';
+	    }
 
-			for (var i = start; i < end; i++) {
-				if (list[i]) {
-					list[i].style.display = 'block';
-				}
-			}
-		}
+	    // 현재 페이지에 해당하는 글 목록을 표시합니다.
+	    for (var i = start; i < end; i++) {
+	        if (list[i]) {
+	            list[i].style.display = 'block';
+	        }
+	    }
+	}
 
 		var numbers = document.getElementsByClassName('number');
 		for (var i = 0; i < numbers.length; i++) {
@@ -757,7 +756,12 @@
 			}
 		});
 
+		</script>
+		
 		/* 삭제 */
+	<script>
+		
+		
 		function deleteConfirm(classid) {
 			if (confirm("삭제하시겠습니까?") == true) {
 				// 직접 URL을 생성하여 이동합니다.
@@ -768,11 +772,7 @@
 			}
 		}
 	</script>
-	<!-- 수정 자바스크립트 -->
 
-	<script>
-		
-	</script>
 
 	<!-- 수정 폼 나타내면서 객체 가져오기.(Ajax) -->
 	<script>
@@ -800,16 +800,10 @@
 	        });
 	    });
 	});
-	
-	
 	</script>
-
-	<!-- classid 일치 코드 -->
+	
+	<!-- 답변 완료 버튼 -->
 	<script>
-	
-	</script>
-<!-- 답변 완료 버튼 -->
-<script>
     document.addEventListener('DOMContentLoaded', function() {
         var answerButtons = document.querySelectorAll('.answer_button');
 
@@ -822,6 +816,17 @@
                     answerInfo.style.display = 'none';
                 }
             });
+        });
+    });
+</script>
+	<!-- 수정폼 취소버튼 -->
+	<script>
+    $(document).ready(function() {
+        // 취소 버튼 클릭 시 등록 폼 표시
+        $('#cancelEdit').click(function(event) {
+            event.preventDefault(); // 기본 동작 막기
+            $('#editFormWrapper').hide(); // 수정 폼 숨기기
+            $('#contactForm').show(); // 등록 폼 표시
         });
     });
 </script>

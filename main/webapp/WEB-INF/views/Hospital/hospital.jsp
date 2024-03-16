@@ -76,6 +76,28 @@
 	{
 	   display: flex;
 	}
+	
+	/* 수정이 필요한 것들 */
+
+/* 답변완료, 수정, 삭제 css */
+.edit_button, .delete_button, .answer_button {
+	padding: 8px 16px;
+	margin: 4px;
+	background-color: white; /* 초기 배경색을 하얀색으로 설정 */
+	border: none;
+	color: #384aeb; /* 텍스트 색상을 파란색으로 설정 */
+	cursor: pointer;
+	border-radius: 30px;
+	text-decoration: none;
+	transition: background-color 0.3s; /* 배경색 변경에 대한 전환 효과 추가 */
+	border: 1px solid #e0e0e0;
+	color: black;
+}
+
+.edit_button:hover, .delete_button:hover, .answer_button:hover {
+	background-color: #384aeb; /* 호버시 배경색을 파란색으로 변경 */
+	color: white;
+}
   </style>
   
     <script>
@@ -317,87 +339,137 @@
                         </div>
                     </div>
 				</div>
-				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="comment_list">
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review2.png" alt="">
+			<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+					    <div class="row rowmapper">
+					        <div class="rowmappertow">
+					            <div class="col-lg-6">
+					                <div id="comment_list">
+					                    <c:forEach items="${hospitalqnalistkey}" var="hospitalqna">
+					                        <div class="review_item">
+					                            <div class="media">
+					                                <div class="d-flex">
+					                                    <img src="resources/images/product/review2.png" alt="#">
+					                                </div>
+					                                <div class="media-body">
+					                                    <h4 class="number" style="cursor: pointer;">${hospitalqna.name}</h4>
+					                                    <h5>${hospitalqna.date}</h5>
+					                                    <a class='reply_btn' href='/waguwagu/hospitalanswers/hospitaladd?hospitalid=${hospitalqna.hospitalid}'>Reply</a>
+					                                </div>
+					                            </div>
+					                            <p>${hospitalqna.content}</p>
+					                            <div class="edit_delete_buttons" style="display: none;">
+					                                <!-- 답변 완료 버튼 추가 -->
+					                                <c:set var="hasAnswer" value="false" />
+					                                <c:forEach items="${hospitalanswerlistkey}" var="ansItem">
+					                                    <c:if test="${hospitalqna.hospitalid eq ansItem.hospitalid}">
+					                                        <c:set var="hasAnswer" value="true" />
+					                                    </c:if>
+					                                </c:forEach>
+					                                <c:if test="${hasAnswer eq 'true'}">
+					                                    <button class="answer_button">답변 완료</button>
+					                                    <div class="answer_info" style="display: none;">
+					                                        <c:forEach items="${hospitalanswerlistkey}" var="ansItem">
+					                                            <c:if test="${hospitalqna.hospitalid eq ansItem.hospitalid}">
+					                                                <p>답변 날짜 : ${ansItem.replaydate}</p>
+					                                                <p>답변 : ${ansItem.answercontent }</p>
+					                                                <!-- 다른 필드 정보도 추가 -->
+					                                            </c:if>
+					                                        </c:forEach>
+					                                    </div>
+					                                </c:if>
+					                                <a href="javascript:void(0);" class="edit_button" data-hospitalid="${hospitalqna.hospitalid}">수정하기</a> <a href="<c:url value="javascript:deleteConfirm('${hospitalqna.hospitalid}')" />" class="edit_button">삭제</a>
+					                            </div>
+					                        </div>
+					                    </c:forEach>
+					                </div>
+					                <div class="col-lg-6">
+					                    <div class="pagination-container"></div>
+					                </div>
+					            </div>
+
+
+
+  
+
+							<div class="col-lg-6">
+								<div class="review_box">
+									<h4>QnA 작성</h4>
+									<form:form modelAttribute="hospitalplus" method="post"
+										action="/waguwagu/hospitalquestion/add" id="contactForm"
+										novalidate="novalidate">
+										<div class="col-md-12">
+											<div class="form-group">
+												<!-- hospitalplus 객체의 number 필드를 바인딩합니다. -->
+												<input type="text" class="form-control" id="name"
+													name="name" placeholder="이름을 입력하세요." />
+											</div>
 										</div>
-										<div class="media-body">
-											<h4>강도영</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Reply</a>
+										<div class="col-md-12">
+											<div class="form-group">
+												<!-- hospitalplus 객체의 email 필드를 바인딩합니다. -->
+												<input type="email" class="form-control" id="email"
+													name="email" placeholder="이메일을 입력하세요." />
+											</div>
 										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<!-- hospitalplus 객체의 date 필드를 바인딩합니다. -->
+												<input type="text" class="form-control" id="hospitalid"
+													name="hospitalid" placeholder="아이디를 입력해주세요." />
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<!-- hospitalplus 객체의 content 필드를 바인딩합니다. -->
+												<textarea class="form-control" name="content" id="content"
+													rows="1" placeholder="글을 작성하세요."></textarea>
+											</div>
+										</div>
+										<div class="col-md-12 text-right">
+											<!-- "등록" 버튼을 클릭하면 hospitalplus 객체를 서버로 전송합니다. -->
+											<input type="submit" value="등록" class="btn primary-btn">
+										</div>
+									</form:form>
+									<div id="editFormWrapper" style="display: none;">
+										<form:form modelAttribute="hospitalupdateqna" method="post"
+											action="/waguwagu/hospitalquestion/hospitalupdate"
+											id="editForm" novalidate="novalidate">
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="text" class="form-control" id="editName"
+														readonly="true" name="name" value="${hospital123.name}">
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="text" class="form-control" id="editEmail"
+														readonly="true" name="email" placeholder="이메일을 입력하세요."
+														value="${hospital123.email}">
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="text" class="form-control" id="editHospitalid"
+														readonly="true" name="hospitalid" placeholder="id를 입력하세요"
+														value="${hospital123.hospitalid}">
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<textarea class="form-control" name="content"
+														id="editContent" rows="1" placeholder="글을 작성하세요.">${hospital123.content}</textarea>
+												</div>
+											</div>
+											<div class="col-md-12 text-right">
+												<input type="submit" value="수정하기" class="btn primary-btn">
+											</div>
+										</form:form>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div class="review_item reply">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review2.png" alt="'/>"/>
-										</div>
-										<div class="media-body">
-											<h4>서의정</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Reply</a>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review2.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>이태림</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Reply</a>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
 								</div>
 							</div>
+
 						</div>
-						<div class="col-lg-6">
-							<div class="review_box">
-								<h4>QnA 작성</h4>
-								<form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요.">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요.">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="number" name="number" placeholder="전화번호를 입력하세요.">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<textarea class="form-control" name="message" id="message" rows="1" placeholder="글을 작성하세요."></textarea>
-										</div>
-									</div>
-									<div class="col-md-12 text-right">
-										<button type="submit" value="submit" class="btn primary-btn">등록</button>
-									</div>
-								</form>
-							</div>
-						</div>
+						<div id="pagination" class="pagination"></div>
 					</div>
 				</div>
 				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
@@ -562,6 +634,9 @@
 	</section>
 	<!--================ end related Product area =================-->  	
 
+
+
+<!-- 태림꺼 -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5378af335c867b376e6f09fedae7f166"></script>
 
 	<script>
@@ -743,6 +818,172 @@
     });
 
 </script>	
+
+<!-- 도영꺼 -->
+
+<script>
+
+/* 3개 글 보기 */
+var list = document.getElementById('comment_list').getElementsByClassName('review_item');
+  var pageNum = document.getElementById('pagination');
+  var limitPerPage = 3;
+  var totalPages = Math.ceil(list.length / limitPerPage);
+
+  for (var i = limitPerPage; i < list.length; i++) {
+    list[i].style.display = 'none';
+  }
+
+  for (var i = 1; i <= totalPages; i++) {
+    pageNum.innerHTML += "<button onclick='changePage(" + i + ")'>" + i + "</button>";
+  }
+
+  window.changePage = function(page) {
+    var start = (page - 1) * limitPerPage;
+    var end = start + limitPerPage;
+
+    for (var i = 0; i < list.length; i++) {
+      list[i].style.display = 'none';
+    }
+
+    for (var i = start; i < end; i++) {
+      if (list[i]) {
+        list[i].style.display = 'block';
+      }
+    }
+  }
+  
+  var numbers = document.getElementsByClassName('number');
+  for (var i = 0; i < numbers.length; i++) {
+    numbers[i].addEventListener('click', function(e) {
+      var buttons = e.target.parentNode.parentNode.getElementsByClassName('edit_delete_buttons')[0];
+      if (buttons) {
+        buttons.style.display = buttons.style.display === 'none' ? 'block' : 'none';
+      }
+    });
+  }
+
+  var editButtons = document.getElementsByClassName('edit_button');
+  for (var i = 0; i < editButtons.length; i++) {
+    editButtons[i].addEventListener('click', function(e) {
+      // Edit 버튼 클릭 시 동작 정의
+      console.log('Edit button clicked');
+    });
+  }
+
+  var deleteButtons = document.getElementsByClassName('delete_button');
+  for (var i = 0; i < deleteButtons.length; i++) {
+    deleteButtons[i].addEventListener('click', function(e) {
+      // Delete 버튼 클릭 시 동작 정의
+      console.log('Delete button clicked');
+    });
+  }
+  
+  document.getElementById('comment_list').addEventListener('click', function(e) {
+	  if (e.target && e.target.classList.contains('number')) {
+	    var buttons = e.target.parentNode.parentNode.parentNode.getElementsByClassName('edit_delete_buttons')[0];
+	    buttons.style.display = buttons.style.display === 'none' ? 'block' : 'none';
+	  }
+
+	  if (e.target && e.target.classList.contains('edit_button')) {
+	    // Edit 버튼 클릭 시 동작 정의
+	    console.log('Edit button clicked');
+	  }
+
+	  if (e.target && e.target.classList.contains('delete_button')) {
+	    // Delete 버튼 클릭 시 동작 정의
+	    console.log('Delete button clicked');
+	  }
+	});
+  
+  document.addEventListener('DOMContentLoaded', function() {
+	    var pagination = document.getElementById('pagination');
+	    var buttons = pagination.getElementsByTagName('button');
+
+	    // 각 버튼에 대한 클릭 이벤트 추가
+	    for (var i = 0; i < buttons.length; i++) {
+	        buttons[i].addEventListener('click', function() {
+	            // 현재 선택된 버튼의 인덱스 확인
+	            var currentIndex = Array.from(buttons).indexOf(this);
+
+	            // 다음 버튼의 인덱스 계산
+	            var nextIndex = currentIndex + 1;
+	            if (nextIndex >= buttons.length) {
+	                nextIndex = 0; // 마지막 버튼일 경우 첫 번째 버튼으로 이동
+	            }
+
+	            // 다음 버튼으로 이동
+	            buttons[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+	        });
+	    }
+	});
+  
+  
+  /* 삭제 */
+  function deleteConfirm(hospitalid) {
+	    if (confirm("삭제하시겠습니까?") == true) 
+	    {
+	        // 직접 URL을 생성하여 이동합니다.
+	        location.href = "/waguwagu/hospitalquestion/hospitaldelete?hospitalid=" + hospitalid;
+	    } 
+	    else 
+	    {
+	        return;
+	    }
+	}
+  
+  /* 수정하기 */
+// 수정 버튼 클릭 시 동작하는 부분
+$(document).ready(function() {
+    $('.edit_button').click(function() {
+        var hospitalid = $(this).data('hospitalid');
+        
+        $('#contactForm').hide(); // 등록 폼 숨기기
+        $('#editFormWrapper').show();
+
+        $.ajax({
+            url: '/waguwagu/hospitalquestion/hospitalupdate',
+            type: 'GET',
+            data: { hospitalparamid: hospitalid }, // 수정 필요
+            success: function(hospitalqna) {
+                $('#editName').val(hospitalqna.name); // 수정 폼에 이름 채우기
+                $('#editEmail').val(hospitalqna.email); // 수정 폼에 이메일 채우기
+                $('#editHospitalid').val(hospitalqna.hospitalid); // 수정 폼에 상품 ID 채우기
+                $('#editContent').val(hospitalqna.content); // 수정 폼에 내용 채우기
+            }
+        });
+    });
+});
+</script>
+
+<!-- 답변 완료 버튼 -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var answerButtons = document.querySelectorAll('.answer_button');
+    
+        answerButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var answerInfo = this.nextElementSibling;
+                if (answerInfo.style.display === 'none') {
+                    answerInfo.style.display = 'block';
+                } else {
+                    answerInfo.style.display = 'none';
+                }
+            });
+        });
+    });
+    </script>
+    <!-- 수정폼 취소버튼 -->
+    <script>
+    $(document).ready(function() {
+        // 취소 버튼 클릭 시 등록 폼 표시
+        $('#cancelEdit').click(function(event) {
+            event.preventDefault(); // 기본 동작 막기
+            $('#editFormWrapper').hide(); // 수정 폼 숨기기
+            $('#contactForm').show(); // 등록 폼 표시
+        });
+    });
+    </script>
+
 
 
   <script src="<c:url value='/resources/vendors/jquery/jquery-3.2.1.min.js'/>"/></script>

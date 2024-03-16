@@ -3,7 +3,6 @@ package com.springmvc.controller;
 import java.util.List;
 import java.util.Random;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.springmvc.domain.HospitalInfo;
+import com.springmvc.domain.Classanswer;
+import com.springmvc.domain.Classqna;
 import com.springmvc.domain.Lesson;
 import com.springmvc.domain.LessonReview;
+import com.springmvc.service.AnswerClassService;
 import com.springmvc.service.LessonReviewService;
 import com.springmvc.service.LessonService;
+import com.springmvc.service.QnAClassService;
 
 @Controller
 @RequestMapping("/lessons")
@@ -35,6 +37,11 @@ public class LessonController
       @Autowired
       private LessonReviewService lessonReviewService;
       
+      @Autowired
+      private QnAClassService qnaclassservice;
+      @Autowired
+      private AnswerClassService answerclassservice;
+      
    // READ
       @GetMapping
       public String requestLessonList(Model model, HttpSession session)
@@ -44,7 +51,6 @@ public class LessonController
          
          String team = (String) session.getAttribute("team");
          model.addAttribute("myteam",team);
-         
          
          return "/Lesson/lessons";
       }
@@ -69,7 +75,7 @@ public class LessonController
          double avgScore = lessonReviewService.calculateAvgScore(classId);
          model.addAttribute("ls", lsById); // product.jsp 에서 pd. 해서 꺼내쓰면됨
          model.addAttribute("avgScore",avgScore);
-
+         System.out.println("ls : " + lsById);
          System.out.println("avgScore : "+avgScore);
          
          List<LessonReview> list = lessonReviewService.readAllReviewList(classId);
@@ -88,12 +94,18 @@ public class LessonController
          
  	   // 세션에서 memberId 가져오기
 	    String memberId = (String) session.getAttribute("memberId");
-	    System.out.println("memberId=" + memberId);
+	    System.out.println("memberId" + memberId);
 
 	    // 기존에 사용되던 Member 객체를 사용하지 않음
 
 	    model.addAttribute("id", memberId);
 	    
+	    
+	    List<Classqna> classqnalist = qnaclassservice.readAllClassqnaList();
+        model.addAttribute("classqnalistkey",classqnalist);
+        
+        List<Classanswer> classanswerlist = answerclassservice.readAllclassanswerLists();
+        model.addAttribute("classanswerlistkey",classanswerlist);
 	    
 	    String team = (String) session.getAttribute("team");
 	    model.addAttribute("myteam",team);

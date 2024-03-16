@@ -95,7 +95,7 @@ public class QnAClassController {
 	@PostMapping("/classupdate") // URL Mapping 수정
 	public String UpdateqnaForm(@ModelAttribute("classupdateqna") Classqna classqna) {
 		qnaService.updateClassqna(classqna);
-		return "redirect:/classquestion"; // 수정 후 리다이렉트할 URL 지정
+		return "redirect:/lessons"; // 수정 후 리다이렉트할 URL 지정
 	}
 
 	// 삭제

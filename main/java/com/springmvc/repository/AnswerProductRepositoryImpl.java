@@ -68,10 +68,9 @@ public class AnswerProductRepositoryImpl implements AnswerProductRepository{
 	public void createProductlanswer(Productanswer productanswer) {
 		// TODO Auto-generated method stub
 		System.out.println("add Repository");
-		String SQL = "INSERT INTO productanswer (answernumber,questionnumber,respondentid,answercontent,replaydate,productid)" + "VALUES(?,?,?,?,?,?)";
-		
-		template.update(SQL, productanswer.getAnswernumber(),productanswer.getQuestionnumber(),productanswer.getRespondentid(),
-				productanswer.getAnswercontent(),productanswer.getReplaydate(),productanswer.getProductid());
+		String SQL = "INSERT INTO productanswer (questionnumber,respondentid,answercontent,productid)" + "VALUES(?,?,?,?)"; // classanswer -> productanswer로 수정
+
+		template.update(SQL, productanswer.getQuestionnumber(), productanswer.getRespondentid(), productanswer.getAnswercontent(), productanswer.getProductid()); // classanswer -> productanswer로 수정
 		
 		listOfproductanswer.add(productanswer);
 	}

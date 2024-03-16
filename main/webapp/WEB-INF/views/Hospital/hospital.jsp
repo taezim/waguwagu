@@ -118,12 +118,12 @@
   
 </head>
 <body>
-	<!--================ Start Header Menu Area =================-->
+<!--================ Start Header Menu Area =================-->
 	<header class="header_area">
 	    <div class="main_menu">
 	      <nav class="navbar navbar-expand-lg navbar-light">
 	        <div class="container">
-	          <a class="navbar-brand logo_h" href="index.html">
+	          <a class="navbar-brand logo_h" href="/waguwagu/">
 	          	<img src="<c:url value='/resources/img/baseball.png'/>" alt=''/>
 	          </a>
 	          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -134,8 +134,17 @@
 	          </button>
 	          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 	            <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-	              <li class="nav-item"><a class="nav-link" href="index.html">홈</a></li>
-	              <li class="nav-item"><a class="nav-link" href="index.html">쇼핑</a></li>
+	              <li class="nav-item"><a class="nav-link" href="/waguwagu/">홈</a></li>
+	              <li class="nav-item submenu dropdown">
+	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+	                  aria-expanded="false">쇼핑</a>
+	                <ul class="dropdown-menu">
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/products">쇼핑</a></li>
+	                  <c:if test="${sessionScope.memberId == 'admin'}">
+	                  	<li class="nav-item"><a class="nav-link" href="/waguwagu/products/add">상품등록</a></li>
+	                  </c:if>
+	                </ul>
+	              </li>
 	              <li class="nav-item active submenu dropdown">
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">구단</a>
@@ -158,7 +167,7 @@
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">클래스</a>
 	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/Lesson/lessons">클래스?</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons/add">클래스등록</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons">클래스목록</a></li>
 	                </ul>
 								</li>
@@ -175,8 +184,7 @@
 	                  aria-expanded="false">의료</a>
 	                <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">병원목록</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/Hospital/">병원예약</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="tracking-order.html">재활추천</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">예약확인</a></li>
 	                </ul>
 	              </li>
 	            </ul>
@@ -297,27 +305,23 @@
                     <div class="col-lg-9 col-md-9 blog_details">
                         <h2>${hospitalInfo.yadmNm }</h2>
                         <p class="excert">
-                                MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money
-                                on boot camp when you can get the MCSE study materials yourself at a fraction.
+                                안녕하세요. 저희 ${hospitalInfo.yadmNm }은 환자에게 온마음 다 해 진심으로 환자를 대하는 병원입니다.
+                                ${hospitalInfo.sidoCdNm} 지역에 위치한 병원으로 오랜 시간 전문성을 띄며 진료를 하고 있습니다.
                         </p>
                         <p>
-                                Boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot
-                                camp when you can get the MCSE study materials yourself at a fraction of the camp price.
-                                However, who has the willpower to actually sit through a self-imposed MCSE training. who
-                                has the willpower to actually sit through a self-imposed
+                                우수한 의료진, 최첨단 고해상도의 MRI(지멘스 MAGNETOM VIDA), CT(GE Revolution™ APEX, GE Revolution™ Maxima), 
+                                PET-CT, SPECT-CT (GE NMCT 870DR) 등 정확한 진단장비와 다빈치 로봇수술, 차세대심장혈관영상치료기, 
+                                방사선치료기 Elekta Infinity HD 및 최첨단 노발리스 등 효과적인 치료 장비 그리고 Full PACS(영상정보저장전달시스템)과 HIS(통합병원정보시스템) 등
+                                 편리한 의료시스템을 갖추고 있습니다.
                         </p>
                         <p>
-                                Boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot
-                                camp when you can get the MCSE study materials yourself at a fraction of the camp price.
-                                However, who has the willpower to actually sit through a self-imposed MCSE training. who
-                                has the willpower to actually sit through a self-imposed
+                                4차 산업혁명시대를 맞아 ${hospitalInfo.sidoCdNm} 지역 유일 보건복지부 첨단재생의료실시기관 지정과 여러 기관들과의 업무협약을 통해 스마트병원 구축에도 최선을 다하고 있습니다.
+                                ${hospitalInfo.yadmNm }은 "첨단 지능형 시스템 기반 중증치료 전문 ${hospitalInfo.clCdNm}의 역할에 더욱 매진하기 위해 우수한 의료인력 확보와 첨단 의료장비 도입 그리고 쾌적한 고품격 진료 공간 조성에 최선을 다하고 있습니다.
                         </p>
                     </div>	
                     <div class="col-lg-12">
                         <div class="quotes">
-                                MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money
-                                on boot camp when you can get the MCSE study materials yourself at a fraction of the camp
-                                price. However, who has the willpower to actually sit through a self-imposed MCSE training.
+                                저희 병원에서 좋은 환경과 전문성 있는 치료를 받으시며 환자분들의 건강을 기원합니다.
                         </div>
                         <div class="row">
                                 <div class="col-6">
@@ -633,6 +637,84 @@
         </div>
 	</section>
 	<!--================ end related Product area =================-->  	
+	 <!--================ Start footer Area  =================-->	
+	<footer class="footer">
+		<div class="footer-area">
+			<div class="container">
+				<div class="row section_gap">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title large_title">Our Mission</h4>
+							<p>
+								So seed seed green that winged cattle in. Gathering thing made fly you're no 
+								divided deep moved us lan Gathering thing us land years living.
+							</p>
+							<p>
+								So seed seed green that winged cattle in. Gathering thing made fly you're no divided deep moved 
+							</p>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Quick Links</h4>
+							<ul class="list">
+								<li><a href="/waguwagu">Home</a></li>
+								<li><a href="/waguwagu/products">Shop</a></li>
+								<li><a href="/waguwagu/teams">Team</a></li>
+								<li><a href="/waguwagu/games">Games</a></li>
+								<li><a href="/waguwagu/lessons">Class</a></li>
+								<li><a href="/waguwagu/hospitalinfo/list">Hospital</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget instafeed">
+							<h4 class="footer_title">Gallery</h4>
+							<ul class="list instafeed d-flex flex-wrap">
+								<li><img src="<c:url value='/resources/images/gallery/r1.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r2.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r3.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r5.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r7.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r8.jpg" alt="'/>"/></li>
+							</ul>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Contact Us</h4>
+							<div class="ml-40">
+								<p class="sm-head">
+									<span class="fa fa-location-arrow"></span>
+									Head Office
+								</p>
+								<p>123, Main Street, Your City</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-phone"></span>
+									Phone Number
+								</p>
+								<p>
+									+123 456 7890 <br>
+									+123 456 7890
+								</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-envelope"></span>
+									Email
+								</p>
+								<p>
+									free@infoexample.com <br>
+									www.infoexample.com
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--================ End footer Area  =================-->
 
 
 

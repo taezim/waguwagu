@@ -127,103 +127,95 @@
 
 </head>
 <body>
-	<!--================ Start Header Menu Area =================-->
+<!--================ Start Header Menu Area =================-->
 	<header class="header_area">
-		<div class="main_menu">
-			<nav class="navbar navbar-expand-lg navbar-light">
-				<div class="container">
-					<a class="navbar-brand logo_h" href="index.html"> <img
-						src="<c:url value='/resources/img/baseball.png'/>" alt='' />
-					</a>
-					<button class="navbar-toggler" type="button" data-toggle="collapse"
-						data-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent" aria-expanded="false"
-						aria-label="Toggle navigation">
-						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<div class="collapse navbar-collapse offset"
-						id="navbarSupportedContent">
-						<ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-							<li class="nav-item"><a class="nav-link" href="index.html">홈</a></li>
-							<li class="nav-item"><a class="nav-link" href="index.html">쇼핑</a></li>
-							<li class="nav-item active submenu dropdown"><a href="#"
-								class="nav-link dropdown-toggle" data-toggle="dropdown"
-								role="button" aria-haspopup="true" aria-expanded="false">구단</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link"
-										href="/waguwagu/team/add">구단등록</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="/waguwagu/team">구단목록</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="/waguwagu/team/result/ranks">구단랭킹</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="/waguwagu/team/team?id=${myteam}">나의구단</a></li>
-								</ul></li>
-							<li class="nav-item submenu dropdown"><a href="#"
-								class="nav-link dropdown-toggle" data-toggle="dropdown"
-								role="button" aria-haspopup="true" aria-expanded="false">경기</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link"
-										href="/waguwagu/games/add">게임등록</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="/waguwagu/games">경기목록</a></li>
-								</ul></li>
-							<li class="nav-item submenu dropdown"><a href="#"
-								class="nav-link dropdown-toggle" data-toggle="dropdown"
-								role="button" aria-haspopup="true" aria-expanded="false">클래스</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link"
-										href="/waguwagu/lessons/add">클래스등록</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="/waguwagu/lessons">클래스목록</a></li>
-								</ul></li>
-							<li class="nav-item submenu dropdown"><a href="#"
-								class="nav-link dropdown-toggle" data-toggle="dropdown"
-								role="button" aria-haspopup="true" aria-expanded="false">경기장</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="/waguwagu/">경기장목록</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="single-blog.html">경기장예약</a></li>
-								</ul></li>
-							<li class="nav-item submenu dropdown"><a href="#"
-								class="nav-link dropdown-toggle" data-toggle="dropdown"
-								role="button" aria-haspopup="true" aria-expanded="false">의료</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link"
-										href="/waguwagu/hospitalinfo/list">병원목록</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="/waguwagu/Hospital/">병원예약</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="tracking-order.html">재활추천</a></li>
-								</ul></li>
-						</ul>
-
-						<ul class="nav-shop">
-							<li class="nav-item"><button>
-									<i class="ti-search"></i>
-								</button></li>
-							<li class="nav-item"><button>
-									<i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span>
-								</button></li>
-							<li class="nav-item"><button>
-									<i class="fas fa-user"></i>
-								</button></li>
-						</ul>
-						<c:if test="${empty sessionScope.memberId }">
-							<a href="/waguwagu/member/login">로그인</a>
-						</c:if>
-						<c:if test="${not empty sessionScope.memberId}">
-							<form action="/waguwagu/member/logout" method="post">
-								<input type="submit" value="로그아웃"
-									style="border: none; background: none; color: rgb(79, 155, 253)">
-							</form>
-						</c:if>
-					</div>
-				</div>
-			</nav>
-		</div>
-	</header>
+	    <div class="main_menu">
+	      <nav class="navbar navbar-expand-lg navbar-light">
+	        <div class="container">
+	          <a class="navbar-brand logo_h"  href="/waguwagu/">
+	          	<img src="<c:url value='/resources/img/baseball.png'/>" alt=''/>
+	          </a>
+	          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+	            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	          </button>
+	          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+	            <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
+	              <li class="nav-item"><a class="nav-link" href="/waguwagu/">홈</a></li>
+	              <li class="nav-item submenu dropdown">
+	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+	                  aria-expanded="false">쇼핑</a>
+	                <ul class="dropdown-menu">
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/products">쇼핑</a></li>
+	                  <c:if test="${sessionScope.memberId == 'admin'}">
+	                  	<li class="nav-item"><a class="nav-link" href="/waguwagu/products/add">상품등록</a></li>
+	                  </c:if>
+	                </ul>
+	              </li>
+	              <li class="nav-item active submenu dropdown">
+	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+	                  aria-expanded="false">구단</a>
+	                <ul class="dropdown-menu">
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/add">구단등록</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team">구단목록</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/result/ranks">구단랭킹</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/team/team?id=${myteam}">나의구단</a></li>
+	                </ul>
+	              </li>
+	              <li class="nav-item submenu dropdown">
+	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+	                  aria-expanded="false">경기</a>
+	                <ul class="dropdown-menu">
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/games/add">게임등록</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/games">경기목록</a></li>
+	                </ul>
+	              </li>
+	              <li class="nav-item submenu dropdown">
+	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+	                  aria-expanded="false">클래스</a>
+	                <ul class="dropdown-menu">
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons/add">클래스등록</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons">클래스목록</a></li>
+	                </ul>
+								</li>
+	              <li class="nav-item submenu dropdown">
+	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+	                  aria-expanded="false">경기장</a>
+	                <ul class="dropdown-menu">
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/">경기장목록</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="single-blog.html">경기장예약</a></li>
+	                </ul>
+				</li>
+				<li class="nav-item submenu dropdown">
+	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+	                  aria-expanded="false">의료</a>
+	                <ul class="dropdown-menu">
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">병원목록</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">예약확인</a></li>
+	                </ul>
+	              </li>
+	            </ul>
+	
+	            <ul class="nav-shop">
+	              <li class="nav-item"><button><i class="ti-search"></i></button></li>
+	              <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
+	              <li class="nav-item"><button><i class="fas fa-user"></i></button></li>
+	            </ul>
+	           <c:if test="${empty sessionScope.memberId }">
+	            	<a href="/waguwagu/member/login">로그인</a>
+	            </c:if>
+	            <c:if test="${not empty sessionScope.memberId}">
+				    <form action="/waguwagu/member/logout" method="post">
+				        <input type="submit" value="로그아웃" style="border: none; background: none;  color:rgb(79, 155, 253)">
+				    </form>
+				</c:if>
+	          </div>
+	        </div>
+	      </nav>
+	    </div>
+	  </header>
 	<!--================ End Header Menu Area =================-->
 	<!-- ================ start banner area ================= -->
 	<section class="blog-banner-area" id="blog">
@@ -316,55 +308,44 @@
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 					<p>
-						안녕하세요! <strong>${hospitalInfo.yadmNm }</strong> 입니다.
+						안녕하세요! <strong>${ls.className}</strong> 강의입니다.
 					</p>
 					<div class="col-lg-12"></div>
 					<div class="col-lg-9 col-md-9 blog_details">
-						<h2>${hospitalInfo.yadmNm }</h2>
-						<p class="excert">MCSE boot camps have its supporters and its
-							detractors. Some people do not understand why you should have to
-							spend money on boot camp when you can get the MCSE study
-							materials yourself at a fraction.</p>
-						<p>Boot camps have its supporters and its detractors. Some
-							people do not understand why you should have to spend money on
-							boot camp when you can get the MCSE study materials yourself at a
-							fraction of the camp price. However, who has the willpower to
-							actually sit through a self-imposed MCSE training. who has the
-							willpower to actually sit through a self-imposed</p>
-						<p>Boot camps have its supporters and its detractors. Some
-							people do not understand why you should have to spend money on
-							boot camp when you can get the MCSE study materials yourself at a
-							fraction of the camp price. However, who has the willpower to
-							actually sit through a self-imposed MCSE training. who has the
-							willpower to actually sit through a self-imposed</p>
+						<h2>${ls.className}</h2>
+						<p class="excert">본 강의는 선수출신 코치인 "${ls.managerName }"" 코치가 맡아서 강의를 하고 있습니다.</p>
+						<p>
+							취미로 하는 분들일수록 전문성이 떨어지기 때문에 부상을 당할 위험이 많은데요.
+							원래 운동을 하는 선수도 아니고 강의를 들을 필요가 있나 생각하시는 분들도 많을 걸로 알고 있습니다.
+							하지만 그럴수록 강의가 좋다는 거 아시나요?
+							취미로 하는 분들일수록 전문성이 떨어지기 때문에 부상을 당할 위험이 많은데요.
+							다들 부상 조심하셔야합니다. 나이가 들수록 근력이 없을수록 회복 속도는 더디기 때문입니다.</p>
+						<p>앞서 말했던 것과 같이 선수가 아니기때문에 부상을 당해도 온전히 그것에 시간을 쏟을 수 없습니다.
+							그렇다면 애초에 부상을 안당하는게 좋겠죠? 
+							이것을 위해 강의를 들어야합니다. 강의를 들으면서 제대로된 자세를 알고 그러므로 부상의 가능성을 낮출 수 있기 때문입니다.
+							부상뿐만 아니라 자세 교정을 하면 더욱 좋은 성적을 받을 수 있습니다.
+							${ls.subject } 실력을 늘리면서 즐거운 야구하는 것 추천드립니다.
+							</p>
 					</div>
 					<div class="col-lg-12">
-						<div class="quotes">MCSE boot camps have its supporters and
-							its detractors. Some people do not understand why you should have
-							to spend money on boot camp when you can get the MCSE study
-							materials yourself at a fraction of the camp price. However, who
-							has the willpower to actually sit through a self-imposed MCSE
-							training.</div>
+						<div class="quotes">
+							취미로 하는 운동이지만 잘하게 되면 더욱 더 재미를 보장할 수 있습니다.
+							</div>
 						<div class="row">
 							<div class="col-6">
 								<img class="img-fluid"
-									src="<c:url value='/resources/img/category/usman-yousaf-pTrhfmj2jDA-unsplash.jpg" alt="'/>" />
+									src="<c:url value='/resources/img/category/진.jpg" alt="'/>" />
 							</div>
 							<div class="col-6">
 								<img class="img-fluid"
-									src="<c:url value='/resources/img/category/새우아님.jpg" alt="'/>" />
+									src="<c:url value='/resources/img/category/짜.jpg" alt="'/>" />
 							</div>
 							<div class="col-lg-12 mt-4">
-								<p>MCSE boot camps have its supporters and its detractors.
-									Some people do not understand why you should have to spend
-									money on boot camp when you can get the MCSE study materials
-									yourself at a fraction of the camp price. However, who has the
-									willpower.</p>
-								<p>MCSE boot camps have its supporters and its detractors.
-									Some people do not understand why you should have to spend
-									money on boot camp when you can get the MCSE study materials
-									yourself at a fraction of the camp price. However, who has the
-									willpower.</p>
+								<p>코치 이름 : ${ls.managerName }</p>
+								<p>전화 번호 : ${ls.tel }</p>
+								<p>수강 인원 : ${ls.auditors }</p>
+								<p>장소 : ${ls.venue }</p>
+								<p>수강료 : ${ls.fees }</p>
 							</div>
 						</div>
 					</div>
@@ -689,6 +670,84 @@
 		</div>
 	</section>
 	<!--================End Product Description Area =================-->
+	 <!--================ Start footer Area  =================-->	
+	<footer class="footer">
+		<div class="footer-area">
+			<div class="container">
+				<div class="row section_gap">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title large_title">Our Mission</h4>
+							<p>
+								So seed seed green that winged cattle in. Gathering thing made fly you're no 
+								divided deep moved us lan Gathering thing us land years living.
+							</p>
+							<p>
+								So seed seed green that winged cattle in. Gathering thing made fly you're no divided deep moved 
+							</p>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Quick Links</h4>
+							<ul class="list">
+								<li><a href="/waguwagu">Home</a></li>
+								<li><a href="/waguwagu/products">Shop</a></li>
+								<li><a href="/waguwagu/teams">Team</a></li>
+								<li><a href="/waguwagu/games">Games</a></li>
+								<li><a href="/waguwagu/lessons">Class</a></li>
+								<li><a href="/waguwagu/hospitalinfo/list">Hospital</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget instafeed">
+							<h4 class="footer_title">Gallery</h4>
+							<ul class="list instafeed d-flex flex-wrap">
+								<li><img src="<c:url value='/resources/images/gallery/r1.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r2.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r3.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r5.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r7.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r8.jpg" alt="'/>"/></li>
+							</ul>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Contact Us</h4>
+							<div class="ml-40">
+								<p class="sm-head">
+									<span class="fa fa-location-arrow"></span>
+									Head Office
+								</p>
+								<p>123, Main Street, Your City</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-phone"></span>
+									Phone Number
+								</p>
+								<p>
+									+123 456 7890 <br>
+									+123 456 7890
+								</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-envelope"></span>
+									Email
+								</p>
+								<p>
+									free@infoexample.com <br>
+									www.infoexample.com
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--================ End footer Area  =================-->
 
 	<!-- 태림꺼  -->
 	<!-- 페이징처리 -->
@@ -910,7 +969,7 @@
 
 		</script>
 
-	/* 삭제 */
+	
 	<script>
 		
 		

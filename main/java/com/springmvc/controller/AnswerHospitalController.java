@@ -58,7 +58,7 @@ public class AnswerHospitalController {
 	{
 	    
 		answerService.createHospitalanswer(hospitalanswer);
-	    return "redirect:/hospitalanswers";
+	    return "redirect:/hospitalquestion";
 	}
 	
 	//Update

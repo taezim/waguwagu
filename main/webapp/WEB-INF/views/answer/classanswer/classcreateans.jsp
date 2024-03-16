@@ -167,7 +167,8 @@
 			<div class="col-lg-6">
 					<div class="login_form_inner">
 						<h3>QnA 답변</h3>
-						<form:form class="row login_form" id="contactForm" modelAttribute="classplus" method="post" action="/waguwagu/classanswers/classadd" novalidate="novalidate">
+						<form:form class="row login_form" id="contactForm" modelAttribute="classcreateanswer" method="post" novalidate="novalidate">
+						    <input type="hidden" name="classId" value="${lskey.classId }">
 						    <div class="col-md-12">
 						        <div class="col-md-12">
 						            <div class="form-group">
@@ -190,7 +191,7 @@
 						         <div class="col-md-12">
 						            <div class="form-group">
 						                <!-- classplus 객체의 content 필드를 바인딩합니다. -->
-						                <input class="form-control"  name="classid" id="classid"  placeholder="classid를 작성하세요." />
+						                <input class="form-control"  name="classid" id="classid"  readonly="true" placeholder="classid를 작성하세요." />
 						            </div>
 						        </div>
 						        <div class="col-md-12 text-right">

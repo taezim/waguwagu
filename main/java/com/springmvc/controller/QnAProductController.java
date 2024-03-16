@@ -2,6 +2,8 @@ package com.springmvc.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.springmvc.domain.Productanswer;
 import com.springmvc.domain.Productqna;
+import com.springmvc.service.AnswerProductService;
 import com.springmvc.service.QnAProductService;
 
 @Controller
@@ -21,10 +25,14 @@ public class QnAProductController {
 
 	@Autowired
 	private QnAProductService qnaService;
+	@Autowired
+	private HttpSession httpsession;
+	@Autowired
+	private AnswerProductService answerproductservice;
 	
 	// 처음 페이지 진입 시 productqnaList를 조회합니다.
 	 @GetMapping
-	    public String showAllproductqna( Model model) {
+	    public String showAllproductqna( Model model, HttpSession httpsession) {
 	        System.out.println("qna 객체 전체 조회 controller");
 
 	        Productqna newqna = new Productqna();
@@ -35,6 +43,12 @@ public class QnAProductController {
 	        List<Productqna> productlist = qnaService.readAllProductqnaList();
 	        model.addAttribute("productqnaList", productlist);
 	        System.out.println("productlist : "+productlist);
+	        
+	        String seprodcutid = (String) httpsession.getAttribute("productid");
+	        model.addAttribute("seproductidkey",seprodcutid);
+	        
+	        List<Productanswer> productanslist = answerproductservice.readAllProductanswerList();
+	        model.addAttribute("productanslistkey",productanslist);
 	        
 		    // productqna를 productupdateqna라는 모델 속성에 추가합니다.		    
 	        return "/question/productQnA/productqnas";

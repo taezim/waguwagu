@@ -83,6 +83,29 @@
 .rowmappertow {
 	display: flex;
 }
+
+
+/* 수정이 필요한 것들 */
+
+/* 답변완료, 수정, 삭제 css */
+.edit_button, .delete_button, .answer_button {
+	padding: 8px 16px;
+	margin: 4px;
+	background-color: white; /* 초기 배경색을 하얀색으로 설정 */
+	border: none;
+	color: #384aeb; /* 텍스트 색상을 파란색으로 설정 */
+	cursor: pointer;
+	border-radius: 30px;
+	text-decoration: none;
+	transition: background-color 0.3s; /* 배경색 변경에 대한 전환 효과 추가 */
+	border: 1px solid #e0e0e0;
+	color: black;
+}
+
+.edit_button:hover, .delete_button:hover, .answer_button:hover {
+	background-color: #384aeb; /* 호버시 배경색을 파란색으로 변경 */
+	color: white;
+}
 </style>
 </head>
 <body>
@@ -322,38 +345,58 @@
 						</div>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="contact" role="tabpanel"
-					aria-labelledby="contact-tab">
-					<div class="row rowmapper">
-						<div class="rowmappertow">
-							<div class="col-lg-6">
-								<div id="comment_list">
-									<c:forEach items="${hospitalqnaList}" var="hospitalqna">
-										<div class="review_item">
-											<div class="media">
-												<div class="d-flex">
-													<img src="resources/images/product/review2.png" alt="#">
-												</div>
-												<div class="media-body">
-													<h4 class="number" style="cursor: pointer;">${hospitalqna.name}</h4>
-													<h5>${hospitalqna.date}</h5>
-													<a class="reply_btn" href="#">Reply</a>
-												</div>
-											</div>
-											<p>${hospitalqna.content}</p>
-											<div class="edit_delete_buttons" style="display: none;">
-												<a href="javascript:void(0);" class="edit_button"
-													data-hospitalid="${hospitalqna.hospitalid}">수정하기</a> <a
-													href="<c:url value="javascript:deleteConfirm('${hospitalqna.hospitalid}')" />"
-													class="edit_button">삭제</a>
-											</div>
-										</div>
-									</c:forEach>
-								</div>
-								<div class="col-lg-6">
-									<div class="pagination-container"></div>
-								</div>
-							</div>
+					<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+					    <div class="row rowmapper">
+					        <div class="rowmappertow">
+					            <div class="col-lg-6">
+					                <div id="comment_list">
+					                    <c:forEach items="${hospitalqnaList}" var="hospitalqna">
+					                        <div class="review_item">
+					                            <div class="media">
+					                                <div class="d-flex">
+					                                    <img src="resources/images/product/review2.png" alt="#">
+					                                </div>
+					                                <div class="media-body">
+					                                    <h4 class="number" style="cursor: pointer;">${hospitalqna.name}</h4>
+					                                    <h5>${hospitalqna.date}</h5>
+					                                    <a class='reply_btn' href='/waguwagu/hospitalanswers/hospitaladd?hospitalid=${hospitalqna.hospitalid}'>Reply</a>
+					                                </div>
+					                            </div>
+					                            <p>${hospitalqna.content}</p>
+					                            <div class="edit_delete_buttons" style="display: none;">
+					                                <!-- 답변 완료 버튼 추가 -->
+					                                <c:set var="hasAnswer" value="false" />
+					                                <c:forEach items="${hospitalanslistkey}" var="ansItem">
+					                                    <c:if test="${hospitalqna.hospitalid eq ansItem.hospitalid}">
+					                                        <c:set var="hasAnswer" value="true" />
+					                                    </c:if>
+					                                </c:forEach>
+					                                <c:if test="${hasAnswer eq 'true'}">
+					                                    <button class="answer_button">답변 완료</button>
+					                                    <div class="answer_info" style="display: none;">
+					                                        <c:forEach items="${hospitalanslistkey}" var="ansItem">
+					                                            <c:if test="${hospitalqna.hospitalid eq ansItem.hospitalid}">
+					                                                <p>답변 날짜 : ${ansItem.replaydate}</p>
+					                                                <p>답변 : ${ansItem.answercontent }</p>
+					                                                <!-- 다른 필드 정보도 추가 -->
+					                                            </c:if>
+					                                        </c:forEach>
+					                                    </div>
+					                                </c:if>
+					                                <a href="javascript:void(0);" class="edit_button" data-hospitalid="${hospitalqna.hospitalid}">수정하기</a> <a href="<c:url value="javascript:deleteConfirm('${hospitalqna.hospitalid}')" />" class="edit_button">삭제</a>
+					                            </div>
+					                        </div>
+					                    </c:forEach>
+					                </div>
+					                <div class="col-lg-6">
+					                    <div class="pagination-container"></div>
+					                </div>
+					            </div>
+
+
+
+  
+
 							<div class="col-lg-6">
 								<div class="review_box">
 									<h4>QnA 작성</h4>
@@ -833,6 +876,35 @@ $(document).ready(function() {
     });
 });
 </script>
+
+<!-- 답변 완료 버튼 -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var answerButtons = document.querySelectorAll('.answer_button');
+    
+        answerButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var answerInfo = this.nextElementSibling;
+                if (answerInfo.style.display === 'none') {
+                    answerInfo.style.display = 'block';
+                } else {
+                    answerInfo.style.display = 'none';
+                }
+            });
+        });
+    });
+    </script>
+    <!-- 수정폼 취소버튼 -->
+    <script>
+    $(document).ready(function() {
+        // 취소 버튼 클릭 시 등록 폼 표시
+        $('#cancelEdit').click(function(event) {
+            event.preventDefault(); // 기본 동작 막기
+            $('#editFormWrapper').hide(); // 수정 폼 숨기기
+            $('#contactForm').show(); // 등록 폼 표시
+        });
+    });
+    </script>
 
 
 	<script src="resources/vendors/jquery/jquery-3.2.1.min.js"></script>

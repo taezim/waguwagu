@@ -21,9 +21,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.springmvc.domain.HospitalInfo;
 import com.springmvc.domain.HospitalReview;
+import com.springmvc.domain.Hospitalanswer;
+import com.springmvc.domain.Hospitalqna;
 import com.springmvc.repository.HospitalInfoRepository;
+import com.springmvc.service.AnswerHospitalService;
 import com.springmvc.service.HospitalReviewService;
 import com.springmvc.service.Jdom;
+import com.springmvc.service.QnAHospitalService;
 
 @Controller
 @RequestMapping("/hospitalinfo")
@@ -37,6 +41,11 @@ public class HospitalInfoController {
 	
 	@Autowired
 	private HospitalReviewService hospitalReviewService;
+	
+	@Autowired
+	private QnAHospitalService qnahospitalservice;
+	@Autowired
+	private AnswerHospitalService answerhospitalservice;
 	
 	@GetMapping("/save")
 	public String saveDate(Model model) {
@@ -109,9 +118,18 @@ public class HospitalInfoController {
 		double avgScore = hospitalReviewService.calculateAvgScore(id);
 
 		model.addAttribute("hospitalId",id);
+		System.out.println("hospitalId : " + id);
+		
 		model.addAttribute("hospitalInfo",hospitalInfoById);
 		model.addAttribute("hospitalReviews", reviews);
 	    model.addAttribute("avgScore", avgScore);
+	    
+	    List<Hospitalqna> hospitalqnalist = qnahospitalservice.readAllhospitalqnaList();
+	    model.addAttribute("hospitalqnalistkey",hospitalqnalist);
+	    List<Hospitalanswer> hospitalanswerlist = answerhospitalservice.readAllhospitalanswerLists();
+	    model.addAttribute("hospitalanswerlistkey",hospitalanswerlist);
+	    
+	    
 		return "/Hospital/hospital";
 	}
 	

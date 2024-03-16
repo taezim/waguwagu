@@ -43,12 +43,12 @@ public class AnswerProductController {
 	}
 
 	@GetMapping("/productadd")
-	public String createProductGetQnA(@ModelAttribute("productcreateanswer") Productanswer productnewanswer) {
+	public String createProductGetQnA(@RequestParam("productid")String productid,@ModelAttribute("productcreateanswer") Productanswer productnewanswer) {
 	    return "/answer/productanswer/productcreateans";
 	}
 
 	@PostMapping("/productadd")
-	public String createProductPostQnA(@ModelAttribute("productcreateanswer") Productanswer productanswer) {
+	public String createProductPostQnA(@RequestParam("productid")String productid,@ModelAttribute("productcreateanswer") Productanswer productanswer) {
 	    answerService.createProductlanswer(productanswer);
 	    return "redirect:/productanswers";
 	}

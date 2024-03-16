@@ -492,9 +492,9 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div id="pagination" class="pagination"></div>
-			</div>
+									<div id="pagination" class="pagination"></div>
+					
+				</div>			
 			<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
 				<div class="row rowmapper">
 					<div class="rowmappertow">
@@ -676,6 +676,7 @@
 					</div>
 					<div id="pagination" class="pagination"></div>
 				</div>
+			</div>
 			</div>
 		</div>
 	</section>

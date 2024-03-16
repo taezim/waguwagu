@@ -64,11 +64,11 @@ public class AnswerHospitalRepositoryImpl implements AnswerHospitalRepository{
 	@Override
 	public void createHospitalanswer(Hospitalanswer hospitalanswer) {
 		// TODO Auto-generated method stub
-		System.out.println("add Repository");
-		String SQL = "INSERT INTO hospitalanswer (answernumber,questionnumber,respondentid,answercontent,replaydate,hospitalid)" + "VALUES(?,?,?,?,?,?)";
-		
-		template.update(SQL, hospitalanswer.getAnswernumber(),hospitalanswer.getQuestionnumber(),hospitalanswer.getRespondentid(),
-				hospitalanswer.getAnswercontent(),hospitalanswer.getReplaydate(),hospitalanswer.getHospitalid());
+		System.out.println("add Repository 나는 레파지토리 : " + hospitalanswer.getHospitalid());
+		String SQL = "INSERT INTO hospitalanswer (questionnumber,respondentid,answercontent,hospitalid)" + "VALUES(?,?,?,?)";
+	    
+		template.update(SQL, hospitalanswer.getQuestionnumber(), hospitalanswer.getRespondentid(),
+		        hospitalanswer.getAnswercontent(), hospitalanswer.getHospitalid());
 		
 		listOfhospitalanswer.add(hospitalanswer);
 	}

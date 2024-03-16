@@ -483,7 +483,8 @@
 					<div id="pagination" class="pagination"></div>
 				</div>
 				
-				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+		
+			<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
 				<div class="row rowmapper">
 					<div class="rowmappertow">
 						<div class="col-lg-6">
@@ -666,7 +667,6 @@
 				</div>
 			</div>
 			</div>
-			
 		</div>
 	</section>
 	<!--================End Product Description Area =================-->

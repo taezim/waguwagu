@@ -39,6 +39,21 @@
 		border-bottom: 1px solid #777;
 	}
   </style>
+   <script>
+	  document.addEventListener('DOMContentLoaded', function () {
+	    const myteamLink = document.querySelector('.nav-link[href="/waguwagu/team/team?id=${myteam}"]');
+	
+	    myteamLink.addEventListener('click', function (event) {
+	      // 이 부분에서 myteam 값이 비어있는지 확인
+	      const myteamValue = "${myteam}"; // 여기에 myteam 값을 설정하는 방식에 따라 다르게 가져와야 합니다.
+	
+	      if (!myteamValue) {
+	        alert('가입된 구단이 없습니다!');
+	        event.preventDefault(); // 페이지 이동을 막음
+	      }
+	    });
+	  });
+	</script>
 </head>
 <body>
 	<!--================ Start Header Menu Area =================-->
@@ -143,22 +158,22 @@
 	<div class="container">
 		<nav class="bread_c" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 			<ol class="breadcrumb bcbc">
-			  <li class="breadcrumb-item"><a href="#">상품목록</a></li>
-			  <li class="breadcrumb-item active" aria-current="page">글러브</li>
+			  <li class="breadcrumb-item"><a href="/waguwagu/products">상품목록</a></li>
+			  <li class="breadcrumb-item active" aria-current="page">${pd.category }</li>
 			</ol>
 		</nav>
 	</div>
   <!--================Single Product Area =================-->
-	<div class="product_image_area">
+	<div class="product_image_area" style="padding-top:20px;">
 		<div class="container">
 			<div class="row s_product_inner">
 				<div class="col-lg-6">
 					<div class="owl-carousel owl-theme s_Product_carousel">
 						<div class="single-prd-item">
-							<img class="img-fluid" src="img/category/s-p3.jpg" alt="">
+							<img class="img-fluid" src="<c:url value='/resources/images/${pd.fileName}'/>" alt=""/>
 						</div>
 						<div class="single-prd-item">
-							<img class="img-fluid" src="img/category/A2K1883.jpg" alt="">
+							<img class="img-fluid" src="<c:url value='/resources/images/${pd.fileName}'/>" alt=""/>
 						</div>
 						<!-- <div class="single-prd-item">
 							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
@@ -170,13 +185,13 @@
 				</div>
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
-						<h3>[WILSON] 윌슨 2023 KOR A2K 1883 12.5" 1루수 미트</h3>
-						<h2>₩560,000</h2>
+						<h3>[${pd.brand }] ${pd.productName}</h3>
+						<h2>${pd.unitPrice }</h2>
 						<ul class="list">
-							<li><a class="active" href="#"><span>Category</span> : Household</a></li>
-							<li><a href="#"><span>Availibility</span> : In Stock</a></li>
+							<li><a class="active" href="#"><span>Category</span> : ${pd.category }</a></li>
+							<li><a href="#"><span>Condition</span> : ${pd.condition }</a></li>
 						</ul>
-						<p>코리아 A2K 라인업은 한국 프로 선수들을 위해 윌슨의 숙련된 장인들의 손으로 높고 까다로운 품질 기준에 맞춰 제작하는 윌슨의 최상위 라인업 글러브 입니다.</p>
+						<p>${pd.briedfDescription }</p>
 						<div class="product_count">
               <label for="qty">수량:</label>
               <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
@@ -202,7 +217,7 @@
 		<div class="container">
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item">
-					<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">제품설명</a>
+					<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">제품설명</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
@@ -213,33 +228,32 @@
 					 aria-selected="false">QnA</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+					<a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
 					 aria-selected="false">리뷰</a>
 				</li>
 			</ul>
 			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-					<p>채은성(한화), 전의산(SSG), 이형종(키움), 정훈(롯데) 2023 시즌 선수 지급 모델</p>
+				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+					<p><!-- 채은성(한화), 전의산(SSG), 이형종(키움), 정훈(롯데) --> 2023 시즌 선수 지급 모델</p>
 					<div class="fade-1">
 						<img class="img-fluid" src="img/category/a2k진.jpg" alt="">
 						<div>
-							<h5>Super Skin</h5>
+							<h5>Best of ${pd.material }</h5>
 							<p>기존 가죽보다 2배 뛰어난 내구성과 방습 기능을 제공하는 수퍼 스킨으로 필드의 선수들이 글러브를 자유롭게 컨트롤 하고 최고의 퍼포먼스를 발휘할 수 있도록 가벼운 무게를 구현한다.</p>
 						</div>
 					</div>
 					<div class="fade-1">
 						<div>
-							<h5>Expert japanese craftsmanship</h5>
-							<p>오른 글러브 제작 경험을 가진 윌슨의 장인들의 손으로 전체 제작 공정이 일본에서 진행되는 KOR A2K 글러브는 18시간 이상의 제작 시간을 통해 완벽한 형태로 만들어집니다.</p>
+							<h5><strong>${pd.category} 제조의 선도국 ${pd.manufacturCountry }</strong></h5>
+							<p>${pd.description }</p>
 						</div>
-						<img class="img-fluid" src="img/category/s진1.JPG" alt="">
+						<img class="img-fluid" src="<c:url value='/resources/images/${pd.fileName}'/>" alt=""/>
 					</div>
 					<div class="fade-1">
-						<img class="img-fluid" src="img/category/s진2.JPG" alt="">
+						<img class="img-fluid" src="<c:url value='/resources/images/${pd.fileName}'/>" alt=""/>
 						<div>
-							<h5>Sensitive Leather</h5>
-							<p>윌슨 글러브 특유의 부드러움에 더해진 견고함과의 조화, 한국 프로 선수들을 위해 준비된 센서티브 레더는 2017년 첫 선을 보인 후 프로 선수들의 호평과 만족을 이끌어내고 있습니다.
-							압축 가공된 가볍고 단단한 가죽과 듀얼 웰팅의 조합은 글러브 끝까지 최상의 지지력을 제공하여 강한 타구를 받아 내기 용이합니다.</p>
+							<h5><strong>최고의 품질</strong></h5>
+							<p>${pd.briedfDescription }</p>
 						</div>
 					</div>	
 				</div>
@@ -249,10 +263,18 @@
 							<tbody>
 								<tr>
 									<td>
+										<h5>상품번호</h5>
+									</td>
+									<td>
+										<h5>${pd.productId }</h5>
+									</td>
+								</tr>							
+								<tr>
+									<td>
 										<h5>모델</h5>
 									</td>
 									<td>
-										<h5>KOREA A2K 1883 BN</h5>
+										<h5>${pd.modelName }</h5>
 									</td>
 								</tr>
 								<tr>
@@ -260,7 +282,7 @@
 										<h5>크기</h5>
 									</td>
 									<td>
-										<h5>12.5인치</h5>
+										<h5>${pd.size }</h5>
 									</td>
 								</tr>
 								<tr>
@@ -268,7 +290,7 @@
 										<h5>포지션</h5>
 									</td>
 									<td>
-										<h5>1루수</h5>
+										<h5>${pd.position }</h5>
 									</td>
 								</tr>
 								<tr>
@@ -276,7 +298,7 @@
 										<h5>소재</h5>
 									</td>
 									<td>
-										<h5>센서티브 레더(Navy) / 슈퍼 스킨(blonde)</h5>
+										<h5>${pd.material }</h5>
 									</td>
 								</tr>
 								<tr>
@@ -284,7 +306,7 @@
 										<h5>웹</h5>
 									</td>
 									<td>
-										<h5>듀얼포스트 웹</h5>
+										<h5>${pd.web }</h5>
 									</td>
 								</tr>
 								<tr>
@@ -292,7 +314,7 @@
 										<h5>색상</h5>
 									</td>
 									<td>
-										<h5>Multi Color</h5>
+										<h5>${pd.color}</h5>
 									</td>
 								</tr>
 								<tr>
@@ -300,7 +322,7 @@
 										<h5>제조국</h5>
 									</td>
 									<td>
-										<h5>일본</h5>
+										<h5>${pd.manufacturCountry }</h5>
 									</td>
 								</tr>
 								<tr>
@@ -308,10 +330,11 @@
 										<h5>취급시 유의사항</h5>
 									</td>
 									<td>
-										<h5>- 가죽 제품은 소재특성상 세탁이 불가능합니다.</h5>
-										<h5>- 가죽전용 크리너 또는 보호제로 관리해 주시기 바라며, 오염된 부분은 천을 이용하여 닦아내시기 바랍니다.</h5>
-										<h5>- 가죽제품의 경우 무리한 힘을 가할 경우 가죽 부분이 늘어나거나 봉재가 파손될 수 있습니다.</h5>
-										<h5>- 다림질 및 드라이크리닝을 하지 마시길 바랍니다.</h5>
+										<ul>
+											<c:forEach items="${handling }" var="handling">
+												<h5>- ${handling}</h5>
+											</c:forEach>
+										</ul>
 									</td>
 								</tr>
 							</tbody>
@@ -401,14 +424,14 @@
 						</div>
 					</div>
 				</div>
-				<div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
+				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="row total_rate">
 								<div class="col-6">
 									<div class="box_total">
 										<h5>총점</h5>
-										<h4>4.0</h4>
+										<h4>${avgScore }</h4>
 									</div>
 								</div>
 								<div class="col-6">
@@ -428,55 +451,29 @@
 									</div>
 								</div>
 							</div>
-							<div class="review_list">
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review2.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>서의정</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-									</div>
-									<p>손에 착 감기는게 공이 더 잘 잡혀요!</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review2.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>강도영</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-									</div>
-									<p>우와 좋네요! 이걸 쓰고 실력이 더 늘었어요!</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review2.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>이태림</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-									</div>
-									<p>예전에 쓰던 글로브는 생각도 안날정도로 좋아요~! 다음에도 이용할게요!!</p>
-								</div>
+							<div class="review_list" id="review_list">
+								<c:forEach var="review" items="${productReviews}">
+								    <div class="review_item" >
+								        <div class="media">
+								            <div class="d-flex">
+								                <img src="<c:url value='/resources/img/product/review2.png" alt="'/>"/>
+								            </div>
+								            <div class="media-body">
+								                <h4>${review.name}</h4>
+								                <i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+								            </div>
+								        </div>
+								        <p>${review.reviewContent}</p>
+								        <div class="text-md-right">
+		      								<a href="javascript:void(0);" class="redit_button" data-reviewid="${review.reviewId}" data-productid="${review.productId}">수정하기</a>
+		      								<a href="<c:url value='/products/review/delete?id=${review.reviewId}&productId=${review.productId}'/>" class="btn" onclick="return deleteConfirm('${review.reviewId}')" style="color:red">삭제</a>			                        
+				                        </div>
+								    </div>
+							    </c:forEach>
 							</div>
 						</div>
 						<div class="col-lg-6">
@@ -491,23 +488,60 @@
 									<li><a href="#"><i class="fa fa-star"></i></a></li>
 								</ul>
 								<!-- <p>Outstanding</p> -->
-                <form action="#/" class="form-contact form-review mt-3">
-                  <div class="form-group">
-                    <input class="form-control" name="name" type="text" placeholder="이름을 입력하세요." required>
-                  </div>
-                  <div class="form-group">
-                    <input class="form-control" name="email" type="email" placeholder="이메일을 입력하세요." required>
-                  </div>
-                  <div class="form-group">
-                    <input class="form-control" name="subject" type="text" placeholder="제목을 입력하세요.">
-                  </div>
-                  <div class="form-group">
-                    <textarea class="form-control different-control w-100" name="textarea" id="textarea" cols="30" rows="5" placeholder="글을 작성하세요."></textarea>
-                  </div>
-                  <div class="form-group text-center text-md-right mt-3">
-                    <button type="submit" class="button button--active button-review">등록</button>
-                  </div>
-                </form>
+								<div id="editFormWrapper" style="display:none;">
+									<form:form id="editForm" action="/waguwagu/product/review/add" method="post" class="form-contact form-review mt-3" modelAttribute="addReview" >
+					                  <div class="form-group">
+					                    <input path="name" id="editName" class="form-control" name="name" type="text" placeholder="이름을 입력하세요." value="${review.name}">
+					                  </div>
+					                  <div class="form-group">
+					                    <input type="text" id="editproductid" path="productId" class="form-control" name="productId" value="${review.productid}" >
+					                  </div>
+					                  <div class="form-group">
+					                    <input type="date" path="reviewDate" id="eidtdate" class="form-control" name="reviewDate" value="${review.reviewDate}">
+					                  </div>
+					                  <div class="form-group">
+					                    <input type="text" id="editscore" path="reviewRating" class="form-control" name="reviewRating" placeholder="평점을 입력하세요." value="${review.reviewRating}">
+					                  </div>
+					                  <div class="form-group">
+					                    <input path="userId" id="editemail" class="form-control" name="userId" type="email" value="${review.userId}" placeholder="이메일을 입력하세요." required>
+					                  </div>
+					                  <div class="form-group">
+					                    <input path="title" id="edittitle" class="form-control" name="title" type="text" placeholder="제목을 입력하세요." value="${review.title}">
+					                  </div>
+					                  <div class="form-group">
+					                    <textarea path="reviewContent" id="editContent" class="form-control different-control w-100" name="reviewContent" id="textarea" cols="30" rows="5" placeholder="글을 작성하세요." value="${review.reviewContent}"></textarea>
+					                  </div>
+					                  <div class="form-group text-center text-md-right mt-3">
+					                    <button type="submit" class="button button--active button-review">수정하기</button>
+					                  </div>
+					                </form:form>
+								</div>
+				                <form:form id="realForm" method="post" action="/waguwagu/products/review/add" class="form-contact form-review mt-3" modelAttribute="addReview">
+				                  <div class="form-group">
+				                    <input path="name" class="form-control" name="name" type="text" placeholder="이름을 입력하세요." />
+				                  </div>
+				                  <div class="form-group">
+				                    <input path="productId" class="form-control" name="productId" type="text" placeholder="상품아이디" value="${productId}" />
+				                  </div>
+				                  <div class="form-group">
+				                    <input path="reviewDate" class="form-control" name="reviewDate" type="date"  />
+				                  </div>
+				                  <div class="form-group">
+				                    <input path="reviewRating" class="form-control" name="reviewRating" type="text" placeholder="평점을 입력하세요" />
+				                  </div>
+				                  <div class="form-group">
+				                    <input path="userId" class="form-control" name="userId" type="email" placeholder="이메일을 입력하세요." value="${userid}" />
+				                  </div>
+				                  <div class="form-group">
+				                    <input path="title" class="form-control" name="title" type="text" placeholder="제목을 입력하세요." />
+				                  </div>				                  				                  				                  
+				                  <div class="form-group">
+				                    <textarea path="reviewContent" class="form-control different-control w-100" name="reviewContent" cols="30" rows="5" placeholder="글을 작성하세요."></textarea>
+				                  </div>
+				                  <div class="form-group text-center text-md-right mt-3">
+				                    <button type="submit" class="button button--active button-review">등록</button>
+				                  </div>
+				                </form:form>
 							</div>
 						</div>
 					</div>
@@ -632,7 +666,37 @@
 		</div>
 	</section>
 	<!--================ end related Product area =================-->  	
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	
+	<script>
+	
+	    $('.redit_button').click(function() {
+	        console.log("xx");
+	        var reviewId = $(this).data('reviewid');
+	        var productId = $(this).data('productid'); // lessonId 가져오기
+	       	console.log("reviewId",reviewId);
+	        console.log("productId",productId)
+	        $('#realForm').hide(); // 등록 폼 숨기기
+	        $('#editFormWrapper').show();
+	
+	
+	        $.ajax({
+	            url: '/waguwagu/products/review/update',
+	            type: 'GET',
+	            data: { id: reviewId, productId: productId }, //파라미터 
+	            success: function(result) {  // 수정 필요한 부분
+	            	//console.log(result.review.reviewId);
+	                $('#editName').val(result.name);
+	                $('#editproductid').val(result.productId);
+	                $('#eidtdate').val(result.reviewDate);
+	                $('#editscore').val(result.reviewRating);
+	                $('#editemail').val(result.userId);
+	                $('#edittitle').val(result.title);
+	                $('#editContent').val(result.reviewContent);
+	            }
+	        });
+	    });
+	
+	</script>	
 
   <script src="<c:url value='/resources/vendors/jquery/jquery-3.2.1.min.js'/>"/></script>
   <script src="<c:url value='/resources/vendors/bootstrap/bootstrap.bundle.min.js'/>"/></script>

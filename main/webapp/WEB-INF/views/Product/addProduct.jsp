@@ -8,7 +8,7 @@
 <html lang="kr">
 
 <head>
-  <title>Soccer &mdash; Website by Colorlib</title>
+  <title>waguwagu &mdash; Website by Colorlib</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -143,11 +143,11 @@
 		<div class="container h-100">
 			<div class="blog-banner">
 				<div class="text-center">
-					<h1>클래스등록</h1>
+					<h1>상품등록</h1>
 					<nav aria-label="breadcrumb" class="banner-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Lessons</li>
+              <li class="breadcrumb-item active" aria-current="page">Products</li>
             </ol>
           </nav>
 				</div>
@@ -178,16 +178,22 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="login_form_inner">
-						<h3>클래스 등록</h3>
-						<form:form class="row login_form" id="contactForm" modelAttribute="addLesson" enctype="multipart/form-data">
+						<h3>상품 등록</h3>
+						<form:form class="row login_form" id="contactForm" modelAttribute="addProduct" enctype="multipart/form-data">
 							<div class="col-md-12 form-group">
-								<form:input path="coachId" class="form-control" id="coachId" name="coachId" placeholder="코치아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '코치아이디'" />
+								<form:input path="productId" type="text" class="form-control" id="productId" name="productId" placeholder="상품아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '상품아이디'" />
+							</div>							
+							<div class="col-md-12 form-group">
+								<form:input path="productName" type="text" class="form-control" id="productName" name="productName" placeholder="상품이름" onfocus="this.placeholder = ''" onblur="this.placeholder = '상품이름'" />
 							</div>
 							<div class="col-md-12 form-group">
-								<form:input path="classId" type="text" class="form-control" id="classId" name="classId" placeholder="클래스아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '클래스아이디'" />
+								<form:input path="brand" type="text" class="form-control" id="brand" name="brand" placeholder="브랜드" onfocus="this.placeholder = ''" onblur="this.placeholder = '브랜드'" />
+							</div>							
+							<div class="col-md-12 form-group">
+								가격<form:input path="unitPrice" type="text" class="form-control" id="unitPrice" name="unitPrice" placeholder="가격" onfocus="this.placeholder = ''" onblur="this.placeholder = '가격'" />
 							</div>
 							<div class="col-md-12 form-group">
-								<form:input type="text" path="className" class="form-control" id="className" name="className" placeholder="클래스이름" onfocus="this.placeholder = ''" onblur="this.placeholder = '클래스이름'" />
+								재고수<form:input type="number" path="unitsInStock" class="form-control" id="unitsInStock" name="unitsInStock" placeholder="재고수" onfocus="this.placeholder = ''" onblur="this.placeholder = '재고수'" />
 							</div>
 							<%-- <div class="col-md-12 form-group">
 								<form:input path="subject" type="text" class="form-control" id="subject" name="subject" placeholder="클래스 종류" onfocus="this.placeholder = ''" onblur="this.placeholder = '클래스 종류'" />
@@ -195,36 +201,54 @@
 							<div class="col-md-12 form-group">
 							<p>종류</p>
 								<div class="creat_account">
-									<form:radiobutton path="subject" value="포수" />포수
-									<form:radiobutton path="subject" value="투수" />투수
-									<form:radiobutton path="subject" value="타자" />타자
-									<form:radiobutton path="subject" value="유격수" />유격수
-									<form:radiobutton path="subject" value="좌익수" />좌익수
-									<form:radiobutton path="subject" value="우익수" />우익수
-									<form:radiobutton path="subject" value="중견수" />중견수
+									<form:radiobutton path="category" value="글러브" />글러브
+									<form:radiobutton path="category" value="야구화" />야구화									
+									<form:radiobutton path="category" value="배트" />배트
+									<form:radiobutton path="category" value="가방" />가방
+									<form:radiobutton path="category" value="보호장비" />보호장비
+									<form:radiobutton path="category" value="장갑" />장갑
+									<form:radiobutton path="category" value="의류" />의류
 								</div>
 							</div>
 							<div class="col-md-12 form-group">
-								<form:input path="venue" type="text" class="form-control" id="venue" name="venue" placeholder="장소" onfocus="this.placeholder = ''" onblur="this.placeholder = '장소'" />
+								<form:input path="condition" type="text" class="form-control" id="condition" name="condition" placeholder="상태" onfocus="this.placeholder = ''" onblur="this.placeholder = '상태'" />
 							</div>
 							<div class="col-md-12 form-group">
-								<form:input path="managerName" type="text" class="form-control" id="managerName" name="managerName" placeholder="담당자 이름" onfocus="this.placeholder = ''" onblur="this.placeholder = '담당자이름'" />
+								<form:input path="modelName" type="text" class="form-control" id="modelName" name="modelName" placeholder="모델이름" onfocus="this.placeholder = ''" onblur="this.placeholder = '모델이름'" />
 							</div>
 							<div class="col-md-12 form-group">
-								<form:input path="tel" type="text" class="form-control" id="tel" name="tel" placeholder="전화번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '전화번호'" />
+								<form:input path="size" type="text" class="form-control" id="size" name="size" placeholder="상품사이즈" onfocus="this.placeholder = ''" onblur="this.placeholder = '상품사이즈'" />
 							</div>
 							<div class="col-md-12 form-group">
-								수강인원<form:input path="auditors" type="number" class="form-control" id="auditors" name="auditors" placeholder="수강인원" onfocus="this.placeholder = ''" onblur="this.placeholder = '수강인원'" />
+								<form:input path="position" type="text" class="form-control" id="position" name="position" placeholder="포지션" onfocus="this.placeholder = ''" onblur="this.placeholder = '포지션'" />
 							</div>
 							<div class="col-md-12 form-group">
-								수강료<form:input path="fees" type="text" class="form-control" id="fees" name="fees" placeholder="수강료" onfocus="this.placeholder = ''" onblur="this.placeholder = '수강료'" />
+								<form:input path="material" type="text" class="form-control" id="material" name="material" placeholder="소재" onfocus="this.placeholder = ''" onblur="this.placeholder = '소재'" />
 							</div>
 							<div class="col-md-12 form-group">
-								<form:input path="description" type="textarea" cols="50" rows="2" class="form-control" id="description" name="description" placeholder="설명" onfocus="this.placeholder = ''" onblur="this.placeholder = '설명'" />
+								<form:input path="web" type="text" class="form-control" id="web" name="web" placeholder="웹" onfocus="this.placeholder = ''" onblur="this.placeholder = '웹'" />
+							</div>	
+							<div class="col-md-12 form-group">
+								<form:input path="color" type="text" class="form-control" id="color" name="color" placeholder="색상" onfocus="this.placeholder = ''" onblur="this.placeholder = '색상'" />
+							</div>	
+							<div class="col-md-12 form-group">
+								<form:input path="manufacturCountry" type="text" class="form-control" id="manufacturCountry" name="manufacturCountry" placeholder="제조국" onfocus="this.placeholder = ''" onblur="this.placeholder = '제조국'" />
+							</div>	
+							<div class="col-md-12 form-group">
+								<form:textarea path="handling" type="textarea" cols="50" rows="2" class="form-control" id="handling" name="handling" placeholder="주의사항" onfocus="this.placeholder = ''" onblur="this.placeholder = '주의사항'" />
+							</div>														
+							<div class="col-md-12 form-group">
+								<form:textarea path="description" cols="50" rows="4" class="form-control" id="description" name="description" placeholder="긴 설명" onfocus="this.placeholder = ''" onblur="this.placeholder = '긴 설명'" />
 							</div>
 							<div class="col-md-12 form-group">
-								<button type="submit" value="submit" class="button button-login w-100">클래스 등록</button>
-								<a href="<c:url value="/games"/>"> 취소</a>
+								<form:textarea path="briedfDescription" type="text" cols="50" rows="2" class="form-control" id="briedfDescription" name="briedfDescription" placeholder="설명" onfocus="this.placeholder = ''" onblur="this.placeholder = '설명'" />
+							</div>
+							<div class="col-md-12 form-group">
+								<form:input path="productImage" type="file" class="form-control" id="productImage" name="productImage" placeholder="구단사진" onfocus="this.placeholder = ''" onblur="this.placeholder = '구단사진'" />
+							</div>
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="button button-login w-100">상품 등록</button>
+								<a href="<c:url value="/products"/>"> 취소</a>
 							</div>
 						</form:form>
 					</div>

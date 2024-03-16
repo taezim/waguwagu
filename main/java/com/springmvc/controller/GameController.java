@@ -98,11 +98,6 @@ public class GameController {
 	    // 기존에 사용되던 Member 객체를 사용하지 않음
 
 	    model.addAttribute("memberId", memberId);
-	    // memberId 값 가져오기
-	    //String memberId = member.getMemberId();
-		//System.out.println("memberId="+memberId);
-		//model.addAttribute("memberId",memberId);
-		//game.setUserId(memberId);
 		
 	    //팀아이디를 전달해서 teamservice의 팀이름 가져오기
 	    String teamName = teamService.getTeamName(team);

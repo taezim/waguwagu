@@ -69,7 +69,7 @@ public class HospitalReviewController {
         model.addAttribute("avgScore",avgScore);
         
         System.out.println("평점:"+avgScore);
-        
+        System.out.println("id=="+id);
         return "/Hospital/hospital";
         
     }

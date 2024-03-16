@@ -213,7 +213,7 @@
 			            </div>
 			            <div class="sorting mr-auto">
 			              <select>
-			                <option value="1">Show 12</option>
+			                <option value="1">Show 20</option>
 			                <option value="1">Show 12</option>
 			                <option value="1">Show 12</option>
 			              </select>

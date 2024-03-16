@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page import="java.sql.*" %>
-<%@ page import="com.springmvc.domain.Match" %>
-<%@ page import="com.springmvc.domain.Game" %>
-<%@ page import="com.springmvc.domain.TeamWinning" %>
-<%@ page import="com.springmvc.service.TeamWinningService" %>
-<%@ page import="java.util.*" %>
-<%@ page import="java.sql.SQLException" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,6 +56,8 @@
       background-color: #384aeb;
     }
 
+
+
   </style>
   
     <script>
@@ -83,7 +78,6 @@
   
 </head>
 <body>
-
   <!--================ Start Header Menu Area =================-->
 	<!--================ Start Header Menu Area =================-->
 	<header class="header_area">
@@ -227,120 +221,74 @@
               <p>Today's MatchUp</p>
               <h2>오늘의 <span class="section-intro__style">매치업</span></h2>
             </div>
-            <div class="d-flex justify-content-start" style="width: 90% quto;">
-                <%
-				    Connection conn = null;
-				    Statement stmt = null;
-				    ResultSet rs = null;
-				
-				    try {
-				        // JDBC 드라이버를 로드합니다.
-				        Class.forName("com.mysql.jdbc.Driver");
-				
-				        // DB에 연결합니다.
-				        String url = "jdbc:mysql://localhost:3306/WAGUDB";
-				        String username = "root";
-				        String password = "1234";
-				        conn = DriverManager.getConnection(url, username, password);
-				
-				        // SQL 쿼리를 실행합니다.
-				        String SQL = "SELECT * FROM game g LEFT JOIN matching m ON g.g_id = m.g_id ORDER BY g.g_date DESC LIMIT 5";
-				        stmt = conn.createStatement();
-				        rs = stmt.executeQuery(SQL);
-				
-				        // 결과를 처리합니다.
-				        while (rs.next()) {
-				        	List<Game> gameList = new ArrayList<>();
+		<div class="d-flex justify-content-start" style="width: 90%">
+		    <div class="col-md-6 pl-0 gamesss">
+		        <c:forEach var="game" items="${list}" varStatus="loop">
+		            <div class="shadow p-3 mb-5 bg-body-tertiary rounded" style="display: ${loop.index < 2 ? 'block' : 'none'};">
+		                <!-- 게임 내용 -->
+		                <span>${game.date}</span>|<span>${game.stadium}</span>
+		                <div class="d-flex justify-content-center">
+		                    <div>
+		                        <img src="<c:url value='/resources/images/${game.fileName}'/>" alt="${game.teamName1} Image" style="width:50px">
+		                        <p>${game.teamName1}</p>
+		                    </div>
+		                    <h4>VS</h4>
+		                    <div>
+		                    <c:choose>
+		                        <c:when test="${not empty game.matches[0].teamName}">
+		                            <img src="<c:url value='/resources/images/${game.getMatches().get(0).fileName}'/>" alt="${game.getMatches().get(0).teamName} Image" style="width:50px">
+		                            <p>${game.matches[0].teamName}</p>
+		                        </c:when>
+		                        <c:otherwise>
+		                            <h4>매칭 전</h4>
+		                        </c:otherwise>
+		                    </c:choose>    
+		                    </div> 
+		                </div>
+		                <div class="mt-2 d-flex justify-content-between">
+		                    <i class="fa-regular fa-heart heart"></i>
+		                    <button href="<c:url value='/games/game?id=${game.gameId}'/>" class="btn btn-primary btn-sm">경기 상세보기</button>
+		                </div>
+		            </div>
+		        </c:forEach>
+		    </div>
+			<div class="col-md-6 pl-0 gamesss">
+		        <c:forEach var="game" items="${list}" varStatus="loop">
+		            <div class="shadow p-3 mb-5 bg-body-tertiary rounded" style="display: ${loop.index > 2 && loop.index < 5 ? 'block' : 'none'};">
+		                <!-- 게임 내용 -->
+		                <span>${game.date}</span>|<span>${game.stadium}</span>
+		                <div class="d-flex justify-content-center">
+		                    <div>
+		                        <img src="<c:url value='/resources/images/${game.fileName}'/>" alt="${game.teamName1} Image" style="width:50px">
+		                        <p>${game.teamName1}</p>
+		                    </div>
+		                    <h4>VS</h4>
+		                    <div>
+		                        <c:choose>
+		                            <c:when test="${not empty game.matches[0].teamName}">
+		                                <img src="<c:url value='/resources/images/${game.getMatches().get(0).fileName}'/>" alt="${game.getMatches().get(0).teamName} Image" style="width:50px">
+		                                <p>${game.matches[0].teamName}</p>
+		                            </c:when>
+		                            <c:otherwise>
+		                                <h4>매칭 전</h4>
+		                            </c:otherwise>
+		                        </c:choose>    
+		                    </div> 
+		                </div>
+		                <div class="mt-2 d-flex justify-content-between">
+		                    <i class="fa-regular fa-heart heart"></i>
+		                    <button class="btn btn-primary btn-sm">경기 상세보기</button>
+		                </div>
+		            </div>
+		        </c:forEach>
+		    </div>
+		</div>
 
-				            // 결과를 처리합니다.
-				            while (rs.next()) {
-				                String gameId = rs.getString("g.g_id");
 
-				                Game game = new Game();
-				                game.setGameId(gameId);
-				                game.setTeamId1(rs.getString("g.t_id1"));
-				                game.setTeamName1(rs.getString("g.t_name1"));
-				                game.setDate(rs.getString("g.g_date"));
-				                game.setUserId(rs.getString("g.userid"));
-				                game.setUserName(rs.getString("g.username"));
-				                game.setUserNumber(rs.getString("g.userphone"));
-				                game.setStadium(rs.getString("g.g_stadium"));
-				                game.setFileName(rs.getString("g.g_filename"));
+		<div id="loadMoreButton" class="text-center">
+		    <button class="btn btn-primary">더 보기</button>
+		</div>
 
-				                Match match = new Match();
-				                match.setTeamId(rs.getString("m.t_id"));
-				                match.setTeamName(rs.getString("m.t_name"));
-				                match.setUserId(rs.getString("m.userid"));
-				                match.setUserName(rs.getString("m.username"));
-				                match.setUserNumber(rs.getString("m.userphone"));
-				                match.setFileName(rs.getString("m.g_filename"));
-
-				                game.getMatches().add(match);
-
-				                // 생성된 게임 객체를 리스트에 추가
-				                gameList.add(game);
-				            }
-
-				            // 각 행의 데이터를 설정합니다.
-				            request.setAttribute("gameList", gameList);
-				%>
-				            <!-- HTML 출력 부분 -->
-			    <% int count = 0; %>
-    <% for (Game game : gameList) { %>
-        <% if (count % 2 == 0) { %>
-            <div class="col-md-6 pl-0">
-        <% } %>
-
-        <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
-            <span><%= game.getDate() %></span> | <span><%= game.getStadium() %></span>
-            <div class="d-flex justify-content-center">
-                <div>
-                    <img src="<%= "/waguwagu/resources/images/" + game.getFileName() %>" style="width:50px; height:50px;">
-                    <p><%= game.getTeamName1() %></p>
-                </div>
-                <h4 style="padding: 0 10px 0 0;">VS</h4>
-                <div>
-                <c:choose>
-				    <c:when test="<%= game.getMatches().get(0).getTeamName() != null %>">
-				        <img src="<%= "/waguwagu/resources/images/" + game.getMatches().get(0).getFileName() %>" style="width:50px; height:50px;">
-				        <p><%= game.getMatches().get(0).getTeamName() %></p>
-				    </c:when>
-				    <c:otherwise>
-				        <h4>매칭 전입니다.</h4>
-				    </c:otherwise>
-				</c:choose>
-				</div>
-            </div>
-            <div class="mt-2 d-flex justify-content-between text-center">
-                <i class="fa-regular fa-heart heart"></i>
-                <a href="<%= request.getContextPath() %>/games/game?id=<%= game.getGameId() %>" class="btn btn-primary btn-sm">경기 상세보기</a>
-            </div>
-        </div>
-
-        <% if (count % 2 == 1 || count == gameList.size() - 1) { %>
-            </div> <!-- Close col-md-6 -->
-        <% } %>
-
-        <% count++; %>
-    <% } %>
-			<%
-			        }
-			    } catch (Exception e) {
-			        e.printStackTrace();
-			    } finally {
-			        // 사용한 자원을 정리합니다.
-			        if (rs != null) {
-			            try { rs.close(); } catch (SQLException e) { }
-			        }
-			        if (stmt != null) {
-			            try { stmt.close(); } catch (SQLException e) { }
-			        }
-			        if (conn != null) {
-			            try { conn.close(); } catch (SQLException e) { }
-			        }
-			    }
-			%>
-            </div>
           </div>
           <div class=" pr-5 pl-0" >
             <div class="section-intro mb-4">
@@ -361,193 +309,147 @@
                 <table  class="table table-sm">
                     <thead class="table-light">
                       <tr>
-                        <th scope="col">순위</th>
+                        <th scope="col">#</th>
                         <th scope="col"></th>                                                      
                         <th scope="col">팀명</th>
+
                         <th scope="col">승</th>
                         <th scope="col">무</th>
                         <th scope="col">패</th>
                         <th scope="col">승률</th>
+                        <th scope="col">연속</th>
+
+
                       </tr>
-                      <%
-              
-					    List<TeamWinning> uniqueWinningList = new ArrayList<>();
-					
-					    try {
-					        // JDBC 드라이버를 로드합니다.
-					        Class.forName("com.mysql.jdbc.Driver");
-					
-					        // DB에 연결합니다.
-					        String url = "jdbc:mysql://localhost:3306/WAGUDB";
-					        String username = "root";
-					        String password = "1234";
-					        conn = DriverManager.getConnection(url, username, password);
-					
-					        // SQL 쿼리를 실행합니다.
-					        String SQL = "SELECT * FROM team";
-					        stmt = conn.createStatement();
-					        rs = stmt.executeQuery(SQL);
-					        
-					        // 결과를 처리합니다.
-					        while (rs.next()) {
-					            String teamId = rs.getString(1);
-					
-					            // 팀별 승률 계산
-					            int totalWins = totalWins(teamId, conn);
-					            int totalLose = totalLose(teamId, conn);
-					            int totalTie = totalTie(teamId, conn);
-					            double winningRate = calculateWinningRate(teamId, conn);
-					            int totalGames = totalGames(teamId, conn);
-					            
-					            String teamName = rs.getString(2);
-					            String fileName = rs.getString(7);
-								System.out.println("실행");
-					            // TeamWinning 객체에 값 설정
-					            TeamWinning teamWinning = new TeamWinning();
-					            teamWinning.setTeamId(teamId);
-					            teamWinning.setTotalWins(totalWins);
-					            teamWinning.setTotalLose(totalLose);
-					            teamWinning.setTotalTie(totalTie);
-					            teamWinning.setRate(winningRate);
-					            teamWinning.setMatches(totalGames); 
-					            teamWinning.setTeamName(teamName);
-					            teamWinning.setFileName(fileName);
-					
-					            // 중복을 제거하고 계산한 결과를 저장
-					            uniqueWinningList.add(teamWinning);
-					        }
-					
-					        // 승률을 기준으로 내림차순으로 정렬
-					        Collections.sort(uniqueWinningList, Comparator.comparingDouble(TeamWinning::getRate).reversed());
-					
-					        // 순위 부여
-					        int rank = 1;
-					        for (TeamWinning teamWinning : uniqueWinningList) {
-					            teamWinning.setRank(rank++);
-					        }
-					        
-					        for (TeamWinning teamWinning : uniqueWinningList) {
-				     %>
                     </thead>
                     <tbody>
                       <tr>
-                        <th scope="row"><%= teamWinning.getRank() %></th>
+                        <th scope="row">1</th>
                         <td>
-                            <img src="<%= "/waguwagu/resources/images/" + teamWinning.getFileName() %>">
+                            <img src="/img/twins.svg">
                         </td>
-                        <td><%= teamWinning.getTeamName() %></td>
-                        <td><%= teamWinning.getTotalWins() %></td>
-                        <td><%= teamWinning.getTotalTie() %></td>
-                        <td><%= teamWinning.getTotalLose() %></td>
-                        <td><%= teamWinning.getRate() %></td>
+                        <td>LG</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>42%</td>
+                        <td>5</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>
+                            <img src="/img/twins.svg">
+                        </td>
+                        <td>LG</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>42%</td>
+                        <td>5</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>
+                            <img src="/img/twins.svg">
+                        </td>
+                        <td>LG</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>42%</td>
+                        <td>5</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">4</th>
+                        <td>
+                            <img src="/img/twins.svg">
+                        </td>
+                        <td>LG</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>42%</td>
+                        <td>5</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">5</th>
+                        <td>
+                            <img src="/img/twins.svg">
+                        </td>
+                        <td>LG</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>42%</td>
+                        <td>5</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">6</th>
+                        <td>
+                            <img src="/img/twins.svg">
+                        </td>
+                        <td>LG</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>42%</td>
+                        <td>5</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">7</th>
+                        <td>
+                            <img src="/img/twins.svg">
+                        </td>
+                        <td>LG</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>42%</td>
+                        <td>5</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">8</th>
+                        <td>
+                            <img src="/img/twins.svg">
+                        </td>
+                        <td>LG</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>42%</td>
+                        <td>5</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">9</th>
+                        <td>
+                            <img src="/img/twins.svg">
+                        </td>
+                        <td>LG</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>42%</td>
+                        <td>5</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">10</th>
+                        <td>
+                            <img src="/img/twins.svg">
+                        </td>
+                        <td>LG</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>42%</td>
+                        <td>5</td>
                       </tr>
                     </tbody>
-                    <% }
-                          // JDBC 리소스 해제
-					        rs.close();
-					        stmt.close();
-					        conn.close();
-					
-					    } catch (Exception e) {
-					        e.printStackTrace();
-					    }
-
-					%>
                     <caption>
                         <div  class="d-flex justify-content-between" >
                         <p>※ 시즌 1 기준</p>
                         </div>
                     </caption>
-                  </table>          
-					<%!
-						// 팀별 승리 횟수 조회 메서드
-						public int totalWins(String teamId, Connection conn) throws SQLException {
-						    String SQL = "SELECT COUNT(*) AS totalWins FROM t_score WHERE teamId=? AND ts_result='Win'";
-						    PreparedStatement pstmt = conn.prepareStatement(SQL);
-						    pstmt.setString(1, teamId);
-						    ResultSet rs = pstmt.executeQuery();
-						    int totalWins = 0;
-						    if (rs.next()) {
-						        totalWins = rs.getInt("totalWins");
-						    }
-						    rs.close();
-						    pstmt.close();
-						    return totalWins;
-						}
-						
-						// 팀별 무승부 횟수 조회 메서드
-						public int totalTie(String teamId, Connection conn) throws SQLException {
-						    String SQL = "SELECT COUNT(*) AS totalTie FROM t_score WHERE teamId=? AND ts_result='Tie'";
-						    PreparedStatement pstmt = conn.prepareStatement(SQL);
-						    pstmt.setString(1, teamId);
-						    ResultSet rs = pstmt.executeQuery();
-						    int totalTie = 0;
-						    if (rs.next()) {
-						        totalTie = rs.getInt("totalTie");
-						    }
-						    rs.close();
-						    pstmt.close();
-						    return totalTie;
-						}
-						
-						// 팀별 패배 횟수 조회 메서드
-						public int totalLose(String teamId, Connection conn) throws SQLException {
-						    String SQL = "SELECT COUNT(*) AS totalLose FROM t_score WHERE teamId=? AND ts_result='Lose'";
-						    PreparedStatement pstmt = conn.prepareStatement(SQL);
-						    pstmt.setString(1, teamId);
-						    ResultSet rs = pstmt.executeQuery();
-						    int totalLose = 0;
-						    if (rs.next()) {
-						        totalLose = rs.getInt("totalLose");
-						    }
-						    rs.close();
-						    pstmt.close();
-						    return totalLose;
-						}
-						
-						// 팀별 전체 게임 횟수 조회 메서드
-						public int totalGames(String teamId, Connection conn) throws SQLException {
-						    String SQL = "SELECT COUNT(*) FROM t_score WHERE teamId=?";
-						    PreparedStatement pstmt = conn.prepareStatement(SQL);
-						    pstmt.setString(1, teamId);
-						    ResultSet rs = pstmt.executeQuery();
-						    int totalGames = 0;
-						    if (rs.next()) {
-						        totalGames = rs.getInt(1);
-						    }
-						    rs.close();
-						    pstmt.close();
-						    return totalGames;
-						}
-						
-						// 팀별 승률 계산 메서드
-						public double calculateWinningRate(String teamId, Connection conn) throws SQLException {
-						    String SQL = "SELECT COUNT(*) FROM t_score WHERE teamId=? AND ts_result='Win'";
-						    PreparedStatement pstmtWins = conn.prepareStatement(SQL);
-						    pstmtWins.setString(1, teamId);
-						    ResultSet rsWins = pstmtWins.executeQuery();
-						    int totalWins = 0;
-						    if (rsWins.next()) {
-						        totalWins = rsWins.getInt(1);
-						    }
-						    rsWins.close();
-						    pstmtWins.close();
-						
-						    String totalGamesSQL = "SELECT COUNT(*) FROM t_score WHERE teamId=?";
-						    PreparedStatement pstmtTotalGames = conn.prepareStatement(totalGamesSQL);
-						    pstmtTotalGames.setString(1, teamId);
-						    ResultSet rsTotalGames = pstmtTotalGames.executeQuery();
-						    int totalGames = 0;
-						    if (rsTotalGames.next()) {
-						        totalGames = rsTotalGames.getInt(1);
-						    }
-						    rsTotalGames.close();
-						    pstmtTotalGames.close();
-						
-						    double rate = (totalGames > 0) ? ((double) totalWins / totalGames) * 100 : 0.0;
-						    return Math.round(rate * 1000.0) / 1000.0;
-						}
-						%>
+                  </table>
                 </div>
             </div>
             <div class="section-intro pb-60px shadow p-3 mb-5 bg-body-tertiary rounded">
@@ -1088,6 +990,7 @@ https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js
   })
 
 </script>
+
 
   <script src="<c:url value='/resources/vendors/jquery/jquery-3.2.1.min.js'/>"/></script>
   <script src="<c:url value='/resources/vendors/bootstrap/bootstrap.bundle.min.js'/>"/></script>

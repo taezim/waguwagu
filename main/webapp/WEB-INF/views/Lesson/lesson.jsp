@@ -297,15 +297,22 @@
 	<section class="product_description_area">
 		<div class="container">
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
-	            <!-- 클래스 정보 탭 -->
-	            <li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" onclick="handleTabClick('home')">클래스 정보</a></li>
-	
-	            <!-- QnA 탭 -->
-	            <li class="nav-item"><a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="handleTabClick('contact')">QnA</a></li>
-	
-	            <!-- 리뷰 탭 -->
-	            <li class="nav-item"><a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false" onclick="handleTabClick('review')">리뷰</a></li>
-	        </ul>
+				<li class="nav-item">
+					<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" onclick="handleTabClick('home-tab')">
+					병원정보
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
+					QnA
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">
+					 리뷰
+					 </a>
+				</li>
+			</ul>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 					<p>
@@ -492,10 +499,10 @@
 							</div>
 						</div>
 					</div>
+					<div id="pagination" class="pagination"></div>
 				</div>
-				<div id="pagination" class="pagination"></div>
-			</div>
-			<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+				
+				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
 				<div class="row rowmapper">
 					<div class="rowmappertow">
 						<div class="col-lg-6">
@@ -551,7 +558,7 @@
 										</div>
 										<p>${review.content}</p>
 										<div class="text-md-right">
-											<a href="javascript:void(0);" class="redit_button"
+											<a href="javascript:void(0);" class="taeredit_button"
 												data-reviewid="${review.reviewId}"
 												data-lessonid="${lessonId}">수정하기</a> <a
 												href="<c:url value='/lessons/review/delete?id=${review.reviewId}&lessonId=${review.lessonId}'/>"
@@ -565,7 +572,7 @@
 							<!-- 페이지버튼 -->
 							<div class="d-flex justify-content-center">
 								<div aria-label="Page navigation example">
-									<ul class="pagination" id="pagination">
+									<ul class="pagination" id="taepagination">
 										<li class="page-item"><a class="page-link" href="#"
 											aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 										</a></li>
@@ -586,7 +593,7 @@
 								</ul>
 								<!-- <p>Outstanding</p> -->
 
-								<div id="editFormWrapper" style="display: none;">
+								<div id="taeeditFormWrapper" style="display: none;">
 									<form:form modelAttribute="updateReview" method="post"
 										class="form-contact form-review mt-3"
 										action="/waguwagu/lessons/review/update" id="editForm"
@@ -634,7 +641,7 @@
 										</div>
 									</form:form>
 								</div>
-								<form:form id="realForm" action="/waguwagu/lessons/review/add"
+								<form:form id="taerealForm" action="/waguwagu/lessons/review/add"
 									method="post" class="form-contact form-review mt-3"
 									modelAttribute="review">
 									<div class="form-group">
@@ -674,9 +681,11 @@
 							</div>
 						</div>
 					</div>
-					<div id="pagination" class="pagination"></div>
+					<!-- <div id="pagination" class="pagination"></div> -->
 				</div>
 			</div>
+			</div>
+			
 		</div>
 	</section>
 	<!--================End Product Description Area =================-->
@@ -686,7 +695,7 @@
 	<script>
 	/* 3개 글 보기 */
 	     var list = document.getElementById('review_list').getElementsByClassName('review_item');
-    var pageNum = document.getElementById('pagination'); // 페이지 번호를 표시할 엘리먼트
+    var pageNum = document.getElementById('taepagination'); // 페이지 번호를 표시할 엘리먼트
     var limitPerPage = 3;
     var totalPages = Math.ceil(list.length / limitPerPage);
     var currentPage = 1; // 현재 페이지 번호
@@ -747,14 +756,14 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script>
 
-    $('.redit_button').click(function() {
+    $('.taeredit_button').click(function() {
         console.log("xx");
         var reviewId = $(this).data('reviewid');
         var lessonId = $(this).data('lessonid'); // lessonId 가져오기
        	console.log("reviewid",reviewId);
         console.log("lessonId",lessonId)
-        $('#realForm').hide(); // 등록 폼 숨기기
-        $('#editFormWrapper').show();
+        $('#taerealForm').hide(); // 등록 폼 숨기기
+        $('#taeeditFormWrapper').show();
 
 
         $.ajax({

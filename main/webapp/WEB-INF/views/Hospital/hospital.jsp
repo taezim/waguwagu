@@ -500,7 +500,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="review_list" id="review_list">
+							<div class="taereview_list" id="review_list">
 								<c:forEach var="review" items="${hospitalReviews}">
 								    <div class="review_item" >
 								        <div class="media">
@@ -518,7 +518,7 @@
 								        </div>
 								        <p>${review.reviewContent}</p>
 								        <div class="text-md-right">
-		      								<a href="javascript:void(0);" class="redit_button" data-reviewid="${review.reviewId}" data-hospitalid="${review.hospitalId}">수정하기</a>
+		      								<a href="javascript:void(0);" class="tae" data-reviewid="${review.reviewId}" data-hospitalid="${review.hospitalId}">수정하기</a>
 		      								<a href="<c:url value='/hospital/review/delete?id=${review.reviewId}&hospitalId=${review.hospitalId}'/>" class="btn" onclick="return deleteConfirm('${review.reviewId}')" style="color:red">삭제</a>			                        
 				                        </div>
 								    </div>
@@ -527,7 +527,7 @@
 							<!-- 페이지버튼 -->    
 						  <div class="d-flex justify-content-center">
 						    <div aria-label="Page navigation example">
-						        <ul class="pagination" id="pagination">
+						        <ul class="pagination" id="taepagination">
 						            <li class="page-item">
 						                <a class="page-link" href="#" aria-label="Previous">
 						                    <span aria-hidden="true">&laquo;</span>
@@ -549,8 +549,8 @@
 									<li><a href="#"><i class="fa fa-star"></i></a></li>
 								</ul>
 								<!-- <p>Outstanding</p> -->
-								<div id="editFormWrapper" style="display:none;">
-									<form:form id="editForm" action="/waguwagu/hospital/review/add" method="post" class="form-contact form-review mt-3" modelAttribute="addReview" >
+								<div id="taeeditFormWrapper" style="display:none;">
+									<form:form id="taeeditForm" action="/waguwagu/hospital/review/add" method="post" class="form-contact form-review mt-3" modelAttribute="addReview" >
 					                  <div class="form-group">
 					                    <input path="name" id="editName" class="form-control" name="name" type="text" placeholder="이름을 입력하세요." value="${review.name}">
 					                  </div>
@@ -577,7 +577,7 @@
 					                  </div>
 					                </form:form>
 								</div>
-				                <form:form id="realForm" action="/waguwagu/hospital/review/add" method="post" class="form-contact form-review mt-3" modelAttribute="addReview" >
+				                <form:form id="taerealForm" action="/waguwagu/hospital/review/add" method="post" class="form-contact form-review mt-3" modelAttribute="addReview" >
 				                  <div class="form-group">
 				                    <input path="name" class="form-control" name="name" type="text" placeholder="이름을 입력하세요." required>
 				                  </div>
@@ -730,7 +730,7 @@
 	<script>
 	/* 3개 글 보기 */
 	     var list = document.getElementById('review_list').getElementsByClassName('review_item');
-    var pageNum = document.getElementById('pagination'); // 페이지 번호를 표시할 엘리먼트
+    var pageNum = document.getElementById('taepagination'); // 페이지 번호를 표시할 엘리먼트
     var limitPerPage = 3;
     var totalPages = Math.ceil(list.length / limitPerPage);
     var currentPage = 1; // 현재 페이지 번호
@@ -790,14 +790,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	
 <script>
 
-    $('.redit_button').click(function() {
+    $('.tae').click(function() {
         console.log("xx");
         var reviewId = $(this).data('reviewid');
         var hospitalId = $(this).data('hospitalid'); // lessonId 가져오기
        	console.log("reviewId",reviewId);
         console.log("hospitalId",hospitalId)
-        $('#realForm').hide(); // 등록 폼 숨기기
-        $('#editFormWrapper').show();
+        $('#taerealForm').hide(); // 등록 폼 숨기기
+        $('#taeeditFormWrapper').show();
 
 
         $.ajax({

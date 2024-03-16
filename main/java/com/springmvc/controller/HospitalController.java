@@ -143,5 +143,5 @@ public class HospitalController {
 		return "redirect:/hospitals";
 	}
 	
-
+//16일
 }

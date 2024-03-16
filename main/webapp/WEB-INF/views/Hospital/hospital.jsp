@@ -1,83 +1,94 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!-- form 사용을 위한 선언 -->
-    
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Medical</title>
-	<link rel="icon" href="img/Fevicon.png" type="image/png">
-  <link rel="stylesheet" href="<c:url value='/resources/vendors/bootstrap/bootstrap.min.css'/>"/>
-  <link rel="stylesheet" href="<c:url value='/resources/vendors/fontawesome/css/all.min.css'/>"/>
-	<link rel="stylesheet" href="<c:url value='/resources/vendors/themify-icons/themify-icons.css'/>"/>
-	<link rel="stylesheet" href="<c:url value='/resources/vendors/linericon/style.css'/>"/>
-  <link rel="stylesheet" href="<c:url value='/resources/vendors/nice-select/nice-select.css'/>"/>
-  <link rel="stylesheet" href="<c:url value='/resources/vendors/owl-carousel/owl.theme.default.min.css'/>"/>
-  <link rel="stylesheet" href="<c:url value='/resources/vendors/owl-carousel/owl.carousel.min.css'/>"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Medical</title>
+<link rel="icon" href="img/Fevicon.png" type="image/png">
+<link rel="stylesheet"
+	href="<c:url value='/resources/vendors/bootstrap/bootstrap.min.css'/>" />
+<link rel="stylesheet"
+	href="<c:url value='/resources/vendors/fontawesome/css/all.min.css'/>" />
+<link rel="stylesheet"
+	href="<c:url value='/resources/vendors/themify-icons/themify-icons.css'/>" />
+<link rel="stylesheet"
+	href="<c:url value='/resources/vendors/linericon/style.css'/>" />
+<link rel="stylesheet"
+	href="<c:url value='/resources/vendors/nice-select/nice-select.css'/>" />
+<link rel="stylesheet"
+	href="<c:url value='/resources/vendors/owl-carousel/owl.theme.default.min.css'/>" />
+<link rel="stylesheet"
+	href="<c:url value='/resources/vendors/owl-carousel/owl.carousel.min.css'/>" />
 
-  <link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>"/>
-  <style>
-	.fade{
-		/* text-align: center; */
-	}
-	.fade-1{
-		display: flex;
-		align-items: center;
-	}
-	.breadhospital{
-		background-color: transparent; 
-		border-bottom: 1px solid #777;
-	}
-	.findRaod{
-		font-size:30px;
-		color:#384aeb;
-	}
+<link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>" />
+<style>
+.fade {
+	/* text-align: center; */
 	
-	
-	   #pagination {
-	    display: flex;
-	    justify-content: center;
-	    margin-top: 20px; /* Adjust as needed */
-	}
-	
-	#pagination button {
-	    margin: 0 5px; /* Adjust as needed */
-	    padding: 5px 10px;
-	    cursor: pointer;
-	    border: 1px solid #ccc;
-	    background-color: #f9f9f9;
-	}
-	
-	#pagination {
-	    display: flex;
-	    justify-content: center;
-	    overflow-x: auto; /* 가로 스크롤을 가능하게 함 */
-	    white-space: nowrap; /* 탭이 한 줄에 나열되도록 함 */
-	    margin-top: 20px; /* 원하는 만큼 여백 설정 */
-	}
-	
-	#pagination button {
-	    margin: 0 5px; /* 버튼 간격 설정 */
-	    padding: 5px 10px;
-	    cursor: pointer;
-	    border: 1px solid #ccc;
-	    background-color: #f9f9f9;
-	}
-	.rowmapper
-	{
-	   display: flex;
-	   flex-direction: column;
-	}
-	.rowmappertow
-	{
-	   display: flex;
-	}
-	
-	/* 수정이 필요한 것들 */
+}
+
+.fade-1 {
+	display: flex;
+	align-items: center;
+}
+
+.breadhospital {
+	background-color: transparent;
+	border-bottom: 1px solid #777;
+}
+
+.findRaod {
+	font-size: 30px;
+	color: #384aeb;
+}
+
+#pagination {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px; /* Adjust as needed */
+}
+
+#pagination button {
+	margin: 0 5px; /* Adjust as needed */
+	padding: 5px 10px;
+	cursor: pointer;
+	border: 1px solid #ccc;
+	background-color: #f9f9f9;
+}
+
+#pagination {
+	display: flex;
+	justify-content: center;
+	overflow-x: auto; /* 가로 스크롤을 가능하게 함 */
+	white-space: nowrap; /* 탭이 한 줄에 나열되도록 함 */
+	margin-top: 20px; /* 원하는 만큼 여백 설정 */
+}
+
+#pagination button {
+	margin: 0 5px; /* 버튼 간격 설정 */
+	padding: 5px 10px;
+	cursor: pointer;
+	border: 1px solid #ccc;
+	background-color: #f9f9f9;
+}
+
+.rowmapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.rowmappertow {
+	display: flex;
+}
+
+/* 수정이 필요한 것들 */
 
 /* 답변완료, 수정, 삭제 css */
 .edit_button, .delete_button, .answer_button {
@@ -98,9 +109,9 @@
 	background-color: #384aeb; /* 호버시 배경색을 파란색으로 변경 */
 	color: white;
 }
-  </style>
-  
-    <script>
+</style>
+
+<script>
 	  document.addEventListener('DOMContentLoaded', function () {
 	    const myteamLink = document.querySelector('.nav-link[href="/waguwagu/team/team?id=${myteam}"]');
 	
@@ -115,15 +126,15 @@
 	    });
 	  });
 	</script>
-  
+
 </head>
 <body>
-	<!--================ Start Header Menu Area =================-->
+<!--================ Start Header Menu Area =================-->
 	<header class="header_area">
 	    <div class="main_menu">
 	      <nav class="navbar navbar-expand-lg navbar-light">
 	        <div class="container">
-	          <a class="navbar-brand logo_h" href="index.html">
+	          <a class="navbar-brand logo_h" href="/waguwagu/">
 	          	<img src="<c:url value='/resources/img/baseball.png'/>" alt=''/>
 	          </a>
 	          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -134,8 +145,17 @@
 	          </button>
 	          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 	            <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-	              <li class="nav-item"><a class="nav-link" href="index.html">홈</a></li>
-	              <li class="nav-item"><a class="nav-link" href="index.html">쇼핑</a></li>
+	              <li class="nav-item"><a class="nav-link" href="/waguwagu/">홈</a></li>
+	              <li class="nav-item submenu dropdown">
+	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+	                  aria-expanded="false">쇼핑</a>
+	                <ul class="dropdown-menu">
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/products">쇼핑</a></li>
+	                  <c:if test="${sessionScope.memberId == 'admin'}">
+	                  	<li class="nav-item"><a class="nav-link" href="/waguwagu/products/add">상품등록</a></li>
+	                  </c:if>
+	                </ul>
+	              </li>
 	              <li class="nav-item active submenu dropdown">
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">구단</a>
@@ -158,7 +178,7 @@
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">클래스</a>
 	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/Lesson/lessons">클래스?</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons/add">클래스등록</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons">클래스목록</a></li>
 	                </ul>
 								</li>
@@ -175,8 +195,7 @@
 	                  aria-expanded="false">의료</a>
 	                <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">병원목록</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/Hospital/">병원예약</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="tracking-order.html">재활추천</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">예약확인</a></li>
 	                </ul>
 	              </li>
 	            </ul>
@@ -200,45 +219,48 @@
 	    </div>
 	  </header>
 	<!--================ End Header Menu Area =================-->
-	<!-- ================ start banner area ================= -->	
+	<!-- ================ start banner area ================= -->
 	<section class="blog-banner-area" id="blog">
 		<div class="container h-100">
 			<div class="blog-banner">
 				<div class="text-center">
 					<h1>Medical</h1>
 					<nav aria-label="breadcrumb" class="banner-breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">hospital</li>
-            </ol>
-          </nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#">Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page">hospital</li>
+						</ol>
+					</nav>
 				</div>
 			</div>
-    </div>
+		</div>
 	</section>
 	<!-- ================ end banner area ================= -->
 	<div class="container">
-		<nav class="bread_c" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+		<nav class="bread_c" style="--bs-breadcrumb-divider: '>';"
+			aria-label="breadcrumb">
 			<ol class="breadcrumb breadhospital">
-			  <li class="breadcrumb-item"><a href="#">병원목록</a></li>
-			  <li class="breadcrumb-item active" aria-current="page">졍형외과</li>
+				<li class="breadcrumb-item"><a href="#">병원목록</a></li>
+				<li class="breadcrumb-item active" aria-current="page">졍형외과</li>
 			</ol>
 		</nav>
 	</div>
 
-  <!--================Single Product Area =================-->
-	<div class="product_image_area" style="padding-top:30px;">
+	<!--================Single Product Area =================-->
+	<div class="product_image_area" style="padding-top: 30px;">
 		<div class="container">
 			<div class="row s_product_inner">
 				<div class="col-lg-6">
 					<div class="owl-carousel owl-theme s_Product_carousel">
 						<div class="single-prd-item">
-							<img class="img-fluid" src="<c:url value='/resources/img/category/hospital3.jpg" alt="'/>"/>
-						 	
+							<img class="img-fluid"
+								src="<c:url value='/resources/img/category/hospital3.jpg" alt="'/>" />
+
 						</div>
-                        <div class="single-prd-item">
-                            <img class="img-fluid" src="<c:url value='/resources/img/category/hospital2.jpg" alt="'/>"/>
-                        </div>
+						<div class="single-prd-item">
+							<img class="img-fluid"
+								src="<c:url value='/resources/img/category/hospital2.jpg" alt="'/>" />
+						</div>
 					</div>
 				</div>
 				<div class="col-lg-5 offset-lg-1">
@@ -246,16 +268,19 @@
 						<h3>${hospitalInfo.yadmNm }</h3>
 						<h2>정형외과</h2>
 						<ul class="list">
-							<li><a class="active" href="#"><span>전화번호</span> : ${hospitalInfo.telno }</a></li>
-							<li><a href="#"><span>지역</span> : ${hospitalInfo.sidoCdNm}</a></li>
-							<li><a href="${hospitalInfo.hospUrl }">홈페이지 : ${hospitalInfo.hospUrl }</a></li>
+							<li><a class="active" href="#"><span>전화번호</span> :
+									${hospitalInfo.telno }</a></li>
+							<li><a href="#"><span>지역</span> :
+									${hospitalInfo.sidoCdNm}</a></li>
+							<li><a href="${hospitalInfo.hospUrl }">홈페이지 :
+									${hospitalInfo.hospUrl }</a></li>
 						</ul>
-                        
+
 						<p>${hospitalInfo.addr }</p>
 						<div class="product_count">
-                            <label>예약날짜 : </label>
-                            <input type="date" name="birth" id="b" min="1996-12-30"  style="width:150px;font-size:15px;">
-							<a class="button primary-btn" href="#">예약</a>               
+							<label>예약날짜 : </label> <input type="date" name="birth" id="b"
+								min="1996-12-30" style="width: 150px; font-size: 15px;">
+							<a class="button primary-btn" href="#">예약</a>
 						</div>
 						<div class="card_area d-flex align-items-center">
 							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
@@ -272,21 +297,16 @@
 	<section class="product_description_area">
 		<div class="container">
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
-				<li class="nav-item">
-					<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" onclick="handleTabClick('home-tab')">
-					병원정보
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
-					QnA
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">
-					 리뷰
-					 </a>
-				</li>
+				<li class="nav-item"><a class="nav-link active" id="home-tab"
+					data-toggle="tab" href="#home" role="tab" aria-controls="home"
+					aria-selected="true" onclick="handleTabClick('home-tab')"> 병원정보
+				</a></li>
+				<li class="nav-item"><a class="nav-link" id="contact-tab"
+					data-toggle="tab" href="#contact" role="tab"
+					aria-controls="contact" aria-selected="false"> QnA </a></li>
+				<li class="nav-item"><a class="nav-link" id="review-tab"
+					data-toggle="tab" href="#review" role="tab" aria-controls="review"
+					aria-selected="false"> 리뷰 </a></li>
 			</ul>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -297,27 +317,23 @@
                     <div class="col-lg-9 col-md-9 blog_details">
                         <h2>${hospitalInfo.yadmNm }</h2>
                         <p class="excert">
-                                MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money
-                                on boot camp when you can get the MCSE study materials yourself at a fraction.
+                                안녕하세요. 저희 ${hospitalInfo.yadmNm }은 환자에게 온마음 다 해 진심으로 환자를 대하는 병원입니다.
+                                ${hospitalInfo.sidoCdNm} 지역에 위치한 병원으로 오랜 시간 전문성을 띄며 진료를 하고 있습니다.
                         </p>
                         <p>
-                                Boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot
-                                camp when you can get the MCSE study materials yourself at a fraction of the camp price.
-                                However, who has the willpower to actually sit through a self-imposed MCSE training. who
-                                has the willpower to actually sit through a self-imposed
+                                우수한 의료진, 최첨단 고해상도의 MRI(지멘스 MAGNETOM VIDA), CT(GE Revolution™ APEX, GE Revolution™ Maxima), 
+                                PET-CT, SPECT-CT (GE NMCT 870DR) 등 정확한 진단장비와 다빈치 로봇수술, 차세대심장혈관영상치료기, 
+                                방사선치료기 Elekta Infinity HD 및 최첨단 노발리스 등 효과적인 치료 장비 그리고 Full PACS(영상정보저장전달시스템)과 HIS(통합병원정보시스템) 등
+                                 편리한 의료시스템을 갖추고 있습니다.
                         </p>
                         <p>
-                                Boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot
-                                camp when you can get the MCSE study materials yourself at a fraction of the camp price.
-                                However, who has the willpower to actually sit through a self-imposed MCSE training. who
-                                has the willpower to actually sit through a self-imposed
+                                4차 산업혁명시대를 맞아 ${hospitalInfo.sidoCdNm} 지역 유일 보건복지부 첨단재생의료실시기관 지정과 여러 기관들과의 업무협약을 통해 스마트병원 구축에도 최선을 다하고 있습니다.
+                                ${hospitalInfo.yadmNm }은 "첨단 지능형 시스템 기반 중증치료 전문 ${hospitalInfo.clCdNm}의 역할에 더욱 매진하기 위해 우수한 의료인력 확보와 첨단 의료장비 도입 그리고 쾌적한 고품격 진료 공간 조성에 최선을 다하고 있습니다.
                         </p>
                     </div>	
                     <div class="col-lg-12">
                         <div class="quotes">
-                                MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money
-                                on boot camp when you can get the MCSE study materials yourself at a fraction of the camp
-                                price. However, who has the willpower to actually sit through a self-imposed MCSE training.
+                                저희 병원에서 좋은 환경과 전문성 있는 치료를 받으시며 환자분들의 건강을 기원합니다.
                         </div>
                         <div class="row">
                                 <div class="col-6">
@@ -339,58 +355,60 @@
                         </div>
                     </div>
 				</div>
-			<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-					    <div class="row rowmapper">
-					        <div class="rowmappertow">
-					            <div class="col-lg-6">
-					                <div id="comment_list">
-					                    <c:forEach items="${hospitalqnalistkey}" var="hospitalqna">
-					                        <div class="review_item">
-					                            <div class="media">
-					                                <div class="d-flex">
-					                                    <img src="resources/images/product/review2.png" alt="#">
-					                                </div>
-					                                <div class="media-body">
-					                                    <h4 class="number" style="cursor: pointer;">${hospitalqna.name}</h4>
-					                                    <h5>${hospitalqna.date}</h5>
-					                                    <a class='reply_btn' href='/waguwagu/hospitalanswers/hospitaladd?hospitalid=${hospitalqna.hospitalid}'>Reply</a>
-					                                </div>
-					                            </div>
-					                            <p>${hospitalqna.content}</p>
-					                            <div class="edit_delete_buttons" style="display: none;">
-					                                <!-- 답변 완료 버튼 추가 -->
-					                                <c:set var="hasAnswer" value="false" />
-					                                <c:forEach items="${hospitalanswerlistkey}" var="ansItem">
-					                                    <c:if test="${hospitalqna.hospitalid eq ansItem.hospitalid}">
-					                                        <c:set var="hasAnswer" value="true" />
-					                                    </c:if>
-					                                </c:forEach>
-					                                <c:if test="${hasAnswer eq 'true'}">
-					                                    <button class="answer_button">답변 완료</button>
-					                                    <div class="answer_info" style="display: none;">
-					                                        <c:forEach items="${hospitalanswerlistkey}" var="ansItem">
-					                                            <c:if test="${hospitalqna.hospitalid eq ansItem.hospitalid}">
-					                                                <p>답변 날짜 : ${ansItem.replaydate}</p>
-					                                                <p>답변 : ${ansItem.answercontent }</p>
-					                                                <!-- 다른 필드 정보도 추가 -->
-					                                            </c:if>
-					                                        </c:forEach>
-					                                    </div>
-					                                </c:if>
-					                                <a href="javascript:void(0);" class="edit_button" data-hospitalid="${hospitalqna.hospitalid}">수정하기</a> <a href="<c:url value="javascript:deleteConfirm('${hospitalqna.hospitalid}')" />" class="edit_button">삭제</a>
-					                            </div>
-					                        </div>
-					                    </c:forEach>
-					                </div>
-					                <div class="col-lg-6">
-					                    <div class="pagination-container"></div>
-					                </div>
-					            </div>
-
-
-
-  
-
+				<div class="tab-pane fade" id="contact" role="tabpanel"
+					aria-labelledby="contact-tab">
+					<div class="row rowmapper">
+						<div class="rowmappertow">
+							<div class="col-lg-6">
+								<div id="comment_list">
+									<c:forEach items="${hospitalqnalistkey}" var="hospitalqna">
+										<div class="review_item">
+											<div class="media">
+												<div class="d-flex">
+													<img src="<c:url value='/resources/img/product/review2.png" alt="'/>"  />
+												</div>
+												<div class="media-body">
+													<h4 class="number" style="cursor: pointer;">${hospitalqna.name}</h4>
+													<h5>${hospitalqna.date}</h5>
+													<a class='reply_btn'
+														href='/waguwagu/hospitalanswers/hospitaladd?hospitalid=${hospitalqna.hospitalid}'>Reply</a>
+												</div>
+											</div>
+											<p>${hospitalqna.content}</p>
+											<div class="edit_delete_buttons" style="display: none;">
+												<!-- 답변 완료 버튼 추가 -->
+												<c:set var="hasAnswer" value="false" />
+												<c:forEach items="${hospitalanswerlistkey}" var="ansItem">
+													<c:if
+														test="${hospitalqna.hospitalid eq ansItem.hospitalid}">
+														<c:set var="hasAnswer" value="true" />
+													</c:if>
+												</c:forEach>
+												<c:if test="${hasAnswer eq 'true'}">
+													<button class="answer_button">답변 완료</button>
+													<div class="answer_info" style="display: none;">
+														<c:forEach items="${hospitalanswerlistkey}" var="ansItem">
+															<c:if
+																test="${hospitalqna.hospitalid eq ansItem.hospitalid}">
+																<p>답변 날짜 : ${ansItem.replaydate}</p>
+																<p>답변 : ${ansItem.answercontent }</p>
+																<!-- 다른 필드 정보도 추가 -->
+															</c:if>
+														</c:forEach>
+													</div>
+												</c:if>
+												<a href="javascript:void(0);" class="tae"
+													data-hospitalid="${hospitalqna.hospitalid}">수정하기</a> <a
+													href="<c:url value="javascript:deleteConfirm('${hospitalqna.hospitalid}')" />"
+													class="edit_button">삭제</a>
+											</div>
+										</div>
+									</c:forEach>
+								</div>
+								<div class="col-lg-6">
+									<div class="pagination-container"></div>
+								</div>
+							</div>
 							<div class="col-lg-6">
 								<div class="review_box">
 									<h4>QnA 작성</h4>
@@ -401,7 +419,7 @@
 											<div class="form-group">
 												<!-- hospitalplus 객체의 number 필드를 바인딩합니다. -->
 												<input type="text" class="form-control" id="name"
-													name="name" placeholder="이름을 입력하세요." />
+													name="name" placeholder="이름을 입력하세요."  />
 											</div>
 										</div>
 										<div class="col-md-12">
@@ -415,7 +433,7 @@
 											<div class="form-group">
 												<!-- hospitalplus 객체의 date 필드를 바인딩합니다. -->
 												<input type="text" class="form-control" id="hospitalid"
-													name="hospitalid" placeholder="아이디를 입력해주세요." />
+													name="hospitalid" placeholder="아이디를 입력해주세요." readonly="true" value="${hospitalInfo.id }" />
 											</div>
 										</div>
 										<div class="col-md-12">
@@ -451,7 +469,7 @@
 												<div class="form-group">
 													<input type="text" class="form-control" id="editHospitalid"
 														readonly="true" name="hospitalid" placeholder="id를 입력하세요"
-														value="${hospital123.hospitalid}">
+														value="${hospitalInfo.id}">
 												</div>
 											</div>
 											<div class="col-md-12">
@@ -462,6 +480,7 @@
 											</div>
 											<div class="col-md-12 text-right">
 												<input type="submit" value="수정하기" class="btn primary-btn">
+												<button id="cancelEdit" class="btn primary-btn">취소</button>
 											</div>
 										</form:form>
 									</div>
@@ -472,72 +491,85 @@
 						<div id="pagination" class="pagination"></div>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+				<div class="tab-pane fade" id="review" role="tabpanel"
+					aria-labelledby="review-tab">
 					<div class="row rowmapper">
-					<div class="rowmappertow">
-						<div class="col-lg-6">
-							<div class="row total_rate">
-								<div class="col-6">
-									<div class="box_total">
-										<h5>총점</h5>
-										<h4>${avgScore }</h4>
+						<div class="rowmappertow">
+							<div class="col-lg-6">
+								<div class="row total_rate">
+									<div class="col-6">
+										<div class="box_total">
+											<h5>총점</h5>
+											<h4>${avgScore }</h4>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="rating_list">
+											<ul class="list">
+												<li><a href="#">5 Star <i class="fa fa-star"></i><i
+														class="fa fa-star"></i><i class="fa fa-star"></i><i
+														class="fa fa-star"></i><i class="fa fa-star"></i> 01
+												</a></li>
+												<li><a href="#">4 Star <i class="fa fa-star"></i><i
+														class="fa fa-star"></i><i class="fa fa-star"></i><i
+														class="fa fa-star"></i><i class="fa fa-star"></i> 01
+												</a></li>
+												<li><a href="#">3 Star <i class="fa fa-star"></i><i
+														class="fa fa-star"></i><i class="fa fa-star"></i><i
+														class="fa fa-star"></i><i class="fa fa-star"></i> 01
+												</a></li>
+												<li><a href="#">2 Star <i class="fa fa-star"></i><i
+														class="fa fa-star"></i><i class="fa fa-star"></i><i
+														class="fa fa-star"></i><i class="fa fa-star"></i> 01
+												</a></li>
+												<li><a href="#">1 Star <i class="fa fa-star"></i><i
+														class="fa fa-star"></i><i class="fa fa-star"></i><i
+														class="fa fa-star"></i><i class="fa fa-star"></i> 01
+												</a></li>
+											</ul>
+										</div>
 									</div>
 								</div>
-								<div class="col-6">
-									<div class="rating_list">
-										<ul class="list">
-											<li><a href="#">5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">1 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
+								<div class="review_list" id="review_list">
+									<c:forEach var="review" items="${hospitalReviews}">
+										<div class="review_item">
+											<div class="media">
+												<div class="d-flex">
+													<img
+														src="<c:url value='/resources/img/product/review2.png" alt="'/>" />
+												</div>
+												<div class="media-body">
+													<h4>${review.name}</h4>
+													<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+														class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+														class="fa fa-star"></i>
+												</div>
+											</div>
+											<p>${review.reviewContent}</p>
+											<div class="text-md-right">
+												<a href="javascript:void(0);" class="taeredit_button"
+													data-reviewid="${review.reviewId}"
+													data-hospitalid="${review.hospitalId}">수정하기</a> <a
+													href="<c:url value='/hospital/review/delete?id=${review.reviewId}&hospitalId=${review.hospitalId}'/>"
+													class="btn"
+													onclick="return deleteConfirm('${review.reviewId}')"
+													style="color: red">삭제</a>
+											</div>
+										</div>
+									</c:forEach>
+								</div>
+								<!-- 페이지버튼 -->
+								<div class="d-flex justify-content-center">
+									<div aria-label="Page navigation example">
+										<ul class="pagination" id="taepagination">
+											<li class="page-item"><a class="page-link" href="#"
+												aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+											</a></li>
 										</ul>
 									</div>
 								</div>
 							</div>
-							<div class="taereview_list" id="review_list">
-								<c:forEach var="review" items="${hospitalReviews}">
-								    <div class="review_item" >
-								        <div class="media">
-								            <div class="d-flex">
-								                <img src="<c:url value='/resources/img/product/review2.png" alt="'/>"/>
-								            </div>
-								            <div class="media-body">
-								                <h4>${review.name}</h4>
-								                <i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-								            </div>
-								        </div>
-								        <p>${review.reviewContent}</p>
-								        <div class="text-md-right">
-		      								<a href="javascript:void(0);" class="tae" data-reviewid="${review.reviewId}" data-hospitalid="${review.hospitalId}">수정하기</a>
-		      								<a href="<c:url value='/hospital/review/delete?id=${review.reviewId}&hospitalId=${review.hospitalId}'/>" class="btn" onclick="return deleteConfirm('${review.reviewId}')" style="color:red">삭제</a>			                        
-				                        </div>
-								    </div>
-							    </c:forEach>
-							</div>
-							<!-- 페이지버튼 -->    
-						  <div class="d-flex justify-content-center">
-						    <div aria-label="Page navigation example">
-						        <ul class="pagination" id="taepagination">
-						            <li class="page-item">
-						                <a class="page-link" href="#" aria-label="Previous">
-						                    <span aria-hidden="true">&laquo;</span>
-						                </a>
-						            </li>
-						        </ul>
-						    </div>
-						</div>
-						</div>
-						<div class="col-lg-6">
+							<div class="col-lg-6">
 							<div class="review_box">
 								<h4>리뷰작성</h4>
 								<p>평점:</p>
@@ -605,39 +637,124 @@
 				                </form:form>
 							</div>
 						</div>
+						</div>					
 					</div>
-				</div>
 				</div>
 			</div>
 		</div>
 	</section>
 	<!--================End Product Description Area =================-->
 
-	<!--================ Start related Product area =================-->  
+	<!--================ Start related Product area =================-->
 	<section class="related-product-area section-margin--small mt-0">
 		<div class="container">
 			<div class="section-intro pb-60px">
-		        <p>Road Map</p>
-		        <h1>오시는 <span class="section-intro__style">길</span></h1>
-		    </div>
-	    	<div class="">
-	    	 	<div id="map" style="width: 100%; height: 500px;" class="feature-img"></div>
-                <br>
-                <h2>교통 정보</h2>
-                <div id="map2" style="width: 100%; height: 400px;" class="feature-img"></div>	
-	    	</div>
-	    	<br>
-	    	<div class="d-flex justify-content-center mx-auto p-2">
-	    		<a class="button primary-btn btn-check btn btn-outline-primary " style="width:200px" href="https://map.kakao.com/link/to/${hospitalInfo.yadmNm},${hospitalInfo.YPos},${hospitalInfo.XPos}" target="_blank">길찾기</a>
+				<p>Road Map</p>
+				<h1>
+					오시는 <span class="section-intro__style">길</span>
+				</h1>
 			</div>
-        </div>
+			<div class="">
+				<div id="map" style="width: 100%; height: 500px;"
+					class="feature-img"></div>
+				<br>
+				<h2>교통 정보</h2>
+				<div id="map2" style="width: 100%; height: 400px;"
+					class="feature-img"></div>
+			</div>
+			<br>
+			<div class="d-flex justify-content-center mx-auto p-2">
+				<a class="button primary-btn btn-check btn btn-outline-primary "
+					style="width: 200px"
+					href="https://map.kakao.com/link/to/${hospitalInfo.yadmNm},${hospitalInfo.YPos},${hospitalInfo.XPos}"
+					target="_blank">길찾기</a>
+			</div>
+		</div>
 	</section>
 	<!--================ end related Product area =================-->  	
+	 <!--================ Start footer Area  =================-->	
+	<footer class="footer">
+		<div class="footer-area">
+			<div class="container">
+				<div class="row section_gap">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title large_title">Our Mission</h4>
+							<p>
+								So seed seed green that winged cattle in. Gathering thing made fly you're no 
+								divided deep moved us lan Gathering thing us land years living.
+							</p>
+							<p>
+								So seed seed green that winged cattle in. Gathering thing made fly you're no divided deep moved 
+							</p>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Quick Links</h4>
+							<ul class="list">
+								<li><a href="/waguwagu">Home</a></li>
+								<li><a href="/waguwagu/products">Shop</a></li>
+								<li><a href="/waguwagu/teams">Team</a></li>
+								<li><a href="/waguwagu/games">Games</a></li>
+								<li><a href="/waguwagu/lessons">Class</a></li>
+								<li><a href="/waguwagu/hospitalinfo/list">Hospital</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget instafeed">
+							<h4 class="footer_title">Gallery</h4>
+							<ul class="list instafeed d-flex flex-wrap">
+								<li><img src="<c:url value='/resources/images/gallery/r1.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r2.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r3.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r5.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r7.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r8.jpg" alt="'/>"/></li>
+							</ul>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Contact Us</h4>
+							<div class="ml-40">
+								<p class="sm-head">
+									<span class="fa fa-location-arrow"></span>
+									Head Office
+								</p>
+								<p>123, Main Street, Your City</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-phone"></span>
+									Phone Number
+								</p>
+								<p>
+									+123 456 7890 <br>
+									+123 456 7890
+								</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-envelope"></span>
+									Email
+								</p>
+								<p>
+									free@infoexample.com <br>
+									www.infoexample.com
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--================ End footer Area  =================-->
 
 
-
-<!-- 태림꺼 -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5378af335c867b376e6f09fedae7f166"></script>
+	<!-- 태림꺼 -->
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5378af335c867b376e6f09fedae7f166"></script>
 
 	<script>
 	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
@@ -660,9 +777,10 @@
 	
 	
 	</script>
-	
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 사용하세요"></script>
-    <script>
+
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 사용하세요"></script>
+	<script>
         var mapContainer2 = document.getElementById('map2'), // 지도를 표시할 div 
             mapOption2 = {
                 center: new kakao.maps.LatLng(${hospitalInfo.YPos }, ${hospitalInfo.XPos }), // 지도의 중심좌표
@@ -728,14 +846,15 @@
 
 	<!-- 페이징처리 -->
 	<script>
-	/* 3개 글 보기 */
-	     var list = document.getElementById('review_list').getElementsByClassName('review_item');
+    /* 3개 글 보기 */
+    var list = document.getElementById('review_list').getElementsByClassName('review_item');
     var pageNum = document.getElementById('taepagination'); // 페이지 번호를 표시할 엘리먼트
     var limitPerPage = 3;
     var totalPages = Math.ceil(list.length / limitPerPage);
     var currentPage = 1; // 현재 페이지 번호
 
     function showPage(page) {
+        console.log("쇼래");
         var start = (page - 1) * limitPerPage;
         var end = start + limitPerPage;
 
@@ -754,7 +873,7 @@
         pageNum.innerHTML = ""; // 페이지 번호 엘리먼트 초기화
 
         for (var i = 1; i <= totalPages; i++) {
-            pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='#' onclick='changePage(" + i + ")'>" + i + "</a></li>";
+        	pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='#' onclick='changePage(" + i + ")'>" + i + "</a></li>";
         }
     }
 
@@ -785,12 +904,12 @@
     // 초기 페이지 로딩 시 첫 페이지 표시
     showPage(currentPage);
     updatePagination();
-	
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	
-<script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
 
-    $('.tae').click(function() {
+    $('.taeredit_button').click(function() {
         console.log("xx");
         var reviewId = $(this).data('reviewid');
         var hospitalId = $(this).data('hospitalid'); // lessonId 가져오기
@@ -817,11 +936,11 @@
         });
     });
 
-</script>	
+</script>
 
-<!-- 도영꺼 -->
+	<!-- 도영꺼 -->
 
-<script>
+	<script>
 
 /* 3개 글 보기 */
 var list = document.getElementById('comment_list').getElementsByClassName('review_item');
@@ -955,8 +1074,8 @@ $(document).ready(function() {
 });
 </script>
 
-<!-- 답변 완료 버튼 -->
-<script>
+	<!-- 답변 완료 버튼 -->
+	<script>
     document.addEventListener('DOMContentLoaded', function() {
         var answerButtons = document.querySelectorAll('.answer_button');
     
@@ -972,8 +1091,8 @@ $(document).ready(function() {
         });
     });
     </script>
-    <!-- 수정폼 취소버튼 -->
-    <script>
+	<!-- 수정폼 취소버튼 -->
+	<script>
     $(document).ready(function() {
         // 취소 버튼 클릭 시 등록 폼 표시
         $('#cancelEdit').click(function(event) {
@@ -986,13 +1105,18 @@ $(document).ready(function() {
 
 
 
-  <script src="<c:url value='/resources/vendors/jquery/jquery-3.2.1.min.js'/>"/></script>
-  <script src="<c:url value='/resources/vendors/bootstrap/bootstrap.bundle.min.js'/>"/></script>
-  <script src="<c:url value='/resources/vendors/skrollr.min.js'/>"/></script>
-  <script src="<c:url value='/resources/vendors/owl-carousel/owl.carousel.min.js'/>"/></script>
-  <script src="<c:url value='/resources/vendors/nice-select/jquery.nice-select.min.js'/>"/></script>
-  <script src="<c:url value='/resources/vendors/jquery.ajaxchimp.min.js'/>"/></script>
-  <script src="<c:url value='/resources/vendors/mail-script.js'/>"/></script>
-  <script src="<c:url value='/resources/js/main.js'/>"/></script>
+	<script
+		src="<c:url value='/resources/vendors/jquery/jquery-3.2.1.min.js'/>" /></script>
+	<script
+		src="<c:url value='/resources/vendors/bootstrap/bootstrap.bundle.min.js'/>" /></script>
+	<script src="<c:url value='/resources/vendors/skrollr.min.js'/>" /></script>
+	<script
+		src="<c:url value='/resources/vendors/owl-carousel/owl.carousel.min.js'/>" /></script>
+	<script
+		src="<c:url value='/resources/vendors/nice-select/jquery.nice-select.min.js'/>" /></script>
+	<script
+		src="<c:url value='/resources/vendors/jquery.ajaxchimp.min.js'/>" /></script>
+	<script src="<c:url value='/resources/vendors/mail-script.js'/>" /></script>
+	<script src="<c:url value='/resources/js/main.js'/>" /></script>
 </body>
 </html>

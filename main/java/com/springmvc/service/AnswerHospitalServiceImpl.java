@@ -41,6 +41,7 @@ public class AnswerHospitalServiceImpl implements AnswerHospitalService{
 	public void createHospitalanswer(Hospitalanswer answer) {
 		// TODO Auto-generated method stub
 		answerRepository.createHospitalanswer(answer);
+		System.out.println("나는 service : " + answer.getHospitalid());
 	}
 
 	@Override

@@ -122,12 +122,12 @@
 </head>
 
 <body>
-
+<!--================ Start Header Menu Area =================-->
 	<header class="header_area">
 	    <div class="main_menu">
 	      <nav class="navbar navbar-expand-lg navbar-light">
 	        <div class="container">
-	          <a class="navbar-brand logo_h" href="index.html">
+	          <a class="navbar-brand logo_h"  href="/waguwagu/">
 	          	<img src="<c:url value='/resources/img/baseball.png'/>" alt=''/>
 	          </a>
 	          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -138,8 +138,17 @@
 	          </button>
 	          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 	            <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-	              <li class="nav-item"><a class="nav-link" href="index.html">홈</a></li>
-	              <li class="nav-item"><a class="nav-link" href="index.html">쇼핑</a></li>
+	              <li class="nav-item"><a class="nav-link" href="/waguwagu/">홈</a></li>
+	              <li class="nav-item submenu dropdown">
+	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+	                  aria-expanded="false">쇼핑</a>
+	                <ul class="dropdown-menu">
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/products">쇼핑</a></li>
+	                  <c:if test="${sessionScope.memberId == 'admin'}">
+	                  	<li class="nav-item"><a class="nav-link" href="/waguwagu/products/add">상품등록</a></li>
+	                  </c:if>
+	                </ul>
+	              </li>
 	              <li class="nav-item active submenu dropdown">
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">구단</a>
@@ -179,8 +188,7 @@
 	                  aria-expanded="false">의료</a>
 	                <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">병원목록</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/Hospital/">병원예약</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="tracking-order.html">재활추천</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">예약확인</a></li>
 	                </ul>
 	              </li>
 	            </ul>
@@ -492,25 +500,84 @@
       </div>
     </div>
   </div>
-    <!-- <footer class="footer-section">
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy;
-                <script>
-                  document.write(new Date().getFullYear());
-                </script> All rights reserved | This template is made with <i class="icon-heart"
-                  aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-              </p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </footer> -->
-
-
-
-  </div>
+ <!--================ Start footer Area  =================-->	
+	<footer class="footer">
+		<div class="footer-area">
+			<div class="container">
+				<div class="row section_gap">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title large_title">Our Mission</h4>
+							<p>
+								So seed seed green that winged cattle in. Gathering thing made fly you're no 
+								divided deep moved us lan Gathering thing us land years living.
+							</p>
+							<p>
+								So seed seed green that winged cattle in. Gathering thing made fly you're no divided deep moved 
+							</p>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Quick Links</h4>
+							<ul class="list">
+								<li><a href="/waguwagu">Home</a></li>
+								<li><a href="/waguwagu/products">Shop</a></li>
+								<li><a href="/waguwagu/teams">Team</a></li>
+								<li><a href="/waguwagu/games">Games</a></li>
+								<li><a href="/waguwagu/lessons">Class</a></li>
+								<li><a href="/waguwagu/hospitalinfo/list">Hospital</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget instafeed">
+							<h4 class="footer_title">Gallery</h4>
+							<ul class="list instafeed d-flex flex-wrap">
+								<li><img src="<c:url value='/resources/images/gallery/r1.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r2.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r3.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r5.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r7.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r8.jpg" alt="'/>"/></li>
+							</ul>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Contact Us</h4>
+							<div class="ml-40">
+								<p class="sm-head">
+									<span class="fa fa-location-arrow"></span>
+									Head Office
+								</p>
+								<p>123, Main Street, Your City</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-phone"></span>
+									Phone Number
+								</p>
+								<p>
+									+123 456 7890 <br>
+									+123 456 7890
+								</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-envelope"></span>
+									Email
+								</p>
+								<p>
+									free@infoexample.com <br>
+									www.infoexample.com
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--================ End footer Area  =================-->
   <!-- .site-wrap -->
 <!--   <script>
     // (function () {

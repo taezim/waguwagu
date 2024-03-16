@@ -29,12 +29,12 @@
   </style>
 </head>
 <body>
-   <!--================ Start Header Menu Area =================-->
+<!--================ Start Header Menu Area =================-->
 	<header class="header_area">
 	    <div class="main_menu">
 	      <nav class="navbar navbar-expand-lg navbar-light">
 	        <div class="container">
-	          <a class="navbar-brand logo_h" href="/waguwagu">
+	          <a class="navbar-brand logo_h"  href="/waguwagu/">
 	          	<img src="<c:url value='/resources/img/baseball.png'/>" alt=''/>
 	          </a>
 	          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -45,7 +45,7 @@
 	          </button>
 	          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 	            <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-	              <li class="nav-item"><a class="nav-link" href="/waguwagu">홈</a></li>
+	              <li class="nav-item"><a class="nav-link" href="/waguwagu/">홈</a></li>
 	              <li class="nav-item submenu dropdown">
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">쇼핑</a>
@@ -78,7 +78,7 @@
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">클래스</a>
 	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/Lesson/lessons">클래스?</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons/add">클래스등록</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/lessons">클래스목록</a></li>
 	                </ul>
 								</li>
@@ -95,8 +95,7 @@
 	                  aria-expanded="false">의료</a>
 	                <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">병원목록</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/Hospital/">병원예약</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="tracking-order.html">재활추천</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">예약확인</a></li>
 	                </ul>
 	              </li>
 	            </ul>
@@ -121,13 +120,12 @@
 	  </header>
 	<!--================ End Header Menu Area =================-->
 
-
 	<!-- ================ start banner area ================= -->	
 	<section class="blog-banner-area" id="category">
 		<div class="container h-100">
 			<div class="blog-banner">
 				<div class="text-center">
-					<h1>Shop Category</h1>
+					<h1>상품 목록</h1>
 					<nav aria-label="breadcrumb" class="banner-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -214,74 +212,6 @@
 			        </div>
 			      </div>
 			    </c:forEach>
-              <div class="col-md-6 col-lg-4">
-                <div class="card text-center card-product">
-                  <div class="card-product__img">
-                    <img class="card-img" src="<c:url value='/resources/img/product/p1.jpg" alt="'/>"/>
-                    <ul class="card-product__imgOverlay">
-                      <li><button><i class="ti-search"></i></button></li>
-                      <li><button><i class="ti-shopping-cart"></i></button></li>
-                      <li><button><i class="ti-heart"></i></button></li>
-                    </ul>
-                  </div>
-                  <div class="card-body">
-                    <p>글러브</p>
-                    <h4 class="card-product__title"><a href="#">MIZUNO 셀렉나인25900</a></h4>
-                    <p class="card-product__price">179,000원</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <div class="card text-center card-product">
-                  <div class="card-product__img">
-                    <img class="card-img" src="<c:url value='/resources/img/product/p2.JPG" alt="'/>"/>
-                    <ul class="card-product__imgOverlay">
-                      <li><button><i class="ti-search"></i></button></li>
-                      <li><button><i class="ti-shopping-cart"></i></button></li>
-                      <li><button><i class="ti-heart"></i></button></li>
-                    </ul>
-                  </div>
-                  <div class="card-body">
-                    <p>배트</p>
-                    <h4 class="card-product__title"><a href="#">Rawlings 컴파짓 메이플 우드 펑고 배트 BWH3CF</a></h4>
-                    <p class="card-product__price">149,000원</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <div class="card text-center card-product">
-                  <div class="card-product__img">
-                    <img class="card-img" src="<c:url value='/resources/img/product/p3.JPG" alt="'/>"/>
-                    <ul class="card-product__imgOverlay">
-                      <li><button><i class="ti-search"></i></button></li>
-                      <li><button><i class="ti-shopping-cart"></i></button></li>
-                      <li><button><i class="ti-heart"></i></button></li>
-                    </ul>
-                  </div>
-                  <div class="card-body">
-                    <p>배트</p>
-                    <h4 class="card-product__title"><a href="#">SSK 배트링 SRLG100 청색</a></h4>
-                    <p class="card-product__price">63,000원</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <div class="card text-center card-product">
-                  <div class="card-product__img">
-                    <img class="card-img" src="<c:url value='/resources/img/product/p4.JPG" alt="'/>"/>
-                    <ul class="card-product__imgOverlay">
-                      <li><button><i class="ti-search"></i></button></li>
-                      <li><button><i class="ti-shopping-cart"></i></button></li>
-                      <li><button><i class="ti-heart"></i></button></li>
-                    </ul>
-                  </div>
-                  <div class="card-body">
-                    <p>야구화</p>
-                    <h4 class="card-product__title"><a href="#">Asics 포인트화 SFP101-0123 스타샤인</a></h4>
-                    <p class="card-product__price">79,000원</p>
-                  </div>
-                </div>
-              </div>
               <div class="col-md-6 col-lg-4">
                 <div class="card text-center card-product">
                   <div class="card-product__img">
@@ -395,121 +325,84 @@
   </section>
 	<!-- ================ category section end ================= -->		  
 
-	<!-- ================ top product area start ================= -->	
-	<section class="related-product-area">
-		<div class="container">
-			<div class="section-intro pb-60px">
-        <p>Popular Item in the market</p>
-        <h2>인기 <span class="section-intro__style">상품</span></h2>
-      </div>
-			<div class="row mt-30">
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-          <div class="single-search-product-wrapper">
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>
-              <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-          <div class="single-search-product-wrapper">
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-4.png" alt=""></a>
-              <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-5.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-6.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-          <div class="single-search-product-wrapper">
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-7.png" alt=""></a>
-              <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-8.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-9.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-          <div class="single-search-product-wrapper">
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>
-              <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+ <!--================ Start footer Area  =================-->	
+	<footer class="footer">
+		<div class="footer-area">
+			<div class="container">
+				<div class="row section_gap">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title large_title">Our Mission</h4>
+							<p>
+								So seed seed green that winged cattle in. Gathering thing made fly you're no 
+								divided deep moved us lan Gathering thing us land years living.
+							</p>
+							<p>
+								So seed seed green that winged cattle in. Gathering thing made fly you're no divided deep moved 
+							</p>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Quick Links</h4>
+							<ul class="list">
+								<li><a href="/waguwagu">Home</a></li>
+								<li><a href="/waguwagu/products">Shop</a></li>
+								<li><a href="/waguwagu/teams">Team</a></li>
+								<li><a href="/waguwagu/games">Games</a></li>
+								<li><a href="/waguwagu/lessons">Class</a></li>
+								<li><a href="/waguwagu/hospitalinfo/list">Hospital</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget instafeed">
+							<h4 class="footer_title">Gallery</h4>
+							<ul class="list instafeed d-flex flex-wrap">
+								<li><img src="<c:url value='/resources/images/gallery/r1.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r2.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r3.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r5.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r7.jpg" alt="'/>"/></li>
+								<li><img src="<c:url value='/resources/images/gallery/r8.jpg" alt="'/>"/></li>
+							</ul>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Contact Us</h4>
+							<div class="ml-40">
+								<p class="sm-head">
+									<span class="fa fa-location-arrow"></span>
+									Head Office
+								</p>
+								<p>123, Main Street, Your City</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-phone"></span>
+									Phone Number
+								</p>
+								<p>
+									+123 456 7890 <br>
+									+123 456 7890
+								</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-envelope"></span>
+									Email
+								</p>
+								<p>
+									free@infoexample.com <br>
+									www.infoexample.com
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</section>
-	<!-- ================ top product area end ================= -->		
+	</footer>
+	<!--================ End footer Area  =================-->
 
 
 

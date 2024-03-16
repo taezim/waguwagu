@@ -757,8 +757,8 @@
 		});
 
 		</script>
-		
-		/* 삭제 */
+
+	/* 삭제 */
 	<script>
 		
 		
@@ -801,7 +801,7 @@
 	    });
 	});
 	</script>
-	
+
 	<!-- 답변 완료 버튼 -->
 	<script>
     document.addEventListener('DOMContentLoaded', function() {

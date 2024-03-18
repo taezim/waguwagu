@@ -60,19 +60,17 @@ public class AnswerHospitalRepositoryImpl implements AnswerHospitalRepository{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public void createHospitalanswer(Hospitalanswer hospitalanswer) {
-		// TODO Auto-generated method stub
-		System.out.println("add Repository 나는 레파지토리 : " + hospitalanswer.getHospitalid());
-		String SQL = "INSERT INTO hospitalanswer (questionnumber,respondentid,answercontent,hospitalid)" + "VALUES(?,?,?,?)";
+	    // Hospitalanswer 객체에서 필요한 정보를 확인합니다.
+	    System.out.println("add Repository 나는 레파지토리 : " + hospitalanswer.getHospitalid());
 	    
-		template.update(SQL, hospitalanswer.getQuestionnumber(), hospitalanswer.getRespondentid(),
-		        hospitalanswer.getAnswercontent(), hospitalanswer.getHospitalid());
-		
-		listOfhospitalanswer.add(hospitalanswer);
+	    // SQL 쿼리를 실행하여 데이터베이스에 등록합니다.
+	    String SQL = "INSERT INTO hospitalanswer (questionnumber,respondentid,answercontent,hospitalid) VALUES (?, ?, ?, ?)";
+	    template.update(SQL, hospitalanswer.getQuestionnumber(), hospitalanswer.getRespondentid(),
+	                    hospitalanswer.getAnswercontent(), hospitalanswer.getHospitalid());
 	}
-
 	@Override
 	public void updateHospitalanswer(Hospitalanswer hospitalanswer) {
 		 System.out.println("answer update Repository");

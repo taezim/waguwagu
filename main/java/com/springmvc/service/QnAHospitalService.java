@@ -28,7 +28,9 @@ public interface QnAHospitalService {
 		void updateHospital(Hospitalqna hospitalqna); 
 
 		//D
-		void deleteHospital(String hospitalid);
+		void deleteHospital(int i);
+
+		void deleteHospital(String number);
 		
 		
 }

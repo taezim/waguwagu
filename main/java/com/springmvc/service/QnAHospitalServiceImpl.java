@@ -56,6 +56,12 @@ public class QnAHospitalServiceImpl implements QnAHospitalService{
 		qnaRepository.deleteHospitalqna(number);
 	}
 
+	@Override
+	public void deleteHospital(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
 

@@ -190,7 +190,7 @@
 						         <div class="col-md-12">
 						            <div class="form-group">
 						                <!-- hospitalplus 객체의 content 필드를 바인딩합니다. -->
-						                <input type="text" class="form-control"  name="hospitalid" id="hospitalid"  placeholder="hospitalid를 작성하세요." readonly="true" value="${hospitalqnakey.hospitalid }"  />
+						                <input type="text" class="form-control"  name="hospitalid" id="hospitalid"  placeholder="hospitalid를 작성하세요." readonly="true" value="${hospitalkey.id }"  />
 						            </div>
 						        </div>
 						        <div class="col-md-12 text-right">

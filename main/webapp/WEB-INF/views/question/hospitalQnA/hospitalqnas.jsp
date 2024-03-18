@@ -383,7 +383,8 @@
 					                                        </c:forEach>
 					                                    </div>
 					                                </c:if>
-					                                <a href="javascript:void(0);" class="edit_button" data-hospitalid="${hospitalqna.hospitalid}">수정하기</a> <a href="<c:url value="javascript:deleteConfirm('${hospitalqna.hospitalid}')" />" class="edit_button">삭제</a>
+					                                <a href="javascript:void(0);" class="edit_button" data-hospitalid="${hospitalqna.hospitalid}">수정하기</a>
+					                                 <a href="<c:url value="javascript:deleteConfirm('${hospitalqna.hospitalid}')" />" class="edit_button">삭제</a>
 					                            </div>
 					                        </div>
 					                    </c:forEach>
@@ -392,11 +393,6 @@
 					                    <div class="pagination-container"></div>
 					                </div>
 					            </div>
-
-
-
-  
-
 							<div class="col-lg-6">
 								<div class="review_box">
 									<h4>QnA 작성</h4>
@@ -856,6 +852,7 @@ var list = document.getElementById('comment_list').getElementsByClassName('revie
   /* 수정하기 */
 // 수정 버튼 클릭 시 동작하는 부분
 $(document).ready(function() {
+    // 수정하기 버튼에 대한 클릭 이벤트 핸들러 설정
     $('.edit_button').click(function() {
         var hospitalid = $(this).data('hospitalid');
         

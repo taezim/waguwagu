@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.springmvc.domain.Product;
 import com.springmvc.domain.Productanswer;
 import com.springmvc.domain.Productqna;
 import com.springmvc.service.AnswerProductService;
+import com.springmvc.service.ProductService;
 import com.springmvc.service.QnAProductService;
 
 @Controller
@@ -29,6 +31,8 @@ public class QnAProductController {
 	private HttpSession httpsession;
 	@Autowired
 	private AnswerProductService answerproductservice;
+	@Autowired
+	private ProductService productservice;
 	
 	// 처음 페이지 진입 시 productqnaList를 조회합니다.
 	 @GetMapping
@@ -59,7 +63,7 @@ public class QnAProductController {
 	    public String createPostqna(@ModelAttribute("productplus") Productqna qna) {
 	        System.out.println("add postMapping");
 	        qnaService.createProductlqna(qna);
-	        return "redirect:/productquestion";
+	        return "redirect:/products/product?id=" + qna.getProductid();
 	    }
 	
 	  //하나조회
@@ -92,14 +96,25 @@ public class QnAProductController {
 	@PostMapping("/productupdate") // URL Mapping 수정
 	public String UpdateqnaForm(@ModelAttribute("productupdateqna") Productqna productqna) {
 	    qnaService.updateProductqna(productqna);
-	    return "redirect:/productquestion"; // 수정 후 리다이렉트할 URL 지정
+	    return "redirect:/products/product?id=" + productqna.getProductid(); // 수정 후 리다이렉트할 URL 지정
 	}
 	
-	//삭제
-		@RequestMapping(value="/productdelete")
-		public String deleteQnA(Model model, @RequestParam("productid") String productnumber)
-		{
-			qnaService.deleteProductqna(productnumber);
-			return "redirect:/productquestion";
-		}
+	// 삭제 처리를 위한 컨트롤러 메서드
+	@RequestMapping(value="/productdelete")
+	public String deleteQnA(Model model, @RequestParam("productid") String productnumber, Productqna qna) {
+	    
+		Product pdById = productservice.readProductById(productnumber);
+		model.addAttribute("pd", pdById); // product.jsp 에서 pd. 해서 꺼내쓰면됨
+		// pd.productId와 productnumber가 일치하는지 확인
+	    if (productnumber.equals(pdById.getProductId())) {
+	        // 일치하는 경우, 상품 QnA 삭제 처리
+	        qnaService.deleteProductqna(productnumber);
+	    } else {
+	        // 일치하지 않는 경우, 아무런 동작 없음 (이미 JavaScript에서 알림창을 통해 사용자에게 알려줌)
+	        // 필요에 따라 예외 처리 등을 추가할 수 있음
+	    }
+
+	    // 삭제 후, 상품 페이지로 리다이렉트
+	    return "redirect:/products";
+	}
 }

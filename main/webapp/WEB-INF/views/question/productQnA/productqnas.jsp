@@ -370,7 +370,7 @@
 				                    </div>
 				                    </div>
 				                </c:forEach>
-				            </div>http://localhost:8080/waguwagu/classquestion#contact
+				            </div>
 
 				        </div>
 				      <div class="col-lg-6">

@@ -50,7 +50,7 @@ public class LessonController
          model.addAttribute("list", list); // list. 해서 lessons.jsp에서 꺼내기
          
          String team = (String) session.getAttribute("team");
-         model.addAttribute("myteam",team);
+ 	     model.addAttribute("myteam",team);
          
          return "/Lesson/lessons";
       }
@@ -87,7 +87,8 @@ public class LessonController
 
  	    model.addAttribute("reviewList", list);
  	    model.addAttribute("lesson", lessonById);
-
+ 	    String team = (String) session.getAttribute("team");
+	    model.addAttribute("myteam",team);
 
  	    System.out.println("lessonId : " + classId);
          
@@ -107,8 +108,7 @@ public class LessonController
         List<Classanswer> classanswerlist = answerclassservice.readAllclassanswerLists();
         model.addAttribute("classanswerlistkey",classanswerlist);
 	    
-	    String team = (String) session.getAttribute("team");
-	    model.addAttribute("myteam",team);
+	    
 	    // 리뷰 추가와 마찬가지로 수정을 위한 객체도 모델에 추가
 	    model.addAttribute("updateReview", new LessonReview());
 	   /* 

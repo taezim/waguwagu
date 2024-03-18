@@ -129,7 +129,7 @@ public class ProductReviewController {
 		
 		String productId = request.getParameter("productId");
 		System.out.println("productId="+productId);
-		System.out.println("포스트매핑");
+		System.out.println("업포스트매핑");
 		
 		productReviewService.setUpdateReview(productReview);
 		

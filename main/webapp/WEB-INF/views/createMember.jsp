@@ -139,7 +139,9 @@
 	                  aria-expanded="false">의료</a>
 	                <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">병원목록</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">예약확인</a></li>
+	                  <c:if test="${not empty sessionScope.memberId}">
+	                  	<li class="nav-item"><a class="nav-link" href="/waguwagu/hospital/myReserve">예약확인</a></li>
+	                  </c:if>
 	                </ul>
 	              </li>
 	            </ul>
@@ -150,7 +152,8 @@
 	              <li class="nav-item"><button><i class="fas fa-user"></i></button></li>
 	            </ul>
 	           <c:if test="${empty sessionScope.memberId }">
-	            	<a href="/waguwagu/member/login">로그인</a>
+	            	<a href="/waguwagu/member/login">로그인</a>|
+	            	<a href="/waguwagu/member/createmember">회원가입</a>
 	            </c:if>
 	            <c:if test="${not empty sessionScope.memberId}">
 				    <form action="/waguwagu/member/logout" method="post">
@@ -195,7 +198,8 @@
 			<div class="form-group row">
 				<label class="col-sm-2 control-label">비밀번호</label>
 				<div class="col-sm-3">
-					<form:input path="password" class="form-control" />
+					<form:input path="password" name="password" class="form-control" />
+					<div id="passwordMessage"></div>
 				</div>
 			</div>
 			<div class="form-group row">
@@ -233,9 +237,9 @@
 					<form:radiobutton path="sex" value="여성" />여성
 				</div>
 			</div>
-			<div class="form-group row">
+			<div class="form-group row text-md-right">
 				<div class="col-sm-offset-2 col-sm-10">
-				<input type="submit" class="btn btn-primary" value="가입하기" />
+				<input type="submit" class="btn btn-primary join_button" value="가입하기" />
 				<input type="reset" class="btn btn-primary" value="다시쓰기" />
 				</div>
 			</div>
@@ -323,29 +327,56 @@
 		</div>
 	</footer>
 	<!--================ End footer Area  =================-->
-<!-- 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<script>
-	    $(document).ready(function () {
-	        $("#username").on("blur", function () {
-	            var username = $(this).val();
-	            if (username) {
-	                $.ajax({
-	                    url: "/checkUsername",
-	                    method: "GET",
-	                    data: { username: username },
-	                    success: function (response) {
-	                        $("#usernameMessage").text(response);
-	                    },
-	                    error: function (xhr, status, error) {
-	                        var errorMessage = xhr.responseText;
-	                        $("#usernameMessage").text(errorMessage);
-	                    }
-	                });
-	            }
-	        });
-	    });
-	</script> -->
-	
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- 아이디 유효성 검사 -->
+<script>
+$(document).ready(function() {
+    $('#username').on('blur', function() {
+        var memberId = $(this).val();
+
+        // 입력된 memberId가 5글자 이상인지 확인
+        if (memberId.length < 5) {
+            $('#usernameMessage').html('<span style="color:red;">회원 ID는 5글자 이상이어야 합니다.</span>');
+            return; // 5글자 미만이면 AJAX 호출을 하지 않음
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/waguwagu/member/checkMemberId",
+            contentType: "text/plain",
+            data: memberId,
+            success: function(response) {
+                if (response === "exists") {
+                    $('#usernameMessage').html('<span style="color:red;">이미 사용 중인 회원 ID입니다.</span>');
+                } else {
+                    $('#usernameMessage').html('<span style="color:green;">사용 가능한 회원 ID입니다.</span>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+});
+</script>
+
+<script>
+$(document).ready(function() {
+    $('#password').on('blur', function() {
+        var password = $(this).val();
+
+        // 입력된 비밀번호가 5글자 이상이고 특수 문자를 포함하는지 확인
+        if (password.length < 5 || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            $('#passwordMessage').html('<span style="color:red;">비밀번호는 5글자 이상이어야 하며, 특수 문자를 포함해야 합니다.</span>');
+        } else {
+            $('#passwordMessage').html(''); // 조건에 충족할 경우 메시지 삭제
+        }
+    });
+});
+
+</script>	 
+	 
  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>	
 <!-- JavaScript 코드 -->
 <script>

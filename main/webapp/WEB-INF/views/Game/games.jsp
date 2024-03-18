@@ -116,7 +116,27 @@
 	    });
 	  });
 	</script>
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const matchLink = document.querySelector('.btn.btn-sm.btn-primary.taetaes');
 
+        matchLink.addEventListener('click', function (event) {
+            // 여기서 myteam 값을 가져옵니다. 이 값이 비어 있는지 확인합니다.
+            const myteamValue = "${myteam}"; // myteam 값을 설정하는 방식에 따라 다르게 가져와야 합니다.
+
+            // matches 값을 가져옵니다.
+            const matchesValue = ${not empty game.matches[0].teamName}; // matches 값을 가져오는 방식에 따라 다르게 설정되어야 합니다.
+
+            if (!myteamValue) {
+                alert('가입된 구단이 없습니다!');
+                event.preventDefault(); // 페이지 이동을 막습니다.
+            } else if (matchesValue) {
+                alert('이미 매칭된 게임입니다!');
+                event.preventDefault(); // 페이지 이동을 막습니다.
+            }
+        });
+    });
+</script> -->
 </head>
 <body>
 <!--================ Start Header Menu Area =================-->
@@ -185,7 +205,9 @@
 	                  aria-expanded="false">의료</a>
 	                <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">병원목록</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">예약확인</a></li>
+	                  <c:if test="${not empty sessionScope.memberId}">
+	                  	<li class="nav-item"><a class="nav-link" href="/waguwagu/hospital/myReserve">예약확인</a></li>
+	                  </c:if>
 	                </ul>
 	              </li>
 	            </ul>
@@ -196,7 +218,8 @@
 	              <li class="nav-item"><button><i class="fas fa-user"></i></button></li>
 	            </ul>
 	           <c:if test="${empty sessionScope.memberId }">
-	            	<a href="/waguwagu/member/login">로그인</a>
+	            	<a href="/waguwagu/member/login">로그인</a>|
+	            	<a href="/waguwagu/member/createmember">회원가입</a>
 	            </c:if>
 	            <c:if test="${not empty sessionScope.memberId}">
 				    <form action="/waguwagu/member/logout" method="post">
@@ -325,7 +348,7 @@
 			                        </div>
 			                       <div class="text-md-right">
 			                        	<a href="<c:url value='/games/game?id=${game.gameId}'/>" onclick="checkAndNavigate(event, ${not empty game.matches[0].teamName})" class="btn btn-sm btn-primary">상세보기</a>										
-	      								<a href="<c:url value='/match/add?id=${game.gameId}'/>" onclick="checkAndNavigateMatch(event, ${not empty game.matches[0].teamName})" class="btn btn-sm btn-primary">매칭</a>
+	      								<a href="<c:url value='/match/add?id=${game.gameId}'/>" onclick="checkAndNavigateMatch(event, ${not empty game.matches[0].teamName})" class="btn btn-sm btn-primary taetaes">매칭</a>
 	      								<a href="<c:url value='/match/delete?id=${game.gameId}'/>" class="btn btn-sm btn-primary" onclick="return deleteConfirm('${game.gameId}')">매칭취소 &raquo;</a>			                        
 			                        </div>  
 			                    </li>

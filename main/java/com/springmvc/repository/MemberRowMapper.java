@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.springmvc.domain.Address;
+import com.springmvc.domain.Addresses;
 import com.springmvc.domain.Member;
 
 public class MemberRowMapper implements RowMapper<Member>{
@@ -31,7 +31,7 @@ public class MemberRowMapper implements RowMapper<Member>{
 		
 
 		
-		Address address = parseAddress(rs.getString(7)); // Assuming "address" is in column 7
+		Addresses address = parseAddress(rs.getString(7)); // Assuming "address" is in column 7
         member.setAddress(address);
         //member.setAddress(address);
 		member.setClassId(rs.getString(8));
@@ -43,12 +43,12 @@ public class MemberRowMapper implements RowMapper<Member>{
 		return member;
 	}
 	
-	private Address parseAddress(String addressColumnValue) {
+	private Addresses parseAddress(String addressColumnValue) {
 	    if (addressColumnValue == null || addressColumnValue.trim().isEmpty()) {
 	        return null; // 주소 정보가 없는 경우
 	    }
 
-	    Address address = new Address();
+	    Addresses address = new Addresses();
 
 	    // Split the address value using a space as delimiter
 	    String[] addressParts = addressColumnValue.split(" ");

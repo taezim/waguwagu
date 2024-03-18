@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import com.springmvc.domain.Address;
+import com.springmvc.domain.Addresses;
 import com.springmvc.domain.Member;
 import com.springmvc.service.MemberService;
 
@@ -37,8 +37,8 @@ public class MemberRepositoryImpl implements MemberRepository{
 
 	@Override
 	public void createNewMember(Member member) {
-		Address address = member.getAddress();
-		String addressString = (address != null) ? address.toString() : null;
+		Addresses addresses = member.getAddress();
+		String addressString = (addresses != null) ? addresses.toString() : null;
 		
 		String SQL = "insert into member(m_id, m_name, m_password, m_birth, m_team, m_injury, m_address, m_classId, m_teacherId, m_record, m_sex, m_filename)" + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 

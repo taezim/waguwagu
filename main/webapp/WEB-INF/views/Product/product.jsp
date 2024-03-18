@@ -122,7 +122,9 @@
 	                  aria-expanded="false">의료</a>
 	                <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">병원목록</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">예약확인</a></li>
+	                  <c:if test="${not empty sessionScope.memberId}">
+	                  	<li class="nav-item"><a class="nav-link" href="/waguwagu/hospital/myReserve">예약확인</a></li>
+	                  </c:if>
 	                </ul>
 	              </li>
 	            </ul>
@@ -133,7 +135,8 @@
 	              <li class="nav-item"><button><i class="fas fa-user"></i></button></li>
 	            </ul>
 	           <c:if test="${empty sessionScope.memberId }">
-	            	<a href="/waguwagu/member/login">로그인</a>
+	            	<a href="/waguwagu/member/login">로그인</a>|
+	            	<a href="/waguwagu/member/createmember">회원가입</a>
 	            </c:if>
 	            <c:if test="${not empty sessionScope.memberId}">
 				    <form action="/waguwagu/member/logout" method="post">
@@ -461,7 +464,7 @@
 							</div>
 							<div class="review_list" id="review_list">
 								<c:forEach var="review" items="${productReviews}">
-								    <div class="review_item" >
+								    <div class="review_item taereview-item" >
 								        <div class="media">
 								            <div class="d-flex">
 								                <img src="<c:url value='/resources/img/product/review2.png" alt="'/>"/>
@@ -483,6 +486,16 @@
 								    </div>
 							    </c:forEach>
 							</div>
+							<!-- 페이지버튼 -->
+							<div class="d-flex justify-content-center">
+								<div aria-label="Page navigation example">
+									<ul class="pagination" id="taepagination">
+										<li class="page-item"><a class="page-link" href="#"
+											aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+										</a></li>
+									</ul>
+								</div>
+							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="review_box">
@@ -497,27 +510,30 @@
 								</ul>
 								<!-- <p>Outstanding</p> -->
 								<div id="taeeditFormWrapper" style="display:none;">
-									<form:form id="editForm" action="/waguwagu/product/review/add" method="post" class="form-contact form-review mt-3" modelAttribute="addReview" >
+									<form:form id="editForm" action="/waguwagu/products/review/update" method="post" class="form-contact form-review mt-3" modelAttribute="updateReview" >
 					                  <div class="form-group">
-					                    <input path="name" id="editName" class="form-control" name="name" type="text" placeholder="이름을 입력하세요." value="${review.name}">
+					                    <input type="text" id="editreviewids" path="reviewId" class="form-control" name="reviewId" value="${review.reviewid}" >
+					                  </div>					                  
+					                  <div class="form-group">
+					                    <input path="name" id="editNames" class="form-control" name="name" type="text" placeholder="이름을 입력하세요." value="${review.name}">
 					                  </div>
 					                  <div class="form-group">
-					                    <input type="text" id="editproductid" path="productId" class="form-control" name="productId" value="${review.productid}" >
+					                    <input type="text" id="editproductids" path="productId" class="form-control" name="productId" value="${review.productid}" >
 					                  </div>
 					                  <div class="form-group">
-					                    <input type="date" path="reviewDate" id="eidtdate" class="form-control" name="reviewDate" value="${review.reviewDate}">
+					                    <input type="date" path="reviewDate" id="eidtdates" class="form-control" name="reviewDate" value="${review.reviewDate}">
 					                  </div>
 					                  <div class="form-group">
-					                    <input type="text" id="editscore" path="reviewRating" class="form-control" name="reviewRating" placeholder="평점을 입력하세요." value="${review.reviewRating}">
+					                    <input type="text" id="editscores" path="reviewRating" class="form-control" name="reviewRating" placeholder="평점을 입력하세요." value="${review.reviewRating}">
 					                  </div>
 					                  <div class="form-group">
-					                    <input path="userId" id="editemail" class="form-control" name="userId" type="email" value="${review.userId}" placeholder="이메일을 입력하세요." required>
+					                    <input path="userId" id="editemails" class="form-control" name="userId" type="email" value="${review.userId}" placeholder="이메일을 입력하세요." required>
 					                  </div>
 					                  <div class="form-group">
-					                    <input path="title" id="edittitle" class="form-control" name="title" type="text" placeholder="제목을 입력하세요." value="${review.title}">
+					                    <input path="title" id="edittitles" class="form-control" name="title" type="text" placeholder="제목을 입력하세요." value="${review.title}">
 					                  </div>
 					                  <div class="form-group">
-					                    <textarea path="reviewContent" id="editContent" class="form-control different-control w-100" name="reviewContent" id="textarea" cols="30" rows="5" placeholder="글을 작성하세요." value="${review.reviewContent}"></textarea>
+					                    <textarea path="reviewContent" id="editContents" class="form-control different-control w-100" name="reviewContent" id="textarea" cols="30" rows="5" placeholder="글을 작성하세요." value="${review.reviewContent}"></textarea>
 					                  </div>
 					                  <div class="form-group text-center text-md-right mt-3">
 					                    <button type="submit" class="button button--active button-review">수정하기</button>
@@ -637,6 +653,67 @@
 		</div>
 	</footer>
 	<!--================ End footer Area  =================-->	
+	<script>
+		/* 3개 글 보기 */
+		     var list = document.getElementById('review_list').getElementsByClassName('taereview-item');
+	    var pageNum = document.getElementById('taepagination'); // 페이지 번호를 표시할 엘리먼트
+	    var limitPerPage = 3;
+	    var totalPages = Math.ceil(list.length / limitPerPage);
+	    var currentPage = 1; // 현재 페이지 번호
+	
+	    function showPage(page) {
+	        var start = (page - 1) * limitPerPage;
+	        var end = start + limitPerPage;
+	
+	        for (var i = 0; i < list.length; i++) {
+	            list[i].style.display = 'none';
+	        }
+	
+	        for (var i = start; i < end; i++) {
+	            if (list[i]) {
+	                list[i].style.display = 'block';
+	            }
+	        }
+	    }
+	
+	    function updatePagination() {
+	        pageNum.innerHTML = ""; // 페이지 번호 엘리먼트 초기화
+	
+	        for (var i = 1; i <= totalPages; i++) {
+	            pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='#' onclick='changePage(" + i + ")'>" + i + "</a></li>";
+	        }
+	    }
+	
+	    function changePage(page) {
+	        currentPage = page;
+	        showPage(currentPage);
+	        updatePagination();
+	    }
+	
+	    // 다음 페이지로 이동하는 함수
+	    function nextPage() {
+	        if (currentPage < totalPages) {
+	            currentPage++;
+	            showPage(currentPage);
+	            updatePagination();
+	        }
+	    }
+	
+	    // 이전 페이지로 이동하는 함수
+	    function prevPage() {
+	        if (currentPage > 1) {
+	            currentPage--;
+	            showPage(currentPage);
+	            updatePagination();
+	        }
+	    }
+	
+	    // 초기 페이지 로딩 시 첫 페이지 표시
+	    showPage(currentPage);
+	    updatePagination();
+		
+	</script>
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	
 	<script>
 	
@@ -656,13 +733,14 @@
 	            data: { id: reviewId, productId: productId }, //파라미터 
 	            success: function(result) {  // 수정 필요한 부분
 	            	//console.log(result.review.reviewId);
-	                $('#editName').val(result.name);
-	                $('#editproductid').val(result.productId);
-	                $('#eidtdate').val(result.reviewDate);
-	                $('#editscore').val(result.reviewRating);
-	                $('#editemail').val(result.userId);
-	                $('#edittitle').val(result.title);
-	                $('#editContent').val(result.reviewContent);
+	            	$('#editreviewids').val(result.reviewId);
+	                $('#editNamess').val(result.name);
+	                $('#editproductids').val(result.productId);
+	                $('#eidtdates').val(result.reviewDate);
+	                $('#editscores').val(result.reviewRating);
+	                $('#editemails').val(result.userId);
+	                $('#edittitles').val(result.title);
+	                $('#editContents').val(result.reviewContent);
 	            }
 	        });
 	    });

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 //import com.springmvc.domain.CartItem;
 import com.springmvc.domain.Hospital;
+import com.springmvc.domain.HospitalInfo;
 import com.springmvc.domain.HospitalReservation;
 import com.springmvc.domain.Lesson;
+import com.springmvc.repository.HospitalInfoRepository;
 //import com.springmvc.repository.OrderRepositoryImpl;
 import com.springmvc.service.HRService;
 import com.springmvc.service.HospitalService;
@@ -36,31 +39,38 @@ public class HospitalReservationController // 클래스 수강 신청
 	@Autowired 
 	HRService hospitalReservService;
 	
+	@Autowired
+	HospitalInfoRepository hospitalInfoRepository;
 	
 	// 수강 신청 (C)
 		@GetMapping("/reserve") 
-		public String requestRegistForm(@ModelAttribute("reservation")HospitalReservation HR, @RequestParam String hospitalId, Model model, HttpServletRequest request) // 파라미터는 
+		public String requestRegistForm(@ModelAttribute("reservation")HospitalReservation HR, @RequestParam String hospitalId, Model model, HttpServletRequest request,HttpSession session) // 파라미터는 
 		{
 			System.out.println("@GetMapping reserve 도착" ); // 받아온 파라미터 값을 콘솔에서 확인
 			String reserverId = request.getSession().getId();
 			System.out.println("병원 ID:"+hospitalId); // 받아온 파라미터 값을 콘솔에서 확인
-			Hospital hospital= hospitalService.readHospitalById(hospitalId);
+			HospitalInfo hospital= hospitalInfoRepository.readHospitalInfoById(hospitalId);
 			
 			List<HospitalReservation> listOfReserv = hospitalReservService.readAllReservTime(hospitalId);
 			dateTimeSeparation(listOfReserv);
-			
+			String memberId = (String) session.getAttribute("memberId");
+			String memberName = (String) session.getAttribute("Name");
+		    model.addAttribute("userName",memberName);
+		    model.addAttribute("memberId",memberId);
 			model.addAttribute("hospital",hospital);
 			model.addAttribute("id",reserverId);
 			return "/Hospital/HospitalReservForm"; // 수강 신청 form 페이지 리턴
 		}
 		
 		@PostMapping("/reserve")
-		public String confirmRegistForm(@ModelAttribute("reservation")HospitalReservation HR, Model model) 
+		public String confirmRegistForm(@ModelAttribute("reservation")HospitalReservation HR, Model model, @RequestParam String hospitalId) 
 		{
 			System.out.println("레쓰나 : "+ HR.getHospitalId());
 			System.out.println(HR.getReservationDate());
 			model.addAttribute("hr",HR);
-			return "/Hospital/ReservationConfirm";
+			
+		    return "/Hospital/ReservationConfirm";
+		
 		}
 
 		@PostMapping("/confirm")
@@ -70,16 +80,20 @@ public class HospitalReservationController // 클래스 수강 신청
 			//String insertDate = OrderRepositoryImpl.getTimeNow();
 			//HR.setInsertDate(insertDate);
 			hospitalReservService.setNewHR(HR);
-			return "/Lesson/Thanks";
+			return "/Hospital/thanks";
 			
 		}
 		
 		@GetMapping("/myReserve")
 		public String readMyLessonRegistration(Model model, HttpServletRequest req) 
 		{
-			String sessionId = req.getSession().getId();
-			List<HospitalReservation> listOfReserv = hospitalReservService.readAllReservation(sessionId);
-			
+			//String sessionId = req.getSession().getId();
+			//List<HospitalReservation> listOfReserv = hospitalReservService.readAllReservation(sessionId);
+			String memberId = (String) req.getSession().getAttribute("memberId");
+			List<HospitalReservation> listOfReserv = hospitalReservService.readAllReservation(memberId);
+			String Name = (String) req.getSession().getAttribute("Name");
+			model.addAttribute("name",Name);
+			model.addAttribute("memberId",memberId);
 			model.addAttribute("list",listOfReserv);
 			return "/Hospital/ReservationList";
 		}

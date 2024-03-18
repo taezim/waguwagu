@@ -49,7 +49,7 @@
 		    <a href="<c:url value='/hospital/review/delete?id=${review.reviewId}'/>" class="btn btn-danger" onclick="return deleteConfirm('${hospital.hospitalId}')">삭제 &raquo;</a>
 		    <a href="<c:url value='/hospital/review/review?id=${review.reviewId}'/>" class="btn btn-success">리뷰&raquo;</a>    
 		</form:form>
-	</div>
+
     <hr>
 		
 </body>

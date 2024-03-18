@@ -15,7 +15,7 @@ public class Member implements Serializable{
     private String birth; // 생년월일
     private String team;     // 소속구단
     private String injury; // 부상정보
-    private Address address = new Address();  // 주소
+    private Addresses address = new Addresses();  // 주소
 
     private String classId;    // 클래스 등록번호
     private String teacherId;    // 코치 번호
@@ -79,11 +79,11 @@ public class Member implements Serializable{
 		this.injury = injury;
 	}
 
-	public Address getAddress() {
+	public Addresses getAddress() {
 	        return address;
 	}
 
-    public void setAddress(Address address) {
+    public void setAddress(Addresses address) {
         this.address = address;
     }
 

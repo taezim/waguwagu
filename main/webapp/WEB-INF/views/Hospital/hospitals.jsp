@@ -51,7 +51,7 @@
 	    <div class="main_menu">
 	      <nav class="navbar navbar-expand-lg navbar-light">
 	        <div class="container">
-	          <a class="navbar-brand logo_h" href="/waguwagu/">
+	          <a class="navbar-brand logo_h"  href="/waguwagu/">
 	          	<img src="<c:url value='/resources/img/baseball.png'/>" alt=''/>
 	          </a>
 	          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -112,7 +112,9 @@
 	                  aria-expanded="false">의료</a>
 	                <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">병원목록</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">예약확인</a></li>
+	                  <c:if test="${not empty sessionScope.memberId}">
+	                  	<li class="nav-item"><a class="nav-link" href="/waguwagu/hospital/myReserve">예약확인</a></li>
+	                  </c:if>
 	                </ul>
 	              </li>
 	            </ul>
@@ -310,11 +312,7 @@
 			 </div>
 		</div>
 	</section>
-	<!-- ================ category section end ================= -->		  
-
-	<!-- ================ top product area start ================= -->	
-	
-	<!-- ================ top product area end ================= -->		
+	<!-- ================ category section end ================= -->		  	
 
  <!--================ Start footer Area  =================-->	
 	<footer class="footer">

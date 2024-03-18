@@ -134,7 +134,7 @@
 	    <div class="main_menu">
 	      <nav class="navbar navbar-expand-lg navbar-light">
 	        <div class="container">
-	          <a class="navbar-brand logo_h" href="/waguwagu/">
+	          <a class="navbar-brand logo_h"  href="/waguwagu/">
 	          	<img src="<c:url value='/resources/img/baseball.png'/>" alt=''/>
 	          </a>
 	          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -195,7 +195,9 @@
 	                  aria-expanded="false">의료</a>
 	                <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">병원목록</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">예약확인</a></li>
+	                  <c:if test="${not empty sessionScope.memberId}">
+	                  	<li class="nav-item"><a class="nav-link" href="/waguwagu/hospital/myReserve">예약확인</a></li>
+	                  </c:if>
 	                </ul>
 	              </li>
 	            </ul>
@@ -206,7 +208,8 @@
 	              <li class="nav-item"><button><i class="fas fa-user"></i></button></li>
 	            </ul>
 	           <c:if test="${empty sessionScope.memberId }">
-	            	<a href="/waguwagu/member/login">로그인</a>
+	            	<a href="/waguwagu/member/login">로그인</a>|
+	            	<a href="/waguwagu/member/createmember">회원가입</a>
 	            </c:if>
 	            <c:if test="${not empty sessionScope.memberId}">
 				    <form action="/waguwagu/member/logout" method="post">
@@ -278,9 +281,7 @@
 
 						<p>${hospitalInfo.addr }</p>
 						<div class="product_count">
-							<label>예약날짜 : </label> <input type="date" name="birth" id="b"
-								min="1996-12-30" style="width: 150px; font-size: 15px;">
-							<a class="button primary-btn" href="#">예약</a>
+							<a class="button primary-btn" href="/waguwagu/hospital/reserve?hospitalId=${hospitalId}">예약하기</a>
 						</div>
 						<div class="card_area d-flex align-items-center">
 							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
@@ -584,7 +585,10 @@
 								<div id="taeeditFormWrapper" style="display:none;">
 									<form:form id="taeeditForm" action="/waguwagu/hospital/review/add" method="post" class="form-contact form-review mt-3" modelAttribute="addReview" >
 					                  <div class="form-group">
-					                    <input path="name" id="editName" class="form-control" name="name" type="text" placeholder="이름을 입력하세요." value="${review.name}">
+					                    <input path="reviewId" id="editreviewid" class="form-control" name="reviewId" type="text" placeholder="리뷰 아이디를 입력하세요." value="${review.reviewId}">
+					                  </div>
+					                  <div class="form-group">
+					                    <input path="name" id="editNames" class="form-control" name="name" type="text" placeholder="이름을 입력하세요." value="${review.name}">
 					                  </div>
 					                  <div class="form-group">
 					                    <input type="text" id="edithospitalid" path="hospitalId" class="form-control" name="hospitalId" value="${review.hospitalId}" >
@@ -602,7 +606,7 @@
 					                    <input path="title" id="edittitle" class="form-control" name="title" type="text" placeholder="제목을 입력하세요." value="${review.title}">
 					                  </div>
 					                  <div class="form-group">
-					                    <textarea path="reviewContent" id="editContent" class="form-control different-control w-100" name="reviewContent" id="textarea" cols="30" rows="5" placeholder="글을 작성하세요." value="${review.reviewContent}"></textarea>
+										<textarea path="reviewContent" id="editContents" class="form-control different-control w-100" name="reviewContent" cols="30" rows="5" placeholder="글을 작성하세요." value="${review.reviewContent}"></textarea>
 					                  </div>
 					                  <div class="form-group text-center text-md-right mt-3">
 					                    <button type="submit" class="button button--active button-review">수정하기</button>
@@ -924,14 +928,15 @@
             type: 'GET',
             data: { id: reviewId, hospitalId: hospitalId }, //파라미터 
             success: function(result) {  // 수정 필요한 부분
-            	//console.log(result.review.reviewId);
-                $('#editName').val(result.name);
+            	console.log(result.reviewContent);
+            	$('#editreviewid').val(result.reviewId);
+                $('#editNames').val(result.name);
                 $('#edithospitalid').val(result.hospitalId);
                 $('#eidtdate').val(result.reviewDate);
                 $('#editscore').val(result.reviewRating);
                 $('#editemail').val(result.userId);
                 $('#edittitle').val(result.title);
-                $('#editContent').val(result.reviewContent);
+                $('#editContents').val(result.reviewContent);
             }
         });
     });

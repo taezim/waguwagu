@@ -1,56 +1,74 @@
 package com.springmvc.domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-public class Address implements Serializable {
-	
-	
-    /**
+public class Address implements Serializable
+{
+
+	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1126489558908019975L;
-	
-	private String zipcode;
-    private String streetAddress;
-    private String detaileAddress;
-    private String extraAddress;
-	
-    
-    // Address 객체를 문자열로 변환하는 메서드
-    public String toString() {
-    	
-        return zipcode + " " + streetAddress + " " + detaileAddress + " " + extraAddress;
-    }
-    //Address 클래스에 toString 메서드가 정의되어 있는지 확인하세요. toString 메서드가 없으면 기본적으로 객체의 해시코드를 반환하기 때문에 의도한 결과가 나오지 않을 수 있습니다. Address 클래스에 다음과 같이 toString 메서드를 추가
-    
-    public String getZipcode() {
-		return zipcode;
+	private static final long serialVersionUID = -824607634067469239L;
+
+	private int addressId; //
+	private String customerId; // 아이디 또는 식별값 = memberId
+	private String recipientName; // 그냥 name -- db의 personName
+	// 배송 받는 사람 - 아 변수명 아 실수해서 그냥 이 변수가 Customer과 shipping에서 각각 구매자와 수령인 이름으로 퉁쳐야함
+	private String addressName; //주소명 - ex) 집 / 회사 등
+	private String country; // 주소 - 상세주소까지 포함
+	private String zipCode; // 우편번호
+	public int getAddressId() {
+		return addressId;
 	}
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
+	public void setAddressId(int addressId) {
+		this.addressId = addressId;
 	}
-	public String getStreetAddress() {
-		return streetAddress;
+	public String getCustomerId() {
+		return customerId;
 	}
-	public void setStreetAddress(String streetAddress) {
-		this.streetAddress = streetAddress;
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
-	public String getDetaileAddress() {
-		return detaileAddress;
+	public String getRecipientName() {
+		return recipientName;
 	}
-	public void setDetaileAddress(String detaileAddress) {
-		this.detaileAddress = detaileAddress;
+	public void setRecipientName(String recipientName) {
+		this.recipientName = recipientName;
 	}
-	public String getExtraAddress() {
-		return extraAddress;
+	public String getCountry() {
+		return country;
 	}
-	public void setExtraAddress(String extraAddress) {
-		this.extraAddress = extraAddress;
+	public void setCountry(String country) {
+		this.country = country;
 	}
-	
-	// isEmpty() 메서드 추가
-    public boolean isEmpty() {
-        return zipcode == null && streetAddress == null && detaileAddress == null && extraAddress == null;
-    }
-    
+	public String getZipCode() {
+		return zipCode;
+	}
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(addressId, country, recipientName, zipCode);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Address other = (Address) obj;
+		return addressId == other.addressId && Objects.equals(country, other.country)
+				&& Objects.equals(recipientName, other.recipientName) && Objects.equals(zipCode, other.zipCode);
+	}
+	public String getAddressName() {
+		return addressName;
+	}
+	public void setAddressName(String addressName) {
+		this.addressName = addressName;
+	}
+
 }

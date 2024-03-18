@@ -17,4 +17,5 @@ public interface MemberService {
 	void setDeleteMember(String memberId);
 	
 	boolean isMemberId(String memberId);
+	int countByMemberId(String memberId);
 }

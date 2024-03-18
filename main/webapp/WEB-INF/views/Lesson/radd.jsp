@@ -106,8 +106,9 @@
 	              <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
 	              <li class="nav-item"><button><i class="fas fa-user"></i></button></li>
 	            </ul>
-	            <c:if test="${empty sessionScope.memberId }">
-	            	<a href="/waguwagu/member/login">로그인</a>
+	           <c:if test="${empty sessionScope.memberId }">
+	            	<a href="/waguwagu/member/login">로그인</a>|
+	            	<a href="/waguwagu/member/createmember">회원가입</a>
 	            </c:if>
 	            <c:if test="${not empty sessionScope.memberId }">
 	            	<a href="/waguwagu/member/logout">로그아웃</a>

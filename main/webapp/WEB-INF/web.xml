@@ -68,7 +68,7 @@
 
   
    
-   <!-- HiddenHttpMethodFilter 설정(HTTP 메서드 사용위해) --> 
+   <!-- HiddenHttpMethodFilter 설정(HTTP 메서드 사용위해) postmapping --> 
 	<!-- chap14  -->
 	<filter>
 	   <filter-name>httpMethodFilter</filter-name>

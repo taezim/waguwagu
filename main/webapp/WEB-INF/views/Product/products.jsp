@@ -95,7 +95,9 @@
 	                  aria-expanded="false">의료</a>
 	                <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">병원목록</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">예약확인</a></li>
+	                  <c:if test="${not empty sessionScope.memberId}">
+	                  	<li class="nav-item"><a class="nav-link" href="/waguwagu/hospital/myReserve">예약확인</a></li>
+	                  </c:if>
 	                </ul>
 	              </li>
 	            </ul>
@@ -106,7 +108,8 @@
 	              <li class="nav-item"><button><i class="fas fa-user"></i></button></li>
 	            </ul>
 	           <c:if test="${empty sessionScope.memberId }">
-	            	<a href="/waguwagu/member/login">로그인</a>
+	            	<a href="/waguwagu/member/login">로그인</a>|
+	            	<a href="/waguwagu/member/createmember">회원가입</a>
 	            </c:if>
 	            <c:if test="${not empty sessionScope.memberId}">
 				    <form action="/waguwagu/member/logout" method="post">
@@ -192,9 +195,9 @@
           <!-- End Filter Bar -->
           <!-- Start Best Seller -->
           <section class="lattest-product-area pb-40 category-list">
-            <div class="row">
+            <div class="row" id="product-list">
                 <c:forEach var="product" items="${productList}">
-			      <div class="col-md-6 col-lg-4">
+			      <div class="col-md-6 col-lg-4 product-list">
 			        <div class="card text-center card-product">
 			          <div class="card-product__img">
 			            <img class="card-img" src="<c:url value='/resources/images/${product.fileName}'/>" alt=""/>
@@ -212,7 +215,7 @@
 			        </div>
 			      </div>
 			    </c:forEach>
-              <div class="col-md-6 col-lg-4">
+              <%-- <div class="col-md-6 col-lg-4">
                 <div class="card text-center card-product">
                   <div class="card-product__img">
                     <img class="card-img" src="<c:url value='/resources/img/product/p5.JPG" alt="'/>"/>
@@ -296,27 +299,19 @@
                     <p class="card-product__price">99,000원</p>
                   </div>
                 </div>
-              </div>
+              </div> --%>
             </div>
           </section>
-          <div class="d-flex justify-content-center">
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+          <div class="d-flex justify-content-center" id="pagination-container-location">
+	        <div aria-label="Page navigation example">
+	            <ul class="pagination" id="pagination">
+	                <li class="page-item">
+	                    <a class="page-link" href="#" aria-label="Previous">
+	                        <span aria-hidden="true">&laquo;</span>
+	                    </a>
+	                </li>
+	            </ul>
+	        </div>
           </div>
           <!-- End Best Seller -->
         </div>
@@ -403,7 +398,76 @@
 		</div>
 	</footer>
 	<!--================ End footer Area  =================-->
-
+  <script>
+	    var list = document.getElementById('product-list').getElementsByClassName('product-list');
+	    var pageNum = document.getElementById('pagination'); // 페이지 번호를 표시할 엘리먼트
+	    var limitPerPage = 9;
+	    var totalPages = Math.ceil(list.length / limitPerPage);
+	    var currentPage = 1; // 현재 페이지 번호
+	
+	    function showPage(page) {
+	        var start = (page - 1) * limitPerPage;
+	        var end = start + limitPerPage;
+	
+	        for (var i = 0; i < list.length; i++) {
+	            list[i].style.display = 'none';
+	        }
+	
+	        for (var i = start; i < end; i++) {
+	            if (list[i]) {
+	                list[i].style.display = 'block';
+	            }
+	        }
+	    }
+	
+	    function updatePagination() {
+	        pageNum.innerHTML = ""; // 페이지 번호 엘리먼트 초기화
+	
+	        var startPage = Math.max(1, currentPage - 2); // 시작 페이지 번호
+	        var endPage = Math.min(startPage + 4, totalPages); // 종료 페이지 번호
+	
+	        // 시작 페이지부터 종료 페이지까지 번호 표시
+	        for (var i = startPage; i <= endPage; i++) {
+	            pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='#' onclick='changePage(" + i + ")'>" + i + "</a></li>";
+	        }
+	
+	        // 이전 페이지로 이동할 수 있는 버튼 표시
+	        if (startPage > 1) {
+	            pageNum.innerHTML = "<li class='page-item'><a class='page-link' href='#' onclick='prevPage()'>&laquo;</a></li>" + pageNum.innerHTML;
+	        }
+	
+	        // 다음 페이지로 이동할 수 있는 버튼 표시
+	        if (endPage < totalPages) {
+	            pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='#' onclick='nextPage()'>&raquo;</a></li>";
+	        }
+	    }
+	
+	    function changePage(page) {
+	        currentPage = page;
+	        showPage(currentPage);
+	        updatePagination();
+	    }
+	
+	    function nextPage() {
+	        if (currentPage < totalPages) {
+	            currentPage++;
+	            showPage(currentPage);
+	            updatePagination();
+	        }
+	    }
+	
+	    function prevPage() {
+	        if (currentPage > 1) {
+	            currentPage--;
+	            showPage(currentPage);
+	            updatePagination();
+	        }
+	    }
+	
+	    // 초기 페이지 로딩 시 첫 페이지 표시
+	    showPage(currentPage);
+	    updatePagination();
+	</script>
 
 
 

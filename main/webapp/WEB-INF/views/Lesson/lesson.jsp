@@ -193,7 +193,9 @@
 	                  aria-expanded="false">의료</a>
 	                <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">병원목록</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="/waguwagu/hospitalinfo/list">예약확인</a></li>
+	                  <c:if test="${not empty sessionScope.memberId}">
+	                  	<li class="nav-item"><a class="nav-link" href="/waguwagu/hospital/myReserve">예약확인</a></li>
+	                  </c:if>
 	                </ul>
 	              </li>
 	            </ul>
@@ -204,7 +206,8 @@
 	              <li class="nav-item"><button><i class="fas fa-user"></i></button></li>
 	            </ul>
 	           <c:if test="${empty sessionScope.memberId }">
-	            	<a href="/waguwagu/member/login">로그인</a>
+	            	<a href="/waguwagu/member/login">로그인</a>|
+	            	<a href="/waguwagu/member/createmember">회원가입</a>
 	            </c:if>
 	            <c:if test="${not empty sessionScope.memberId}">
 				    <form action="/waguwagu/member/logout" method="post">
@@ -522,9 +525,9 @@
 									</div>
 								</div>
 							</div>
-							<div class="review_list" id="review_list">
+							<div class="review_list taereview_list" id="review_list">
 								<c:forEach var="review" items="${reviewList}">
-									<div class="review_item">
+									<div class="review_item taereview_item">
 										<div class="media">
 											<div class="d-flex">
 												<img
@@ -582,8 +585,14 @@
 										novalidate="novalidate">
 										<div class="form-group">
 											<!-- path 는 DTO 객체의 변수 -->
+											<form:input path="reviewId" class="form-control" name="reviewId"
+												type="text" id="reviewId" readonly="true"
+												placeholder="리뷰아이디를 입력하세요." value="${review.reviewId}" />
+										</div>
+										<div class="form-group">
+											<!-- path 는 DTO 객체의 변수 -->
 											<form:input path="name" class="form-control" name="name"
-												type="text" id="editName" readonly="true"
+												type="text" id="Names" readonly="true"
 												placeholder="이름을 입력하세요." value="${review.name}" />
 										</div>
 										<div class="form-group">
@@ -612,7 +621,7 @@
 												value="${review.title}" />
 										</div>
 										<div class="form-group">
-											<form:textarea path="content" id="editContent"
+											<form:textarea path="content" id="editContentsss"
 												class="form-control different-control w-100" name="content"
 												cols="30" rows="5" placeholder="글을 작성하세요."
 												value="${review.content}" />
@@ -752,67 +761,65 @@
 	<!-- 태림꺼  -->
 	<!-- 페이징처리 -->
 	<script>
-	/* 3개 글 보기 */
-	     var list = document.getElementById('review_list').getElementsByClassName('review_item');
-    var pageNum = document.getElementById('taepagination'); // 페이지 번호를 표시할 엘리먼트
-    var limitPerPage = 3;
-    var totalPages = Math.ceil(list.length / limitPerPage);
-    var currentPage = 1; // 현재 페이지 번호
-
-    function showPage(page) {
-        var start = (page - 1) * limitPerPage;
-        var end = start + limitPerPage;
-
-        for (var i = 0; i < list.length; i++) {
-            list[i].style.display = 'none';
-        }
-
-        for (var i = start; i < end; i++) {
-            if (list[i]) {
-                list[i].style.display = 'block';
-            }
-        }
-    }
-
-    function updatePagination() {
-        pageNum.innerHTML = ""; // 페이지 번호 엘리먼트 초기화
-
-        for (var i = 1; i <= totalPages; i++) {
-            pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='#' onclick='changePage(" + i + ")'>" + i + "</a></li>";
-        }
-    }
-
-    function changePage(page) {
-        currentPage = page;
-        showPage(currentPage);
-        updatePagination();
-    }
-
-    // 다음 페이지로 이동하는 함수
-    function nextPage() {
-        if (currentPage < totalPages) {
-            currentPage++;
-            showPage(currentPage);
-            updatePagination();
-        }
-    }
-
-    // 이전 페이지로 이동하는 함수
-    function prevPage() {
-        if (currentPage > 1) {
-            currentPage--;
-            showPage(currentPage);
-            updatePagination();
-        }
-    }
-
-    // 초기 페이지 로딩 시 첫 페이지 표시
-    showPage(currentPage);
-    updatePagination();
+	    /* 3개 글 보기 */
+	    var list = document.getElementById('review_list').getElementsByClassName('taereview_item');
+	    var pageNum = document.getElementById('taepagination'); // 페이지 번호를 표시할 엘리먼트
+	    var limitPerPage = 3;
+	    var totalPages = Math.ceil(list.length / limitPerPage);
+	    var currentPage = 1; // 현재 페이지 번호
 	
-</script>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	    function showPage(page) {
+	        var start = (page - 1) * limitPerPage;
+	        var end = start + limitPerPage;
+	
+	        for (var i = 0; i < list.length; i++) {
+	            list[i].style.display = 'none';
+	        }
+	
+	        for (var i = start; i < end; i++) {
+	            if (list[i]) {
+	                list[i].style.display = 'block';
+	            }
+	        }
+	    }
+	
+	    function updatePagination() {
+	        pageNum.innerHTML = ""; // 페이지 번호 엘리먼트 초기화
+	
+	        for (var i = 1; i <= totalPages; i++) {
+	            pageNum.innerHTML += "<li class='page-item'><a class='page-link' href='#' onclick='changePage(" + i + ")'>" + i + "</a></li>";
+	        }
+	    }
+	
+	    function changePage(page) {
+	        currentPage = page;
+	        showPage(currentPage);
+	        updatePagination();
+	    }
+	
+	    // 다음 페이지로 이동하는 함수
+	    function nextPage() {
+	        if (currentPage < totalPages) {
+	            currentPage++;
+	            showPage(currentPage);
+	            updatePagination();
+	        }
+	    }
+	
+	    // 이전 페이지로 이동하는 함수
+	    function prevPage() {
+	        if (currentPage > 1) {
+	            currentPage--;
+	            showPage(currentPage);
+	            updatePagination();
+	        }
+	    }
+	
+	    // 초기 페이지 로딩 시 첫 페이지 표시
+	    showPage(currentPage);
+	    updatePagination();
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script>
 
     $('.taeredit_button').click(function() {
@@ -831,13 +838,14 @@
             data: { id: reviewId, lessonId: lessonId }, //파라미터 
             success: function(result) {  // 수정 필요한 부분
             	console.log(result.review.reviewId);
-                $('#editName').val(result.review.name);
+            	$('#reviewId').val(result.review.reviewId);
+                $('#Names').val(result.review.name);
                 $('#editlessonid').val(result.review.lessonId);
                 $('#eidtdate').val(result.review.date);
                 $('#editscore').val(result.review.score);
                 $('#editemail').val(result.review.userId);
                 $('#edittitle').val(result.review.title);
-                $('#editContent').val(result.review.content);
+                $('#editContentsss').val(result.review.content);
             }
         });
     });

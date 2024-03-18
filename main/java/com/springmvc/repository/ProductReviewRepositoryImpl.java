@@ -57,7 +57,9 @@ public class ProductReviewRepositoryImpl implements ProductReviewRepository{
 
 	@Override
 	public void setUpdateReview(ProductReview productReview) {
+		
 		String SQL = "update p_review set p_productId=?,p_userId=?,p_date=?,p_content=?,p_rating=?,p_name=?,p_title=? where pr_id=?";
+		
 		template.update(SQL,productReview.getProductId(),productReview.getUserId(),productReview.getReviewDate(),productReview.getReviewContent(),productReview.getReviewRating(),productReview.getName(),productReview.getTitle(),productReview.getReviewId());
 		
 	}

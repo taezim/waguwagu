@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springmvc.domain.Hospitalanswer;
 import com.springmvc.domain.Hospitalqna;
+import com.springmvc.repository.HospitalInfoRepository;
 import com.springmvc.service.AnswerHospitalService;
 import com.springmvc.service.QnAHospitalService;
 
@@ -29,6 +30,8 @@ public class QnAHospitalController {
 	private HttpSession httpsession;
 	@Autowired
 	private AnswerHospitalService answerhospitalservice; // hospitalService로 수정
+	@Autowired
+	private HospitalInfoRepository hoslpitalinforepository;
 	
 	//Hospital
 	
@@ -80,7 +83,7 @@ public class QnAHospitalController {
 		System.out.println("add postMapping");
 	    
 		qnaService.createHospitalqna(qna);
-	    return "redirect:/hospitalquestion";
+	    return "redirect:/hospitalinfo/hospital?id="+qna.getHospitalid();
 	}
 	
 	//수정
@@ -106,12 +109,13 @@ public class QnAHospitalController {
 	}
 	
 	//삭제
-		@RequestMapping(value="/hospitaldelete")
-		public String deleteQnA(Model model, @RequestParam("hospitalid") String hospitalnumber)
-		{
-			qnaService.deleteHospital(hospitalnumber);
-			return "redirect:/hospitalquestion";
-		}
+			@RequestMapping(value="/hospitaldelete")
+			public String deleteQnA(Model model, @RequestParam("hospitalid") String hospitalnumber)
+			{
+				qnaService.deleteHospital(hospitalnumber);
+				return "redirect:/hospitalinfo/list";
+			}
+		
 	
 	
 

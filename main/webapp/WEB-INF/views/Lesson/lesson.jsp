@@ -395,9 +395,8 @@
 													</div>
 												</c:if>
 												<a href="javascript:void(0);" class="edit_button"
-													data-classid="${classqna.classid}">수정하기</a> <a
-													href="<c:url value="javascript:deleteConfirm('${classqna.classid}')" />"
-													class="edit_button">삭제</a>
+													data-classid="${classqna.classid}">수정하기</a> 
+													<a href="<c:url value="javascript:deleteConfirm('${classqna.classid}', '${ls.classId}')" />" class="delete_button">삭제</a>
 											</div>
 										</div>
 									</c:forEach>
@@ -485,7 +484,7 @@
 					</div>
 					<div id="pagination" class="pagination"></div>
 				</div>
-				
+			
 		
 			<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
 				<div class="row rowmapper">
@@ -757,7 +756,7 @@
 		</div>
 	</footer>
 	<!--================ End footer Area  =================-->
-
+<!-- 수고했다. -->
 	<!-- 태림꺼  -->
 	<!-- 페이징처리 -->
 	<script>
@@ -981,45 +980,58 @@
 	<script>
 		
 		
-		function deleteConfirm(classid) {
-			if (confirm("삭제하시겠습니까?") == true) {
-				// 직접 URL을 생성하여 이동합니다.
-				location.href = "/waguwagu/classquestion/classdelete?classid="
-						+ classid;
-			} else {
-				return;
-			}
-		}
+	function deleteConfirm(classid, lsClassId) {
+	    if (confirm("삭제하시겠습니까?")) {
+	        // classid와 lsClassId가 일치하는지 확인
+	        if (classid === lsClassId) {
+	            // 일치하는 경우, 삭제 요청 URL 생성하여 이동
+	            location.href = "/waguwagu/classquestion/classdelete?classid=" + classid;
+	        } else {
+	            // 일치하지 않는 경우, 알림창 표시
+	            alert("classid가 일치하지 않아 삭제할 수 없습니다.");
+	        }
+	    } else {
+	        // 사용자가 취소를 선택한 경우, 아무런 동작 없음
+	        return;
+	    }
+	}
 	</script>
 
 
 	<!-- 수정 폼 나타내면서 객체 가져오기.(Ajax) -->
 	<script>
-	$(document).ready(function() {
-	    $('.edit_button').click(function() {
-	        var classid = $(this).data('classid');
+    $(document).ready(function() {
+        $('.edit_buttons').click(function() {
+            var classid = $(this).data('classid');
+            var sessionid = '${ls.classId}'; // JSP에서 EL 표현식을 사용하여 세션 ID를 가져옵니다.
 
-	        // 수정 폼을 숨기고 수정 내용을 채우기 위해 AJAX 요청을 보냅니다.
-	        $('#contactForm').hide(); // 등록 폼 숨기기
-	        $('#editFormWrapper').show();
+            // classid와 sessionid가 일치하는지 확인합니다.
+            if (classid === sessionid) {
+                // 일치하는 경우 수정 폼을 표시합니다.
+                $('#contactForm').hide(); // 등록 폼 숨기기
+                $('#editFormWrapper').show();
 
-	        $.ajax({
-	            url: '/waguwagu/classquestion/classupdate',
-	            type: 'GET',
-	            data: {
-	                classid: classid
-	            }, // 수정 필요
-	            success: function(classqna) {
-	                // 수정 폼에 데이터를 채웁니다.
-	                $('#editName').val(classqna.name);
-	                $('#editEmail').val(classqna.email);
-	                $('#editClassid').val(classqna.classid);
-	                $('#editContent').val(classqna.content);
-	            }
-	        });
-	    });
-	});
-	</script>
+                $.ajax({
+                    url: '/waguwagu/classquestion/classupdate',
+                    type: 'GET',
+                    data: {
+                        classid: classid
+                    },
+                    success: function(classqna) {
+                        // 수정 폼에 데이터를 채웁니다.
+                        $('#editName').val(classqna.name);
+                        $('#editEmail').val(classqna.email);
+                        $('#editClassid').val(classqna.classid);
+                        $('#editContent').val(classqna.content);
+                    }
+                });
+            } else {
+                // 일치하지 않는 경우 알림 창을 표시합니다.
+                alert('수정 권한이 없습니다.');
+            }
+        });
+    });
+</script>
 
 	<!-- 답변 완료 버튼 -->
 	<script>
@@ -1054,7 +1066,7 @@
 
 </script>
 
-
+<!-- 수고했다 -->
 
 	<script
 		src="<c:url value='/resources/vendors/jquery/jquery-3.2.1.min.js'/>" /></script>

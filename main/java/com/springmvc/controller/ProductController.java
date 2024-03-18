@@ -23,8 +23,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.springmvc.domain.HospitalReview;
 import com.springmvc.domain.Product;
 import com.springmvc.domain.ProductReview;
+import com.springmvc.domain.Productanswer;
+import com.springmvc.domain.Productqna;
+import com.springmvc.service.AnswerProductService;
 import com.springmvc.service.ProductReviewService;
 import com.springmvc.service.ProductService;
+import com.springmvc.service.QnAProductService;
 
 
 //1. 역할 지정
@@ -37,6 +41,11 @@ public class ProductController
 	
 	@Autowired
 	private ProductReviewService productReviewService;
+	
+	 @Autowired
+     private QnAProductService qnaproductservice;
+     @Autowired
+     private AnswerProductService answerproductservice;
 	
 	// READ
 	@GetMapping
@@ -82,6 +91,13 @@ public class ProductController
 		
 		String id = (String) session.getAttribute("memberId");
 		model.addAttribute("id",id);
+		
+//		Product QnA객체 가져오기
+		List<Productqna> qnaproductlist = qnaproductservice.readAllProductqnaList();
+		model.addAttribute("qnaproductlistkey",qnaproductlist);
+		List<Productanswer> productanslist = answerproductservice.readAllProductanswerList();
+		model.addAttribute("productanslistkey",productanslist);
+		
 		
 		return "/Product/product";
 	}

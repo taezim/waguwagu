@@ -62,7 +62,7 @@ public class QnAClassController {
 	public String createPostqna(@ModelAttribute("classplus") Classqna qna) {
 		System.out.println("add postMapping");
 		qnaService.createClassqna(qna);
-		return "redirect:/classquestion";
+		return "redirect:/lessons/lesson?id=" +qna.getClassid();
 	}
 
 	// 하나조회
@@ -80,7 +80,7 @@ public class QnAClassController {
 		List<Classqna> classqnaList = qnaService.readAllClassqnaList();
 		model.addAttribute("classqnaList", classqnaList);
 
-		return "redirect:/classquestion";
+		return "redirect:/lessons/lesson?id=" +qna.getClassid();
 	}
 
 	@GetMapping("/classupdate") // URL Mapping 수정
@@ -101,7 +101,7 @@ public class QnAClassController {
 	// 삭제
 	@RequestMapping(value = "/classdelete")
 	public String deleteQnA(Model model, @RequestParam("classid") String classnumber) {
-		qnaService.deleteClassqna(classnumber);
-		return "redirect:/classquestion";
+	    qnaService.deleteClassqna(classnumber);
+	    return "redirect:/lessons";
 	}
 }

@@ -54,27 +54,28 @@ public class AnswerHospitalController {
 	//Create
 	
 	@GetMapping("/hospitaladd")
-	public String createhospitalGetQnA(@ModelAttribute("hospitalcreateanswer") Hospitalanswer hospitalnewanswer,@RequestParam("hospitalid") String paramhospitalid, Model model)
-	{
-	    hospitalnewanswer.setHospitalid(paramhospitalid); // hospitalid를 설정해줍니다.
+	public String createhospitalGetQnA(@ModelAttribute("hospitalcreateanswer") Hospitalanswer hospitalnewanswer,
+	                                    @RequestParam("hospitalcreatid") String paramhospitalid, Model model) {
 	    HospitalInfo hospitalInfoById = hospitalinforepository.readHospitalInfoById(paramhospitalid);
-	    model.addAttribute("hospitalkey",hospitalInfoById);
-	    System.out.println("hospitalid 난 get : "+hospitalInfoById.getId());
+	    model.addAttribute("hospitalkey", hospitalInfoById);
+	    System.out.println("hospitalid 난 get : " + hospitalInfoById.getId());
+	    
+	    // hospitalid를 hospitalnewanswer에 설정해줍니다.
+	    hospitalnewanswer.setHospitalid(paramhospitalid);
 	    
 	    return "/answer/hospitalanswer/hospitalcreateans";
 	}
-	
-	
+
 	@PostMapping("/hospitaladd")
-	public String createhospitalPostQnA(@ModelAttribute("hospitalcreateanswer") Hospitalanswer hospitalanswer, Model model) 
-	{
-	    // 이미 hospitalid를 파라미터로 받았기 때문에 다시 설정할 필요가 없습니다.
+	public String createhospitalPostQnA(@ModelAttribute("hospitalcreateanswer") Hospitalanswer hospitalanswer,
+	                                     Model model) {
+	    // hospitalanswer 객체의 hospitalid 필드를 사용합니다.
+	    System.out.println("hospitalid 나는 post: " + hospitalanswer.getHospitalid());
+	    
+	    // Hospitalanswer를 생성하는 서비스 메소드 호출
 	    answerService.createHospitalanswer(hospitalanswer);
 	    
-	    // hospitalanswer 객체의 hospitalid 필드를 사용합니다.
-	    System.out.println("hospitalid 나는 post: "+hospitalanswer.getHospitalid());
-	    
-	    return "redirect:/hospitalinfo/hospital?id="+ hospitalanswer.getHospitalid(); // hospitalanswer에서 직접 hospitalid를 가져와서 사용합니다.
+	    return "redirect:/hospitalinfo/hospital?id=" + hospitalanswer.getHospitalid();
 	}
 	
 	//Update

@@ -85,6 +85,9 @@ public class HospitalInfoController {
 		String team = (String) session.getAttribute("team");
 		model.addAttribute("myteam",team);
 		
+//		Qnahospital 객체들 가져오기
+//		List<Hospitalqna> hospitallist = qnahospitalservice.readAllhospitalqnaList();
+//		model.addAttribute("hospitallistkey",hospitallist);
 		
 		return "/Hospital/hospitals";
 	}
@@ -124,8 +127,10 @@ public class HospitalInfoController {
 		model.addAttribute("hospitalReviews", reviews);
 	    model.addAttribute("avgScore", avgScore);
 	    
+	    
 	    List<Hospitalqna> hospitalqnalist = qnahospitalservice.readAllhospitalqnaList();
 	    model.addAttribute("hospitalqnalistkey",hospitalqnalist);
+	    System.out.println("hospitalqnalistkey : " + hospitalqnalist);
 	    List<Hospitalanswer> hospitalanswerlist = answerhospitalservice.readAllhospitalanswerLists();
 	    model.addAttribute("hospitalanswerlistkey",hospitalanswerlist);
 	    

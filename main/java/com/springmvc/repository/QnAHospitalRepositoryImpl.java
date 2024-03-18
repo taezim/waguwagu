@@ -62,10 +62,10 @@ public class QnAHospitalRepositoryImpl implements QnAHospitalRepository{
 	public void createHospitalqna(Hospitalqna hospitalqna) {
 		// TODO Auto-generated method stub
 		System.out.println("add Repository");
-		String SQL = "INSERT INTO hospitalqna (name,email , hospitalid, content)" + "VALUES(?,?,?,?)";
+		String SQL = "INSERT INTO hospitalqna (name,email , content, hospitalid)" + "VALUES(?,?,?,?)";
 		
-		template.update(SQL, hospitalqna.getName(),hospitalqna.getEmail(),hospitalqna.getHospitalid(),
-				hospitalqna.getContent());
+		template.update(SQL, hospitalqna.getName(),hospitalqna.getEmail(),hospitalqna.getContent(),
+				hospitalqna.getHospitalid());
 		
 		listOfhospitalqna.add(hospitalqna);
 	}

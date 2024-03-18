@@ -129,6 +129,7 @@
 
 </head>
 <body>
+
 <!--================ Start Header Menu Area =================-->
 	<header class="header_area">
 	    <div class="main_menu">
@@ -372,7 +373,7 @@
 													<h4 class="number" style="cursor: pointer;">${hospitalqna.name}</h4>
 													<h5>${hospitalqna.date}</h5>
 													<a class='reply_btn'
-														href='/waguwagu/hospitalanswers/hospitaladd?hospitalid=${hospitalqna.hospitalid}'>Reply</a>
+														href='/waguwagu/hospitalanswers/hospitaladd?hospitalcreatid=${hospitalInfo.id}'>Reply</a>
 												</div>
 											</div>
 											<p>${hospitalqna.content}</p>
@@ -398,18 +399,16 @@
 														</c:forEach>
 													</div>
 												</c:if>
-												<a href="javascript:void(0);" class="tae"
-													data-hospitalid="${hospitalqna.hospitalid}">수정하기</a> <a
-													href="<c:url value="javascript:deleteConfirm('${hospitalqna.hospitalid}')" />"
-													class="edit_button">삭제</a>
-											</div>
-										</div>
-									</c:forEach>
-								</div>
-								<div class="col-lg-6">
-									<div class="pagination-container"></div>
-								</div>
-							</div>
+												  <a href="javascript:void(0);" class="edit_button" data-hospitalid="${hospitalqna.hospitalid}">수정하기</a>
+					                                 <a href="<c:url value="javascript:deleteConfirm('${hospitalqna.hospitalid}')" />" class="delete_button">삭제</a>
+					                            </div>
+					                        </div>
+					                    </c:forEach>
+					                </div>
+					                <div class="col-lg-6">
+					                    <div class="pagination-container"></div>
+					                </div>
+					            </div>
 							<div class="col-lg-6">
 								<div class="review_box">
 									<h4>QnA 작성</h4>
@@ -420,7 +419,7 @@
 											<div class="form-group">
 												<!-- hospitalplus 객체의 number 필드를 바인딩합니다. -->
 												<input type="text" class="form-control" id="name"
-													name="name" placeholder="이름을 입력하세요."  />
+													name="name" placeholder="이름을 입력하세요." />
 											</div>
 										</div>
 										<div class="col-md-12">
@@ -470,7 +469,7 @@
 												<div class="form-group">
 													<input type="text" class="form-control" id="editHospitalid"
 														readonly="true" name="hospitalid" placeholder="id를 입력하세요"
-														value="${hospitalInfo.id}">
+														value="${hospital123.hospitalid}">
 												</div>
 											</div>
 											<div class="col-md-12">
@@ -1060,26 +1059,35 @@ var list = document.getElementById('comment_list').getElementsByClassName('revie
 $(document).ready(function() {
     $('.edit_button').click(function() {
         var hospitalid = $(this).data('hospitalid');
-        
-        $('#contactForm').hide(); // 등록 폼 숨기기
-        $('#editFormWrapper').show();
+        var hospitalInfoId = '${hospitalInfo.id}'; // JSP에서 EL 표현식을 사용하여 hospitalInfo.id를 가져옵니다.
 
-        $.ajax({
-            url: '/waguwagu/hospitalquestion/hospitalupdate',
-            type: 'GET',
-            data: { hospitalparamid: hospitalid }, // 수정 필요
-            success: function(hospitalqna) {
-                $('#editName').val(hospitalqna.name); // 수정 폼에 이름 채우기
-                $('#editEmail').val(hospitalqna.email); // 수정 폼에 이메일 채우기
-                $('#editHospitalid').val(hospitalqna.hospitalid); // 수정 폼에 상품 ID 채우기
-                $('#editContent').val(hospitalqna.content); // 수정 폼에 내용 채우기
-            }
-        });
+        // hospitalid와 hospitalInfo.id가 일치하는지 확인합니다.
+        if (hospitalid === hospitalInfoId) {
+            // 일치하는 경우 수정 폼을 표시합니다.
+            $('#contactForm').hide(); // 등록 폼 숨기기
+            $('#editFormWrapper').show();
+
+            $.ajax({
+                url: '/waguwagu/hospitalquestion/hospitalupdate',
+                type: 'GET',
+                data: {
+                    hospitalparamid: hospitalid
+                },
+                success: function(hospitalqna) {
+                    // 수정 폼에 데이터를 채웁니다.
+                    $('#editName').val(hospitalqna.name);
+                    $('#editEmail').val(hospitalqna.email);
+                    $('#editHospitalid').val(hospitalqna.hospitalid);
+                    $('#editContent').val(hospitalqna.content);
+                }
+            });
+        } else {
+            // 일치하지 않는 경우 알림 창을 표시합니다.
+            alert('수정 권한이 없습니다.');
+        }
     });
 });
-</script>
-
-	<!-- 답변 완료 버튼 -->
+</script> 
 	<script>
     document.addEventListener('DOMContentLoaded', function() {
         var answerButtons = document.querySelectorAll('.answer_button');

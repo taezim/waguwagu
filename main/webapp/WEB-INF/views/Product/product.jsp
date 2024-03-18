@@ -38,6 +38,58 @@
 		background-color: transparent; 
 		border-bottom: 1px solid #777;
 	}
+	/* 답변완료, 수정, 삭제 css */
+.edit_button, .delete_button, .answer_button {
+	padding: 8px 16px;
+	margin: 4px;
+	background-color: white; /* 초기 배경색을 하얀색으로 설정 */
+	border: none;
+	color: #384aeb; /* 텍스트 색상을 파란색으로 설정 */
+	cursor: pointer;
+	border-radius: 30px;
+	text-decoration: none;
+	transition: background-color 0.3s; /* 배경색 변경에 대한 전환 효과 추가 */
+	border: 1px solid #e0e0e0;
+	color: black;
+}
+
+.edit_button:hover, .delete_button:hover, .answer_button:hover {
+	background-color: #384aeb; /* 호버시 배경색을 파란색으로 변경 */
+	color: white;
+}
+
+
+/* 오른쪽배치 */
+/* CSS for positioning QnA form */
+.review_box {
+    margin-top: 20px; /* Adjust margin top as needed */
+}
+
+@media (min-width: 992px) {
+    .rowmappertow {
+        display: flex;
+    }
+
+    .col-lg-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .review_box {
+        padding-left: 15px; /* Adjust padding as needed */
+    }
+}
+
+/* CSS for centering the tab */
+#contact-tab {
+    text-align: center;
+    margin: 0 auto;
+}
+#pagination {
+    display: block; /* inline 또는 inline-block 요소를 block 요소로 변경합니다. */
+    margin: 20px auto; /* 위쪽 여백은 유지하고 좌우 여백을 auto로 설정하여 중앙으로 이동시킵니다. */
+    text-align: center; /* 내부 요소를 가운데 정렬합니다. */
+}
   </style>
    <script>
 	  document.addEventListener('DOMContentLoaded', function () {
@@ -352,88 +404,117 @@
 						</table>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="comment_list">
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review2.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>강도영</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Reply</a>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div class="review_item reply">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review2.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>이태림</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Reply</a>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review2.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>서의정</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Reply</a>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="review_box">
-								<h4>QnA 작성</h4>
-								<form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요.">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요.">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="number" name="number" placeholder="전화번호를 입력하세요.">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<textarea class="form-control" name="message" id="message" rows="1" placeholder="글을 작성하세요."></textarea>
-										</div>
-									</div>
-									<div class="col-md-12 text-right">
-										<button type="submit" value="submit" class="btn primary-btn">등록</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
+			<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+			    <div class="row rowmapper">
+			        <div class="rowmappertow">
+			            <div class="col-lg-6">
+			                <div id="comment_list">
+			                    <c:forEach items="${qnaproductlistkey}" var="productqna">
+			                        <div class="review_item">
+			                            <div class="media">
+			                                <div class="d-flex">
+			                                    <img src="<c:url value='/resources/img/product/review2.png" alt="'/>" />
+			                                </div>
+			                                <div class="media-body">
+			                                    <h4 class="number" style="cursor: pointer;">${productqna.name}</h4>
+			                                    <h5>${productqna.date}</h5>
+			                                    <a class='reply_btn' href='/waguwagu/productanswers/productadd?paramproductid=${pd.productId}'>Reply</a>
+			                                </div>
+			                            </div>
+			                            <p>${productqna.content}</p>
+			                            <div class="edit_delete_buttons" style="display: none;">
+			                                <!-- 답변 완료 버튼 추가 -->
+			                                <c:set var="hasAnswer" value="false" />
+			                                <c:forEach items="${productanslistkey}" var="ansItem">
+			                                    <c:if test="${productqna.productid eq ansItem.productid}">
+			                                        <c:set var="hasAnswer" value="true" />
+			                                    </c:if>
+			                                </c:forEach>
+			                                <c:if test="${hasAnswer eq 'true'}">
+			                                    <button class="answer_button">답변 완료</button>
+			                                    <div class="answer_info" style="display: none;">
+			                                        <c:forEach items="${productanslistkey}" var="ansItem">
+			                                            <c:if test="${productqna.productid eq ansItem.productid}">
+			                                                <p>답변 날짜 : ${ansItem.replaydate}</p>
+			                                                <p>답변 : ${ansItem.answercontent }</p>
+			                                                <!-- 다른 필드 정보도 추가 -->
+			                                            </c:if>
+			                                        </c:forEach>
+			                                    </div>
+			                                </c:if>
+			                                      <a href="javascript:void(0);" class="edit_button" data-productid="${productqna.productid}">수정하기</a>
+				                    <a href="<c:url value="javascript:deleteConfirm('${productqna.productid}')" />" class="edit_button">삭제</a>
+				                    </div>
+				                    </div>
+				                </c:forEach>
+				            </div>
+				        </div>
+				      <div class="col-lg-6">
+				      <div class="review_box">
+				        <h4>QnA 작성</h4>
+				        <form:form modelAttribute="productplus" method="post" action="/waguwagu/productquestion/add" id="contactForm" novalidate="novalidate">
+				                <div class="col-md-12">
+				                    <div class="form-group">
+				                        <!-- productplus 객체의 number 필드를 바인딩합니다. -->
+				                        <input type="text"  class="form-control" id="name" name="name" placeholder="이름을 입력하세요."/>
+				                    </div>
+				                </div>
+				                <div class="col-md-12">
+				                    <div class="form-group">
+				                        <!-- productplus 객체의 email 필드를 바인딩합니다. -->
+				                        <input type="email"  class="form-control" id="email" name="email" placeholder="이메일을 입력하세요."/>
+				                    </div>
+				                </div>
+				                <div class="col-md-12">
+				                    <div class="form-group">
+				                        <!-- productplus 객체의 date 필드를 바인딩합니다. -->
+				                        <input type="text"  class="form-control" id="productid" name="productid" placeholder="아이디를 입력해주세요." readonly="true" value="${pd.productId }" />
+				                    </div>
+				                </div>
+				                <div class="col-md-12">
+				                    <div class="form-group">
+				                        <!-- productplus 객체의 content 필드를 바인딩합니다. -->
+				                        <textarea class="form-control"  name="content" id="content" rows="1" placeholder="글을 작성하세요."></textarea>
+				                    </div>
+				                </div>
+				                <div class="col-md-12 text-right">
+				                    <!-- "등록" 버튼을 클릭하면 productplus 객체를 서버로 전송합니다. -->
+				                    <input type="submit" value="등록" class="btn primary-btn">
+				                </div>
+				            </form:form>
+				          <div id="editFormWrapper" style="display:none;">
+				                <form:form modelAttribute="productupdateqna" method="post" action="/waguwagu/productquestion/productupdate" id="editForm" novalidate="novalidate">
+				                    <div class="col-md-12">
+				                        <div class="form-group">
+				                            <input type="text" class="form-control" id="editName" readonly="true" name="name" value="${product123.name}">
+				                        </div>
+				                    </div>
+				                    <div class="col-md-12">
+				                        <div class="form-group">
+				                            <input type="text" class="form-control" id="editEmail" readonly="true" name="email" placeholder="이메일을 입력하세요." value="${product123.email}">
+				                        </div>
+				                    </div>
+				                    <div class="col-md-12">
+				                        <div class="form-group">
+				                            <input type="text" class="form-control" id="editProductid" readonly="true" name="productid" placeholder="id를 입력하세요" value="${product123.productid}">
+				                        </div>
+				                    </div>
+				                    <div class="col-md-12">
+				                        <div class="form-group">
+				                            <textarea class="form-control" name="content" id="editContent" rows="1" placeholder="글을 작성하세요.">${product123.content}</textarea>
+				                        </div>
+				                    </div>
+				                    <div class="col-md-12 text-right">
+				                        <input type="submit" value="수정하기" class="btn primary-btn">
+				                        <button id="cancelEdit" class="btn primary-btn">취소</button>
+				                    </div>
+				                </form:form>
+				            </div>
+						    </div>
+						  </div>
+				      </div>
+				      <div id="pagination" class="pagination"></div>
+				  </div>
 				</div>
 				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
 					<div class="row">
@@ -746,6 +827,188 @@
 	    });
 	
 	</script>	
+	
+	<!-- 도영꺼 -->
+
+<script>
+    /* 3개 글 보기 */
+    var list = document.getElementById('comment_list').getElementsByClassName('review_item');
+    var pageNum = document.getElementById('pagination');
+    var limitPerPage = 3;
+    var totalPages = Math.ceil(list.length / limitPerPage);
+
+    for (var i = limitPerPage; i < list.length; i++) {
+        list[i].style.display = 'none';
+    }
+
+    for (var i = 1; i <= totalPages; i++) {
+        pageNum.innerHTML += "<button onclick='changePage(" + i + ")'>" + i + "</button>";
+    }
+
+    window.changePage = function(page) {
+        var start = (page - 1) * limitPerPage;
+        var end = start + limitPerPage;
+
+        for (var i = 0; i < list.length; i++) {
+            list[i].style.display = 'none';
+        }
+
+        for (var i = start; i < end; i++) {
+            if (list[i]) {
+                list[i].style.display = 'block';
+            }
+        }
+    }
+
+    var numbers = document.getElementsByClassName('number');
+    for (var i = 0; i < numbers.length; i++) {
+        numbers[i].addEventListener('click', function(e) {
+            var buttons = e.target.parentNode.parentNode.getElementsByClassName('edit_delete_buttons')[0];
+            if (buttons) {
+                buttons.style.display = buttons.style.display === 'none' ? 'block' : 'none';
+            }
+        });
+    }
+
+    var editButtons = document.getElementsByClassName('edit_button');
+    for (var i = 0; i < editButtons.length; i++) {
+        editButtons[i].addEventListener('click', function(e) {
+            // Edit 버튼 클릭 시 동작 정의
+            console.log('Edit button clicked');
+        });
+    }
+
+    var deleteButtons = document.getElementsByClassName('delete_button');
+    for (var i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener('click', function(e) {
+            // Delete 버튼 클릭 시 동작 정의
+            console.log('Delete button clicked');
+        });
+    }
+
+    document.getElementById('comment_list').addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('number')) {
+            var buttons = e.target.parentNode.parentNode.parentNode.getElementsByClassName('edit_delete_buttons')[0];
+            buttons.style.display = buttons.style.display === 'none' ? 'block' : 'none';
+        }
+
+        if (e.target && e.target.classList.contains('edit_button')) {
+            // Edit 버튼 클릭 시 동작 정의
+            console.log('Edit button clicked');
+        }
+
+        if (e.target && e.target.classList.contains('delete_button')) {
+            // Delete 버튼 클릭 시 동작 정의
+            console.log('Delete button clicked');
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var pagination = document.getElementById('pagination');
+        var buttons = pagination.getElementsByTagName('button');
+
+        // 각 버튼에 대한 클릭 이벤트 추가
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener('click', function() {
+                // 현재 선택된 버튼의 인덱스 확인
+                var currentIndex = Array.from(buttons).indexOf(this);
+
+                // 다음 버튼의 인덱스 계산
+                var nextIndex = currentIndex + 1;
+                if (nextIndex >= buttons.length) {
+                    nextIndex = 0; // 마지막 버튼일 경우 첫 번째 버튼으로 이동
+                }
+
+                // 다음 버튼으로 이동
+                buttons[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        }
+    });
+
+
+    /* 삭제 */
+   // 삭제 확인 및 처리
+function deleteConfirm(productid) {
+    // 삭제 여부를 확인하는 confirm 대화 상자 표시
+    if (confirm("삭제하시겠습니까?")) {
+        // 사용자가 확인을 선택한 경우, 해당 productid가 pd.productId와 일치하는지 확인
+        if (productid === "${pd.productId}") {
+            // 일치하는 경우, 삭제 요청 URL 생성하여 이동
+            location.href = "/waguwagu/productquestion/productdelete?productid=" + productid;
+        } else {
+            // 일치하지 않는 경우, 알림창 표시
+            alert("상품 ID가 일치하지 않아 삭제할 수 없습니다.");
+        }
+    } else {
+        // 사용자가 취소를 선택한 경우, 아무런 동작 없음
+        return;
+    }
+}
+
+ 
+</script>
+<!--  수정폼 대체  -->
+<script>
+$(document).ready(function () {
+    $('.edit_button').click(function () {
+        var productid = $(this).data('productid');
+        var pdProductId = '${pd.productId}'; // JSP에서 EL 표현식을 사용하여 pd.productId를 가져옵니다.
+
+        // productid와 pd.productId가 일치하는지 확인합니다.
+        if (productid === pdProductId) {
+            // 일치하는 경우 수정 폼을 표시합니다.
+            $('#contactForm').hide(); // 등록 폼 숨기기
+            $('#editFormWrapper').show();
+
+            $.ajax({
+                url: '/waguwagu/productquestion/productupdate',
+                type: 'GET',
+                data: { productid: productid },
+                success: function (productqna) {
+                    // 수정 폼에 데이터를 채웁니다.
+                    $('#editName').val(productqna.name);
+                    $('#editEmail').val(productqna.email);
+                    $('#editProductid').val(productqna.productid);
+                    $('#editContent').val(productqna.content);
+                }
+            });
+        } else {
+            // 일치하지 않는 경우 알림 창을 표시합니다.
+            alert('수정 권한이 없습니다.');
+        }
+    });
+});
+</script>
+
+
+<!-- 답변 완료 버튼 -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var answerButtons = document.querySelectorAll('.answer_button');
+
+        answerButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var answerInfo = this.nextElementSibling;
+                if (answerInfo.style.display === 'none') {
+                    answerInfo.style.display = 'block';
+                } else {
+                    answerInfo.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+<!-- 수정폼 취소버튼 -->
+<script>
+    $(document).ready(function() {
+        // 취소 버튼 클릭 시 등록 폼 표시
+        $('#cancelEdit').click(function(event) {
+            event.preventDefault(); // 기본 동작 막기
+            $('#editFormWrapper').hide(); // 수정 폼 숨기기
+            $('#contactForm').show(); // 등록 폼 표시
+        });
+    });
+</script>
 
   <script src="<c:url value='/resources/vendors/jquery/jquery-3.2.1.min.js'/>"/></script>
   <script src="<c:url value='/resources/vendors/bootstrap/bootstrap.bundle.min.js'/>"/></script>

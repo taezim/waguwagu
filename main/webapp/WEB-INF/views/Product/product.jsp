@@ -596,7 +596,7 @@
 					                    <input type="text" id="editreviewids" path="reviewId" class="form-control" name="reviewId" value="${review.reviewid}" >
 					                  </div>					                  
 					                  <div class="form-group">
-					                    <input path="name" id="editNames" class="form-control" name="name" type="text" placeholder="이름을 입력하세요." value="${review.name}">
+					                    <input path="name" id="EditNames" class="form-control" name="name" type="text" placeholder="이름을 입력하세요." value="${review.names}">
 					                  </div>
 					                  <div class="form-group">
 					                    <input type="text" id="editproductids" path="productId" class="form-control" name="productId" value="${review.productid}" >
@@ -814,14 +814,15 @@
 	            data: { id: reviewId, productId: productId }, //파라미터 
 	            success: function(result) {  // 수정 필요한 부분
 	            	//console.log(result.review.reviewId);
+	            	var reviewName = result.name;
 	            	$('#editreviewids').val(result.reviewId);
-	                $('#editNamess').val(result.name);
 	                $('#editproductids').val(result.productId);
 	                $('#eidtdates').val(result.reviewDate);
 	                $('#editscores').val(result.reviewRating);
 	                $('#editemails').val(result.userId);
 	                $('#edittitles').val(result.title);
 	                $('#editContents').val(result.reviewContent);
+	                $('#EditNames').val(reviewName);
 	            }
 	        });
 	    });
